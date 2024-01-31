@@ -29,7 +29,7 @@ public class FloorSubsystem {
 
             sendAndReceiveSocket.send(floorSubsystemData);
 
-            System.out.println("FloorSubsytem sent some Data!");
+            System.out.println("FloorSubsytem sent some Data!" + new String(floorSubsystemData.getData()));
         }
 
         // very temporary catch; will fix

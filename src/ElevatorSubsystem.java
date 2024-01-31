@@ -5,9 +5,11 @@ import java.net.SocketException;
 
 public class ElevatorSubsystem {
 
-    DatagramPacket elevatorSubsystemData;
+    DatagramPacket elevatorSubsystemData, elevatorSubsystemRcvData;
 
     DatagramSocket sendAndReceiveSocket;
+
+    byte [] elevatorSubsystem_msgrcv;
 
 
     ElevatorSubsystem(){
@@ -23,28 +25,48 @@ public class ElevatorSubsystem {
     }
 
 
+//
+//    public void sendMessage(String message){
+//
+//
+//        try {
+//            byte[] msg = message.getBytes();
+//
+//            elevatorSubsystemData = new DatagramPacket(msg, msg.length, InetAddress.getLocalHost(), 10);
+//
+//            sendAndReceiveSocket.send(elevatorSubsystemData);
+//
+//            System.out.println("Elevator Subsytem sent some Data!");
+//
+//        }
+//        //temporary very ugly catch
+//        catch (Exception e){
+//
+//            System.out.println("ERROR :: ElevatorSubsystem :: sendMessage():: " + e);
+//        }
+//
+//
+//    }
 
-    public void sendMessage(String message){
+
+    public void receiveMessage(){
 
 
         try {
-            byte[] msg = message.getBytes();
+            elevatorSubsystem_msgrcv = new byte[100];
+            elevatorSubsystemRcvData = new DatagramPacket(elevatorSubsystem_msgrcv, elevatorSubsystem_msgrcv.length);
 
-            elevatorSubsystemData = new DatagramPacket(msg, msg.length, InetAddress.getLocalHost(), 10);
-
-            sendAndReceiveSocket.send(elevatorSubsystemData);
-
-            System.out.println("Elevator Subsytem sent some Data!");
+            sendAndReceiveSocket.receive(elevatorSubsystemRcvData);
 
 
-
+            System.out.println("Elevator received data: " + new String(elevatorSubsystemRcvData.getData()));
         }
-        //temporary very ugly catch
+
         catch (Exception e){
+            System.out.println("ERROR :: ElevatorSubsystem :: receiveMessage():: " + e);
 
-            System.out.println("ERROR :: ElevatorSubsystem :: sendMessage()");
+
         }
-
 
 
 
@@ -58,7 +80,9 @@ public class ElevatorSubsystem {
     public static void main (String [] args){
         ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
 
-        elevatorSubsystem.sendMessage("someStupidMessageFromElevator");
+        elevatorSubsystem.receiveMessage();
+
+
 
 
 
