@@ -4,7 +4,7 @@
 - __Arun Karki__ : _101219923_
 - __Nabeel Azard__ : _101152007_
 - __Mahad Toukaleh__ : _101248498_
-- __Hamza ???__ : _101224172_
+- __Hamza Alsarakbi__ : _101221018_
 -------------------------------------------------------------------
 ### Milestone 1:
 - Create three separate threads for the identified subsystems: Floor, Elevators, and Scheduler.
