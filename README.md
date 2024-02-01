@@ -3,7 +3,7 @@
 - __Zarif Khan__ : _101224172_
 - __Arun Karki__ : _101219923_
 - __Nabeel Azard__ : _101152007_
-- __Mahad Toukaleh__ : _101248498_
+- __Mahad Mohamed Yonis__ : _101248498_
 - __Hamza Alsarakbi__ : _101221018_
 -------------------------------------------------------------------
 ### Milestone 1:
