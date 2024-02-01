@@ -1,64 +1,62 @@
-import java.net.*;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
 
-public class FloorSubsystem {
+public class FloorSubsystem extends Thread {
 
+    private String[] dataList;
+    private String[] previousLine = {"", "", "", ""};
+    private ArrayList<Object> dataObjectList = new ArrayList<>();
+    private String filename;
+    private File file;
+    private static Scanner scanner;
+    private boolean flag = true;
 
-
-    DatagramPacket floorSubsystemData;
-
-    DatagramSocket sendAndReceiveSocket;
-
-    FloorSubsystem(){
-
-        try{
-
-            sendAndReceiveSocket = new DatagramSocket(11);
-        } catch (SocketException e) {
-            throw new RuntimeException(e);
-        }
+    FloorSubsystem(String filename) {
+        this.filename = filename;
+        file = new File(this.filename);
     }
 
-
-
-    public void sendMessage(String message){
+    public void parseData() {
         try {
+            scanner = new Scanner(this.file);
 
-            byte[] msg = message.getBytes();
+            while (flag && scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                this.dataList = line.split(",");
 
-            floorSubsystemData = new DatagramPacket(msg, msg.length, InetAddress.getLocalHost(), 10);
+                if (Arrays.equals(dataList, previousLine)) {
 
-            sendAndReceiveSocket.send(floorSubsystemData);
+                    continue;
+                }
 
-            System.out.println("FloorSubsytem sent some Data!" + new String(floorSubsystemData.getData()));
-        }
 
-        // very temporary catch; will fix
-        catch (Exception e){
+                System.arraycopy(dataList, 0, previousLine, 0, dataList.length);
 
-            System.out.println("ERROR :: FloorSubsystem :: sendMessage()");
+                dataObjectList.add(this.dataList[0]);
+                dataObjectList.add(this.dataList[1]);
+                dataObjectList.add(this.dataList[2]);
+                dataObjectList.add(this.dataList[3]);
 
+                System.out.println(dataObjectList);
+
+
+                SchedulerSystem.putData(dataObjectList);
+                System.out.println("data that was just sent:" + dataObjectList);
+
+
+                dataObjectList.clear();
+            }
+
+            scanner.close();
+        } catch (Exception e) {
+            System.out.println("ERROR :: FloorSubsystem :: parseData() " + e);
         }
     }
 
-
-
-
-
-
-
-
-    public static void main (String [] args){
-
-
-        FloorSubsystem newFloor = new FloorSubsystem();
-
-        newFloor.sendMessage("someStupidMessageFromFloor");
-
-
-
-
-
-
+    @Override
+    public void run() {
+        parseData();
     }
-
 }

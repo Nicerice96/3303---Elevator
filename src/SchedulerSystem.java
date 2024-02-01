@@ -1,84 +1,34 @@
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketException;
+import java.util.ArrayList;
 
-public class SchedulerSystem {
+public class SchedulerSystem extends Thread {
 
+    static Box box = new Box();
 
-    DatagramPacket schedulerPacketRcv;
+    SchedulerSystem() {
+    }
 
-    DatagramPacket schedulerPacketSnd;
-    DatagramSocket receiveSocket;
+    @Override
+    public void run() {
 
-    byte [] msgrcv;
+        while (true) {
+            ArrayList<Object> data = (ArrayList<Object>) box.get();
 
+                System.out.println("Received data: " + data);
 
-    SchedulerSystem(){
-        try{
-
-            receiveSocket = new DatagramSocket(10);
-        } catch (SocketException e) {
-            throw new RuntimeException(e);
         }
     }
 
-
-    public void receiveMessage() {
-
-
-            try {
-
-                msgrcv = new byte[100];
-
-                schedulerPacketRcv = new DatagramPacket(msgrcv, msgrcv.length);
-
-                receiveSocket.receive(schedulerPacketRcv);
-
-                System.out.println("Scheduler received: " + new String(schedulerPacketRcv.getData()));
-
-            }
-
-            //temporary Exception Handler
-            catch (Exception e) {
-
-                System.out.println("ERROR :: SchedulerSystem :: receiveMessage() ::" + e);
-
-
-            }
+    public static void putData(ArrayList<Object> data) {
+        box.put(data);
     }
 
-
-
-    public void sendMessage() {
-
-
-        try {
-
-            schedulerPacketSnd = new DatagramPacket(msgrcv, msgrcv.length, InetAddress.getLocalHost(), 12);
-
-            receiveSocket.send(schedulerPacketSnd);
-
-            System.out.println("Scheduler sent: " + new String(schedulerPacketSnd.getData()));
-        }
-        catch(Exception e){
-
-
-            System.out.println("ERROR :: SchedulerSystem :: sendMessage() ::" + e);
-        }
-    }
-
-
-    public static void main (String [] args){
-
+    public static void main(String[] args) {
 
         SchedulerSystem schedulerSystem = new SchedulerSystem();
-
-        schedulerSystem.receiveMessage();
-
-        schedulerSystem.sendMessage();
+        schedulerSystem.start();
 
 
-
+        FloorSubsystem floorSubsystem = new FloorSubsystem("testCase_1.txt");
+        floorSubsystem.start();
     }
 }
