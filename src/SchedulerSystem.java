@@ -7,7 +7,10 @@ public class SchedulerSystem extends Thread {
     private static BlockingQueue<ArrayList<Object>> floorDataQueue = new ArrayBlockingQueue<>(10);
     private static BlockingQueue<ArrayList<Object>> elevatorDataQueue = new ArrayBlockingQueue<>(10);
 
-    public static boolean elevatorArrived = true;
+    protected static final Object floorQueueLock = new Object();
+    protected static final Object elevatorQueueLock = new Object();
+
+    public volatile static boolean elevatorArrived = true;
 
     @Override
     public void run() {
@@ -15,7 +18,6 @@ public class SchedulerSystem extends Thread {
             try {
                 ArrayList<Object> data = floorDataQueue.take();
                 System.out.println("Scheduler Received data from Floor: " + data);
-
 
 
                 if(elevatorArrived) {
@@ -33,27 +35,30 @@ public class SchedulerSystem extends Thread {
     }
 
     public static void putData(ArrayList<Object> data) {
-        try {
-            floorDataQueue.put(data);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+
+        synchronized (floorQueueLock) {
+            try {
+                floorDataQueue.put(data);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
     public static ArrayList<Object> getData() {
-        try {
-            return elevatorDataQueue.take();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+
+        synchronized (elevatorQueueLock) {
+            try {
+                return elevatorDataQueue.take();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
 
     public static void main(String[] args) throws InterruptedException {
 
-        int i = 0;
-
-        while(i < 4) {
 
             SchedulerSystem schedulerSystem = new SchedulerSystem();
             schedulerSystem.setName("schedulerSystem");
@@ -69,7 +74,6 @@ public class SchedulerSystem extends Thread {
             elevatorSubsystem.setName("elevatorSubsystem");
             elevatorSubsystem.start();
 
-            i++;
-        }
+
     }
 }

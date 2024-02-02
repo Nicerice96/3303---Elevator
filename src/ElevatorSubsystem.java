@@ -23,13 +23,13 @@ public class ElevatorSubsystem extends Thread{
     private String direction; //UP DOWN
 
 
-    private int currentFloor = 0;
+    private int currentElevatorFloor = 0;
+
+    private int elevatorCallFloor; //Floor on which the elevator was called
 
 
     ElevatorSubsystem(){
         elevatorData = new ArrayList<Object>();
-
-
     }
 
 
@@ -37,11 +37,11 @@ public class ElevatorSubsystem extends Thread{
     public void traverseOneFloor(){
 
         if (direction.equals("UP")){
-            currentFloor++;
+            currentElevatorFloor++;
 
         }
         else if (direction.equals("DOWN")){
-            currentFloor--;
+            currentElevatorFloor--;
         }
 
         try {
@@ -54,16 +54,16 @@ public class ElevatorSubsystem extends Thread{
 
         }
 
-        System.out.println("Current Floor: " + currentFloor);
+        System.out.println("Current Floor: " + currentElevatorFloor);
 
 
 
     }
 
 
-    public boolean differenceBetweenFloors(){
+    public boolean differenceBetweenDestinationAndCurrentFloor(){
 
-        if(abs(destination-currentFloor) == 0){
+        if(abs(destination-currentElevatorFloor) == 0){
 
             return true;
         }
@@ -118,6 +118,60 @@ public class ElevatorSubsystem extends Thread{
     }
 
 
+    public int setElevatorCallFloor() {
+        this.data = elevatorData.get(0);
+
+        if (data != null) {
+            this.elevatorCallFloor = Integer.parseInt((String) data);
+            System.out.println("Elevator Call Floor: " + elevatorCallFloor);
+            return this.elevatorCallFloor;
+        } else {
+            System.out.println("The object is not an Integer and cannot be cast to int.");
+            return 0;
+        }
+    }
+
+
+
+
+
+
+    public void traverseToElevatorCall(){
+
+        while(currentElevatorFloor != elevatorCallFloor){
+
+            if(currentElevatorFloor > elevatorCallFloor){
+
+                currentElevatorFloor--;
+            }
+            else {
+                currentElevatorFloor++;
+            }
+
+
+            try {
+
+                sleep(8628);
+            }
+            catch(Exception e){
+
+                System.out.println("something happened...");
+
+            }
+
+
+
+
+        }
+
+
+    }
+
+
+
+
+
+
 
     @Override
 
@@ -128,19 +182,27 @@ public class ElevatorSubsystem extends Thread{
 
         setDestination();
         setDirection();
+        setElevatorCallFloor();
 
 
-        while(!differenceBetweenFloors()){
+        traverseToElevatorCall();
+        System.out.println("Elevator arrived at: " + currentElevatorFloor + " Elevator was called at: " + elevatorCallFloor);
+
+
+
+        while(!differenceBetweenDestinationAndCurrentFloor()){
             traverseOneFloor();
         }
 
 
-        System.out.println("Arrived at Floor: " + currentFloor);
+        System.out.println("Arrived at Floor: " + currentElevatorFloor);
 
-        SchedulerSystem.elevatorArrived = true;
+        synchronized (SchedulerSystem.elevatorQueueLock) {
+            SchedulerSystem.elevatorArrived = true;
+        }
 
 
-        this.currentFloor = this.destination;
+        this.currentElevatorFloor = this.destination;
 
 
 
