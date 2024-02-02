@@ -18,7 +18,7 @@ public class FloorSubsystem extends Thread {
         file = new File(this.filename);
     }
 
-    public void parseData() {
+    public synchronized void parseData() {
         try {
             scanner = new Scanner(this.file);
 
@@ -27,10 +27,8 @@ public class FloorSubsystem extends Thread {
                 this.dataList = line.split(",");
 
                 if (Arrays.equals(dataList, previousLine)) {
-
                     continue;
                 }
-
 
                 System.arraycopy(dataList, 0, previousLine, 0, dataList.length);
 
@@ -39,12 +37,8 @@ public class FloorSubsystem extends Thread {
                 dataObjectList.add(this.dataList[2]);
                 dataObjectList.add(this.dataList[3]);
 
-                System.out.println(dataObjectList);
-
-
-                SchedulerSystem.putData(dataObjectList);
-                System.out.println("data that was just sent:" + dataObjectList);
-
+                SchedulerSystem.putData(new ArrayList<>(dataObjectList));
+                System.out.println("sending data to Scheduler:" + dataObjectList);
 
                 dataObjectList.clear();
             }

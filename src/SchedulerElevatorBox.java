@@ -5,7 +5,7 @@ import java.util.ArrayList;
  * @author Zarif (modifed)
  * @version 2.0
  */
-public class Box {
+public class SchedulerElevatorBox extends Thread{
 
     /**
      * The object stored in this Box.
@@ -58,4 +58,7 @@ public class Box {
 
         return obj;
     }
+
+
+
 }
