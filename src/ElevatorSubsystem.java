@@ -119,11 +119,11 @@ public class ElevatorSubsystem extends Thread{
 
 
     public int setElevatorCallFloor() {
-        this.data = elevatorData.get(0);
+        this.data = elevatorData.get(1);
 
         if (data != null) {
             this.elevatorCallFloor = Integer.parseInt((String) data);
-            System.out.println("Elevator Call Floor: " + elevatorCallFloor);
+            System.out.println("Elevator Call Floor: " + this.elevatorCallFloor);
             return this.elevatorCallFloor;
         } else {
             System.out.println("The object is not an Integer and cannot be cast to int.");
@@ -177,32 +177,33 @@ public class ElevatorSubsystem extends Thread{
 
     public void run(){
 
-        this.elevatorData.addAll((ArrayList<Object>) SchedulerSystem.getData());
 
 
-        setDestination();
-        setDirection();
-        setElevatorCallFloor();
+            this.elevatorData.addAll((ArrayList<Object>) SchedulerSystem.getData());
 
 
-        traverseToElevatorCall();
-        System.out.println("Elevator arrived at: " + currentElevatorFloor + " Elevator was called at: " + elevatorCallFloor);
+            setDestination();
+            setDirection();
+            setElevatorCallFloor();
 
 
-
-        while(!differenceBetweenDestinationAndCurrentFloor()){
-            traverseOneFloor();
-        }
+            traverseToElevatorCall();
+            System.out.println("Elevator arrived at: " + this.currentElevatorFloor + " Elevator was called at: " + this.elevatorCallFloor);
 
 
-        System.out.println("Elevator arrived at Floor: " + currentElevatorFloor);
+            while (!differenceBetweenDestinationAndCurrentFloor()) {
+                traverseOneFloor();
+            }
 
-        synchronized (SchedulerSystem.elevatorQueueLock) {
+
+            System.out.println("Elevator arrived at Floor: " + currentElevatorFloor);
+
+
             SchedulerSystem.elevatorArrived = true;
-        }
 
 
-        this.currentElevatorFloor = this.destination;
+            this.currentElevatorFloor = this.destination;
+
 
 
 

@@ -50,6 +50,8 @@ public class FloorSubsystem extends Thread {
 
     @Override
     public void run() {
-        parseData();
+
+            parseData();
+
     }
 }

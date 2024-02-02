@@ -17,14 +17,16 @@ public class SchedulerSystem extends Thread {
         while (true) {
             try {
                 ArrayList<Object> data = floorDataQueue.take();
-                System.out.println("Scheduler Received data from Floor: " + data);
-
 
                 if(elevatorArrived) {
 
-                    elevatorArrived = false;
+
                     elevatorDataQueue.put(data);
                     System.out.println("Sending data to Elevator: " + data);
+                }
+                else{
+
+                    System.out.println("Elevator is running...");
                 }
 
                 sleep(2000);
