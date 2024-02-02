@@ -18,6 +18,8 @@ public class ElevatorSubsystem extends Thread{
 
     private float loadTime;
 
+    private float unloadTime;
+
     private int destination; //WHERE I NEED TO GO
 
     private String direction; //UP DOWN
@@ -30,11 +32,19 @@ public class ElevatorSubsystem extends Thread{
 
     ElevatorSubsystem(){
         elevatorData = new ArrayList<Object>();
+
+        this.timeDoorOpen = 3.36428571F;
+        this.timeDoorClose = 3.32428571F;
+        this.loadTime = 4.71428571F;
+        this.unloadTime = 4.71285714F;
+
     }
 
 
 
     public void traverseOneFloor(){
+
+        //Need to add to global time for each floor that the elevator travels towards destination
 
         if (direction.equals("UP")){
             currentElevatorFloor++;
@@ -55,8 +65,6 @@ public class ElevatorSubsystem extends Thread{
         }
 
         System.out.println("Current Floor: " + currentElevatorFloor);
-
-
 
     }
 
@@ -138,6 +146,9 @@ public class ElevatorSubsystem extends Thread{
 
     public void traverseToElevatorCall(){
 
+
+        // Need to add implementation to add to global time for each floor that the elevator traverses to reach caller
+
         while(currentElevatorFloor != elevatorCallFloor){
 
             if(currentElevatorFloor > elevatorCallFloor){
@@ -151,7 +162,7 @@ public class ElevatorSubsystem extends Thread{
 
             try {
 
-                sleep(8628);
+                sleep(8628); //time taken from iteration 0
             }
             catch(Exception e){
 
@@ -167,6 +178,35 @@ public class ElevatorSubsystem extends Thread{
 
     }
 
+    public void doorOpen(){
+
+        //Make sure this thread waits for the appropriate time : "timeDoorOpen"
+        //Make sure to add to the globalTime
+
+
+    }
+
+    public void doorClose(){
+
+        //Make sure this thread waits for the appropriate time : "timeDoorClose"
+        //Make sure to add to the globalTime
+
+    }
+
+
+    public void peopleLoad(){
+
+        //Make sure this thread waits for the appropriate time : "loadTime"
+        //Make sure to add to the globalTime
+
+
+    }
+
+    public void peopleUnload(){
+
+        //Make sure this thread waits for the appropriate time : "unloadTime"
+        //Make sure to add to the globalTime
+    }
 
 
 
