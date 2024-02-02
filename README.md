@@ -34,7 +34,7 @@
 -------------------------------------------------------------------- 
 #### MIT License
 
-_Copyright (c) 2023 [Nabeel Azard, Mahad Toukaleh, Hamza Alsarakbi, Ajen Srisivapalan, Jason Keah, Zarif Khan, Arun Karki]_
+_Copyright (c) 2023 [Nabeel Azard, Mahad Mohamed Yonis, Hamza Alsarakbi, Ajen Srisivapalan, Jason Keah, Zarif Khan, Arun Karki]_
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
