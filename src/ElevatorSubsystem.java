@@ -195,7 +195,7 @@ public class ElevatorSubsystem extends Thread{
         }
 
 
-        System.out.println("Arrived at Floor: " + currentElevatorFloor);
+        System.out.println("Elevator arrived at Floor: " + currentElevatorFloor);
 
         synchronized (SchedulerSystem.elevatorQueueLock) {
             SchedulerSystem.elevatorArrived = true;
