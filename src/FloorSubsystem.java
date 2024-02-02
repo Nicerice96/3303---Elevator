@@ -38,7 +38,6 @@ public class FloorSubsystem extends Thread {
                 dataObjectList.add(this.dataList[3]);
 
                 SchedulerSystem.putData(new ArrayList<>(dataObjectList));
-                System.out.println("sending data to Scheduler:" + dataObjectList);
 
                 dataObjectList.clear();
             }
