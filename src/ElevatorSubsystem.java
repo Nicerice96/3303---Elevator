@@ -179,33 +179,48 @@ public class ElevatorSubsystem extends Thread{
     }
 
     public void doorOpen(){
-
-        //Make sure this thread waits for the appropriate time : "timeDoorOpen"
-        //Make sure to add to the globalTime
-
-
+        try {
+            System.out.println("Opening doors...");
+            Thread.sleep((long) (timeDoorOpen * 1000));
+            System.out.println("Doors opened.");
+            //GLOBAL VARIABLE UPDATES HERE
+        } catch (InterruptedException e) {
+            System.out.println("Interrupted while opening doors: " + e.getMessage());
+        }
     }
 
     public void doorClose(){
-
-        //Make sure this thread waits for the appropriate time : "timeDoorClose"
-        //Make sure to add to the globalTime
-
+        try {
+            System.out.println("Closing doors...");
+            Thread.sleep((long) (timeDoorClose * 1000));
+            System.out.println("Doors closed.");
+            //GLOBAL VARIABLE GOES HERE ASWELL
+        } catch (InterruptedException e) {
+            System.out.println("Interrupted while closing doors: " + e.getMessage());
+        }
     }
 
 
     public void peopleLoad(){
-
-        //Make sure this thread waits for the appropriate time : "loadTime"
-        //Make sure to add to the globalTime
-
-
+        try {
+            System.out.println("Loading people...");
+            Thread.sleep((long) (loadTime * 1000));
+            System.out.println("People loaded.");
+            //UPDATE GLOBAL VARIABLE HERE
+        } catch (InterruptedException e) {
+            System.out.println("Interrupted while loading people: " + e.getMessage());
+        }
     }
 
     public void peopleUnload(){
-
-        //Make sure this thread waits for the appropriate time : "unloadTime"
-        //Make sure to add to the globalTime
+        try {
+            System.out.println("Unloading people...");
+            Thread.sleep((long) (unloadTime * 1000));
+            System.out.println("People unloaded.");
+            //UPDATE GLOBAL VAR HERE
+        } catch (InterruptedException e) {
+            System.out.println("Interrupted while unloading people: " + e.getMessage());
+        }
     }
 
 
@@ -230,11 +245,17 @@ public class ElevatorSubsystem extends Thread{
             traverseToElevatorCall();
             System.out.println("Elevator arrived at: " + this.currentElevatorFloor + " Elevator was called at: " + this.elevatorCallFloor);
 
+            doorOpen();
+            peopleLoad();
+            doorClose();
 
             while (!differenceBetweenDestinationAndCurrentFloor()) {
                 traverseOneFloor();
             }
 
+            doorOpen();
+            peopleUnload();
+            doorClose();
 
             System.out.println("Elevator arrived at Floor: " + currentElevatorFloor);
 

@@ -13,6 +13,7 @@ public class SchedulerSystem extends Thread {
     public volatile static boolean elevatorArrived = true;
 
 
+
     public static float globalTime = 0; //this is not implemented yet...but basically we want a mechanism that tracks the time from the start of
     //application to the end, (note: the first element in the text file is the time at which the button is pressed)
 
