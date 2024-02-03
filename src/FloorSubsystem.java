@@ -3,6 +3,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ *
+ * Parses the textfile containing the requests for the elevator
+ * @authors Arun Hamza Mahad Nabeel Zarif
+ * @version 1.0
+ */
+
 public class FloorSubsystem extends Thread {
 
     private String[] dataList;
@@ -13,10 +20,18 @@ public class FloorSubsystem extends Thread {
     private static Scanner scanner;
     private boolean flag = true;
 
+    /**
+     * Constructor which intialized the file to be parsed
+     * @param filename
+     */
     FloorSubsystem(String filename) {
         this.filename = filename;
         file = new File(this.filename);
     }
+
+    /**
+     * parses filedata and adds information into a message to be sent to the scheduler
+     */
 
     public synchronized void parseData() {
         try {
@@ -47,6 +62,10 @@ public class FloorSubsystem extends Thread {
             System.out.println("ERROR :: FloorSubsystem :: parseData() " + e);
         }
     }
+
+    /**
+     * method to run the FloorSubsystem thread
+     */
 
     @Override
     public void run() {

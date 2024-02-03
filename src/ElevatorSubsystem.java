@@ -1,13 +1,27 @@
 import java.util.ArrayList;
 
 import static java.lang.Math.abs;
+
+/**
+ * Describes the possible status of the elevator
+ */
 enum ElevatorStatus {
     OK, UNLOADING, LOADING
 }
+
+/**
+ * Describes the possible directions the elevator can traverse in
+ */
 enum ElevatorDirection {
     DOWN, STATIONARY, UP
 }
 
+
+/**
+ * Elevator System which carries out Elevator related behaviour
+ * @authors Arun Hamza Mahad Nabeel Zarif
+ * @version 1.0
+ */
 
 public class ElevatorSubsystem extends Thread {
 
@@ -26,9 +40,16 @@ public class ElevatorSubsystem extends Thread {
     private int currentFloor = 0;
     private int callFloor; //Floor on which the elevator was called
 
+    /**
+     * Constructor which initializes the elevatorData
+     */
     ElevatorSubsystem(){
         elevatorData = new ArrayList<>();
     }
+
+    /**
+     * Allows the elevator to traverse one floor
+     */
 
     public void traverseOneFloor(){
         //Need to add to global time for each floor that the elevator travels towards destination
@@ -42,6 +63,10 @@ public class ElevatorSubsystem extends Thread {
         System.out.println("Current Floor: " + currentFloor);
     }
 
+    /**
+     * Describes if the elevator has reached the destination or not
+     * @return
+     */
 
     public boolean differenceBetweenDestinationAndCurrentFloor(){
         if(abs(destination- currentFloor) == 0){
@@ -56,6 +81,11 @@ public class ElevatorSubsystem extends Thread {
 
     }
 
+    /**
+     * Set's the elevators destination
+     * @return
+     */
+
     public int setDestination(){
         this.data = elevatorData.get(3);
         if (data != null) {
@@ -68,6 +98,10 @@ public class ElevatorSubsystem extends Thread {
         }
     }
 
+    /**
+     * Sets the direction of the elevator, in other words the caller's requested direction
+     * @return
+     */
 
     public String setDirection(){
         this.data = elevatorData.get(2);
@@ -84,6 +118,10 @@ public class ElevatorSubsystem extends Thread {
         }
     }
 
+    /**
+     * Sets the floor at which the elevator was requested
+     * @return
+     */
 
     public int setElevatorCallFloor() {
         this.data = elevatorData.get(1);
@@ -96,6 +134,10 @@ public class ElevatorSubsystem extends Thread {
             return 0;
         }
     }
+
+    /**
+     * Allows Elevator to traverse to caller floor
+     */
 
     public void traverseToElevatorCall(){
         // Need to add implementation to add to global time for each floor that the elevator traverses to reach caller
@@ -114,6 +156,10 @@ public class ElevatorSubsystem extends Thread {
         }
     }
 
+    /**
+     * Simulates the Door opening action of an elevator
+     */
+
     public void doorOpen(){
         try {
             System.out.println("Opening doors...");
@@ -125,6 +171,9 @@ public class ElevatorSubsystem extends Thread {
         }
     }
 
+    /**
+     * Simulates the Door closing action of an elevator
+     */
     public void doorClose(){
         try {
             System.out.println("Closing doors...");
@@ -136,6 +185,9 @@ public class ElevatorSubsystem extends Thread {
         }
     }
 
+    /**
+     * Simulates people entering the elevator
+     */
 
     public void peopleLoad(){
         try {
@@ -148,6 +200,10 @@ public class ElevatorSubsystem extends Thread {
         }
     }
 
+    /**
+     * Simulates people getting off the elevator
+     */
+
     public void peopleUnload(){
         try {
             System.out.println("Unloading people...");
@@ -159,6 +215,9 @@ public class ElevatorSubsystem extends Thread {
         }
     }
 
+    /**
+     * Allows the Elevator thread to run
+     */
     @Override
     public void run(){
         while (true) {

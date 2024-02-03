@@ -2,6 +2,11 @@ import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+/**
+ * Acts as an intermediate messanger between FloorSubsystem and ElevatorSubsytem
+ * @authors Arun Hamza Mahad Nabeel Zarif
+ * @version 1.0
+ */
 public class SchedulerSystem {
 
     private static BlockingQueue<ArrayList<Object>> floorDataQueue = new ArrayBlockingQueue<>(10);
@@ -10,6 +15,10 @@ public class SchedulerSystem {
     public static long GLOBAL_TIME = System.currentTimeMillis();//0; //this is not implemented yet...but basically we want a mechanism that tracks the time from the start of
     //application to the end, (note: the first element in the text file is the time at which the button is pressed)
 
+    /**
+     * Places incoming data into the floorQueue from storage
+     * @param data
+     */
 
     public static void putData(ArrayList<Object> data) {
 
@@ -22,6 +31,10 @@ public class SchedulerSystem {
         }
     }
 
+    /**
+     * Retrieves data from the elevatorQueue
+     * @return
+     */
     public static ArrayList<Object> getData() {
         // TODO: Check if this requires a lock as it *might* end the
         //  program too soon if getData() is called before putData() - Hamza
@@ -35,7 +48,10 @@ public class SchedulerSystem {
         }
     }
 
-    // return the elapsed time in milliseconds since program started
+    /**
+     * return the elapsed time in milliseconds since program started
+     * @return
+     */
     public long getElapsedTime(){
         return SchedulerSystem.GLOBAL_TIME - System.currentTimeMillis();
     }
