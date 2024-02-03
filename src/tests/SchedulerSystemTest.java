@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import static org.junit.Assert.assertEquals;
 
+/**
+ * The SchedulerSystemTest class is responsible for conducting unit tests on the SchedulerSubsystem class.
+ *
+ * @author Mahad
+ * @version 1.0
+ */
 public class SchedulerSystemTest {
 
     private SchedulerSystem schedulerSystem;
