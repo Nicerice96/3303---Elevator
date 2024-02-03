@@ -1,13 +1,21 @@
+package tests;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Floor Sub-system which carries out floor related behaviour
+ * @authors Zarif Nabeel Arun Hamza
+ * @version 1.0
+ */
+
 public class FloorSubsystem extends Thread {
 
     private String[] dataList;
     private String[] previousLine = {"", "", "", ""};
-    private ArrayList<Object> dataObjectList = new ArrayList<Object>();
+    private ArrayList<Object> dataObjectList = new ArrayList<>();
     private String filename;
     private File file;
     private static Scanner scanner;
@@ -37,10 +45,9 @@ public class FloorSubsystem extends Thread {
                 dataObjectList.add(this.dataList[2]);
                 dataObjectList.add(this.dataList[3]);
 
-                SchedulerSystem.putData(new ArrayList<Object>(dataObjectList));
+                SchedulerSystem.putData(new ArrayList<>(dataObjectList));
 
                 dataObjectList.clear();
-                //After we've added the data to the floorDataQueue we can clear this list
             }
 
             scanner.close();
@@ -51,6 +58,8 @@ public class FloorSubsystem extends Thread {
 
     @Override
     public void run() {
-            parseData();
+
+        parseData();
+
     }
 }
