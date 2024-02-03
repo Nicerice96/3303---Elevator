@@ -1,0 +1,100 @@
+<mxfile host="Electron" modified="2024-02-03T19:34:29.187Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.0.2 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="iF0YtcDqqWl-BmEpxSXi" version="23.0.2" type="device">
+  <diagram name="Page-1" id="W-hvJWC9LnS0oZOQdCDl">
+    <mxGraphModel dx="2558" dy="786" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="OUGzcpc-ft89BkLeORVE-1" value="ElevatorSubsystem" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-50" y="70" width="370" height="420" as="geometry" />
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-2" value="- callFloor: int&lt;br&gt;- currentFloor: int&lt;br&gt;- direction: ElevatorDirection&lt;br&gt;- status:ElevatorStatus&lt;br&gt;- destination: int&lt;br&gt;- unloadTime: float (readOnly)&lt;br&gt;- loadTime: float (readOnly)&lt;br&gt;- timeDoorClose: float (readOnly)&lt;br&gt;- timeDoorOpen: float (readOnly)&lt;br&gt;- timeAdjacent: long (readOnly)&lt;br&gt;- data: Object&lt;br&gt;- elevatorData: ArrayList&amp;lt;Object&amp;gt;&lt;br&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="OUGzcpc-ft89BkLeORVE-1">
+          <mxGeometry y="26" width="370" height="194" as="geometry" />
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="OUGzcpc-ft89BkLeORVE-1">
+          <mxGeometry y="220" width="370" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-4" value="+ ElevatorSubsystem(): void&lt;br&gt;+ traverseOneFloor(): void&lt;br&gt;+ differenceBetweenDestinationAndCurrentFloor(): boolean&lt;br&gt;+ setDestination():int&lt;br&gt;+ setDirection(): String&lt;br&gt;+ setElevatorCallFloor(): int&lt;br&gt;+ traverseToElevatorCall(): void&lt;br&gt;+ doorOpen(): void&lt;br&gt;+ doorClose(): void&lt;br&gt;+ peopleLoad(): void&lt;br&gt;+ peopleUnload(): void&lt;br&gt;+ run(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="OUGzcpc-ft89BkLeORVE-1">
+          <mxGeometry y="228" width="370" height="192" as="geometry" />
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-5" value="SchedulerSystem" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="390" y="340" width="370" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-6" value="&lt;u&gt;+ Global_Time: long&lt;br&gt;# elevatorQueueLock: Object (readOnly)&lt;br&gt;# floorQueueLock: Object (readOnly)&lt;br&gt;- floorDataQueue: BlockingQueue &amp;lt;ArrayList&amp;lt;Object&amp;gt;&amp;gt;&lt;br&gt;&lt;br&gt;&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="OUGzcpc-ft89BkLeORVE-5">
+          <mxGeometry y="26" width="370" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-7" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="OUGzcpc-ft89BkLeORVE-5">
+          <mxGeometry y="110" width="370" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-8" value="&lt;u&gt;+ putData (data: ArrayList&amp;lt;Object&amp;gt;: void&lt;/u&gt;&lt;br&gt;&lt;u&gt;+ getData(): ArrayList &amp;lt;Object&amp;gt;&lt;/u&gt;&lt;br&gt;+ getElapsedTime(): long&lt;br&gt;&lt;u&gt;+ main(args: String[ ]): void&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="OUGzcpc-ft89BkLeORVE-5">
+          <mxGeometry y="118" width="370" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-9" value="FloorSubsystem" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="900" y="130" width="260" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-10" value="- flag: boolean&lt;br&gt;&lt;u&gt;- scanner: Scanner&lt;/u&gt;&lt;br&gt;- file: File&lt;br&gt;- filename: String&lt;br&gt;- dataObjectList: ArrayList &amp;lt;Object&amp;gt;&lt;br&gt;- preivousLine: String [ ]&lt;br&gt;- dataList: String [ ]&lt;br&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="OUGzcpc-ft89BkLeORVE-9">
+          <mxGeometry y="26" width="260" height="114" as="geometry" />
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-11" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="OUGzcpc-ft89BkLeORVE-9">
+          <mxGeometry y="140" width="260" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-12" value="+ FloorSunsystem(filename: String)&lt;br&gt;+ parseData(): void&lt;br&gt;+ run(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="OUGzcpc-ft89BkLeORVE-9">
+          <mxGeometry y="148" width="260" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-13" value="SchedulerSystemTest" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="650" width="320" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-14" value="- Scheduler System: SchedulerSystem" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="OUGzcpc-ft89BkLeORVE-13">
+          <mxGeometry y="26" width="320" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-15" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="OUGzcpc-ft89BkLeORVE-13">
+          <mxGeometry y="60" width="320" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-16" value="+ setUp(): void&lt;br&gt;+ testDataTransfer(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="OUGzcpc-ft89BkLeORVE-13">
+          <mxGeometry y="68" width="320" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-17" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;exitX=0.47;exitY=1.019;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="OUGzcpc-ft89BkLeORVE-8" target="OUGzcpc-ft89BkLeORVE-13">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="610" y="520" as="sourcePoint" />
+            <mxPoint x="770" y="520" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-18" value="FloorSubsystemTest" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="890" y="470" width="320" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-19" value="- subsystem: FloorSubsystem" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="OUGzcpc-ft89BkLeORVE-18">
+          <mxGeometry y="26" width="320" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-20" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="OUGzcpc-ft89BkLeORVE-18">
+          <mxGeometry y="60" width="320" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-21" value="+ testParseDataWithScheduler(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="OUGzcpc-ft89BkLeORVE-18">
+          <mxGeometry y="68" width="320" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-22" value="ElevatorSubsystemTest" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-25" y="630" width="320" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-23" value="- elevator: ElevatorSubystem" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="OUGzcpc-ft89BkLeORVE-22">
+          <mxGeometry y="26" width="320" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-24" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="OUGzcpc-ft89BkLeORVE-22">
+          <mxGeometry y="60" width="320" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-25" value="+ setUp(): void&lt;br&gt;+ testElevatorMovement(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="OUGzcpc-ft89BkLeORVE-22">
+          <mxGeometry y="68" width="320" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-26" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="OUGzcpc-ft89BkLeORVE-4" target="OUGzcpc-ft89BkLeORVE-22">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-50" y="530" as="sourcePoint" />
+            <mxPoint x="120" y="620" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OUGzcpc-ft89BkLeORVE-27" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;exitX=0.469;exitY=1.025;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.402;entryY=0.024;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="OUGzcpc-ft89BkLeORVE-12" target="OUGzcpc-ft89BkLeORVE-18">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="970" y="510" as="sourcePoint" />
+            <mxPoint x="1130" y="510" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
