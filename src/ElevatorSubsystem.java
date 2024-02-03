@@ -1,77 +1,50 @@
 import java.util.ArrayList;
 
 import static java.lang.Math.abs;
+enum ElevatorStatus {
+    OK, UNLOADING, LOADING
+}
+enum ElevatorDirection {
+    DOWN, STATIONARY, UP
+}
 
-public class ElevatorSubsystem extends Thread{
+
+public class ElevatorSubsystem extends Thread {
 
 
     private ArrayList<Object> elevatorData;
 
     private Object data;
-
-
-    private double timeAdjacent = 8.6276;
-
-    private float timeDoorOpen;
-
-    private float timeDoorClose;
-
-    private float loadTime;
-
-    private float unloadTime;
-
+    private final long timeAdjacent = 8628;
+    private final float timeDoorOpen = 3.36428571F;
+    private final float timeDoorClose = 3.32428571F;
+    private final float loadTime = 4.71428571F;
+    private final float unloadTime = 4.71285714F;
     private int destination; //WHERE I NEED TO GO
-
-    private String direction; //UP DOWN
-
-
-    private int currentElevatorFloor = 0;
-
-    private int elevatorCallFloor; //Floor on which the elevator was called
-
+    private ElevatorStatus status;
+    private ElevatorDirection direction;
+    private int currentFloor = 0;
+    private int callFloor; //Floor on which the elevator was called
 
     ElevatorSubsystem(){
-        elevatorData = new ArrayList<Object>();
-
-        this.timeDoorOpen = 3.36428571F;
-        this.timeDoorClose = 3.32428571F;
-        this.loadTime = 4.71428571F;
-        this.unloadTime = 4.71285714F;
-
+        elevatorData = new ArrayList<>();
     }
 
-
-
     public void traverseOneFloor(){
-
         //Need to add to global time for each floor that the elevator travels towards destination
-
-        if (direction.equals("UP")){
-            currentElevatorFloor++;
-
-        }
-        else if (direction.equals("DOWN")){
-            currentElevatorFloor--;
-        }
-
+        // down=-1, stationary=0, up=1
+        currentFloor += direction.ordinal()-1;
         try {
-
-            sleep(8628);
-        }
-        catch(Exception e){
-
+            sleep(timeAdjacent);
+        } catch(Exception e){
             System.out.println("something happened...");
-
         }
-
-        System.out.println("Current Floor: " + currentElevatorFloor);
-
+        System.out.println("Current Floor: " + currentFloor);
     }
 
 
     public boolean differenceBetweenDestinationAndCurrentFloor(){
-
-        if(abs(destination-currentElevatorFloor) == 0){
+        if(abs(destination- currentFloor) == 0){
 
             return true;
         }
@@ -84,98 +57,61 @@ public class ElevatorSubsystem extends Thread{
     }
 
     public int setDestination(){
-
         this.data = elevatorData.get(3);
-
         if (data != null) {
-             this.destination = Integer.parseInt((String) data);
-
+            this.destination = Integer.parseInt((String) data);
             System.out.println("Destination: " + destination);
-
             return this.destination;
-
         } else {
-            System.out.println("The object is not an Integer and cannot be cast to int.");
-
+            System.out.println("Error in setDestination: e.elevatorData.get(3) is null and cannot be cast to int.");
             return 0;
         }
-
-
     }
 
 
     public String setDirection(){
-
         this.data = elevatorData.get(2);
-
         if (data instanceof String) {
-            this.direction = (String) data;
-            // Now you can use 'destination' as an int
+            String directionString = (String) data;
+            this.direction =
+                    directionString.equals("DOWN") ? ElevatorDirection.DOWN :
+                    directionString.equals("UP") ? ElevatorDirection.UP : ElevatorDirection.STATIONARY;
             System.out.println("setDirection: " + this.direction);
-
-            return this.direction;
-
+            return directionString;
         } else {
             System.out.println("The object is not an Integer and cannot be cast to int.");
-
             return "";
         }
-
-
-
     }
 
 
     public int setElevatorCallFloor() {
         this.data = elevatorData.get(1);
-
         if (data != null) {
-            this.elevatorCallFloor = Integer.parseInt((String) data);
-            System.out.println("Elevator Call Floor: " + this.elevatorCallFloor);
-            return this.elevatorCallFloor;
+            this.callFloor = Integer.parseInt((String) data);
+            System.out.println("Elevator Call Floor: " + this.callFloor);
+            return this.callFloor;
         } else {
             System.out.println("The object is not an Integer and cannot be cast to int.");
             return 0;
         }
     }
 
-
-
-
-
-
     public void traverseToElevatorCall(){
-
-
         // Need to add implementation to add to global time for each floor that the elevator traverses to reach caller
-
-        while(currentElevatorFloor != elevatorCallFloor){
-
-            if(currentElevatorFloor > elevatorCallFloor){
-
-                currentElevatorFloor--;
+        while(currentFloor != callFloor){
+            if(currentFloor > callFloor){
+                currentFloor--;
+            } else {
+                currentFloor++;
             }
-            else {
-                currentElevatorFloor++;
-            }
-
-
             try {
-
-                sleep(8628); //time taken from iteration 0
+                sleep(timeAdjacent); //time taken from iteration 0
             }
             catch(Exception e){
-
                 System.out.println("something happened...");
-
             }
-
-
-
-
         }
-
-
     }
 
     public void doorOpen(){
@@ -223,27 +159,23 @@ public class ElevatorSubsystem extends Thread{
         }
     }
 
-
-
-
-
-
     @Override
-
     public void run(){
-
-
-
-            this.elevatorData.addAll((ArrayList<Object>) SchedulerSystem.getData());
-
+        while (true) {
+            ArrayList<Object> data = SchedulerSystem.getData();
+            if (data == null) {
+                System.out.println("No more data from Scheduler");
+                break;
+            }
+            System.out.println("Receiving data from Scheduler: " + data);
+            this.elevatorData.addAll(data);
 
             setDestination();
             setDirection();
             setElevatorCallFloor();
 
-
             traverseToElevatorCall();
-            System.out.println("Elevator arrived at: " + this.currentElevatorFloor + " Elevator was called at: " + this.elevatorCallFloor);
+            System.out.println("Elevator arrived at: " + this.currentFloor + " for pick up on floor " + this.callFloor);
 
             doorOpen();
             peopleLoad();
@@ -257,23 +189,8 @@ public class ElevatorSubsystem extends Thread{
             peopleUnload();
             doorClose();
 
-            System.out.println("Elevator arrived at Floor: " + currentElevatorFloor);
-
-
-            SchedulerSystem.elevatorArrived = true;
-
-
-            this.currentElevatorFloor = this.destination;
-
-
-
-
+            System.out.println("Elevator arrived at Floor: " + currentFloor + " for drop off");
+            this.currentFloor = this.destination;
+        }
     }
-
-
-
-
-
-
-
 }
