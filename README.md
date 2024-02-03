@@ -39,15 +39,15 @@ Test Instructions:
 
 Credits:
 -------------------
-Mahad Mohamed Yonis: Author of README file and all methods in FloorSubsystemTest, SchedulerSubsystemTest, ElevatorSubsystemTest classes. Author of methods doorOpen(), doorClose(), peopleLoad(), peopleUnload() methods in the ElevatorSubsystem class.
+Mahad Mohamed Yonis: Co-author of README file. Author of all methods in FloorSubsystemTest, SchedulerSubsystemTest, ElevatorSubsystemTest classes. Author of methods doorOpen(), doorClose(), peopleLoad(), peopleUnload() methods in the ElevatorSubsystem class.
 
-Nabeel Azard: Author of UML class diagram for the program, Co-author of all methods in the FloorSubsystem, Schedulersystem classes. Co-author of traverseOneFloor(), setDirection(), traverseToElevatorCall(), differenceBetweenDestinationAndCurrentFloor(),  and run() methods in the ElevatorSubsystem class.
+Nabeel Azard: Co-author of README file. Author of UML class diagram for the program. Co-author of all methods in the FloorSubsystem, Schedulersystem classes. Co-author of traverseOneFloor(), setDirection(), traverseToElevatorCall(), differenceBetweenDestinationAndCurrentFloor(),  and run() methods in the ElevatorSubsystem class.
 
-Zarif Khan: Author of Sequence diagram for the program, Co-author of all methods in the FloorSubsystem, Schedulersystem classes. Co-author of traverseOneFloor(), setDirection(), traverseToElevatorCall(), setElevatorCallFloor(), differenceBetweenDestinationAndCurrentFloor(), and run() methods in the ElevatorSubsystem class.
+Zarif Khan: Co-author of README file. Author of Sequence diagram for the program, Co-author of all methods in the FloorSubsystem, Schedulersystem classes. Co-author of traverseOneFloor(), setDirection(), traverseToElevatorCall(), setElevatorCallFloor(), differenceBetweenDestinationAndCurrentFloor(), and run() methods in the ElevatorSubsystem class.
 
-Hamza Alsarakbi: Co-author of all methods in the FloorSubsystem, Schedulersystem classes. Co-author of traverseOneFloor(), setDirection(), setElevatorCallFloor(),  run() methods in the ElevatorSubsystem class.
+Hamza Alsarakbi: Co-author of README file. Co-author of all methods in the FloorSubsystem, Schedulersystem classes. Co-author of traverseOneFloor(), setDirection(), setElevatorCallFloor(),  run() methods in the ElevatorSubsystem class.
 
-Arun Karki: Co-author of all methods in the FloorSubsystem, Schedulersystem classes. Co-author of traverseOneFloor(), setDirection(), setElevatorCallFloor(),  run() methods in the ElevatorSubsystem class.
+Arun Karki: Co-author of README file. Co-author of all methods in the FloorSubsystem, Schedulersystem classes. Co-author of traverseOneFloor(), setDirection(), setElevatorCallFloor(),  run() methods in the ElevatorSubsystem class.
 
 
 MIT License:
