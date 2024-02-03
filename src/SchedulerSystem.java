@@ -12,9 +12,7 @@ public class SchedulerSystem extends Thread {
 
     public volatile static boolean elevatorArrived = true;
 
-
-
-    public static float globalTime = 0; //this is not implemented yet...but basically we want a mechanism that tracks the time from the start of
+    public static long GLOBAL_TIME = System.currentTimeMillis();//0; //this is not implemented yet...but basically we want a mechanism that tracks the time from the start of
     //application to the end, (note: the first element in the text file is the time at which the button is pressed)
 
     @Override
@@ -63,6 +61,10 @@ public class SchedulerSystem extends Thread {
         }
     }
 
+    // return the elapsed time in milliseconds since program started
+    public long getElapsedTime(){
+        return SchedulerSystem.GLOBAL_TIME - System.currentTimeMillis();
+    }
 
     public static void main(String[] args) throws InterruptedException {
 
