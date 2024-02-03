@@ -37,6 +37,17 @@ Test Instructions:
 2. Compile and run the test files separately, for example: `javac FloorSubsystemTest.java && java FloorSubsystemTest`.
 3. To test the system as a whole, modify the input data in the `FloorSubsystem` to simulate different scenarios and observe how the system handles various elevator requests.
 
+Credits:
+-------------------
+Mahad Mohamed Yonis: Author of README file and all methods in FloorSubsystemTest, SchedulerSubsystemTest, ElevatorSubsystemTest classes. Author of methods doorOpen(), doorClose(), peopleLoad(), peopleUnload() methods in the ElevatorSubsystem class.
+
+Nabeel Azard: Author of UML class diagram for the program, Co-author of all methods in the FloorSubsystem, Schedulersystem classes. Co-author of traverseOneFloor(), setDirection(), traverseToElevatorCall(), differenceBetweenDestinationAndCurrentFloor(),  and run() methods in the ElevatorSubsystem class.
+
+Zarif Khan: Author of Sequence diagram for the program, Co-author of all methods in the FloorSubsystem, Schedulersystem classes. Co-author of traverseOneFloor(), setDirection(), traverseToElevatorCall(), setElevatorCallFloor(), differenceBetweenDestinationAndCurrentFloor(), and run() methods in the ElevatorSubsystem class.
+
+Hamza Alsarakbi: Co-author of all methods in the FloorSubsystem, Schedulersystem classes. Co-author of traverseOneFloor(), setDirection(), setElevatorCallFloor(),  run() methods in the ElevatorSubsystem class.
+
+Arun Karki: Co-author of all methods in the FloorSubsystem, Schedulersystem classes. Co-author of traverseOneFloor(), setDirection(), setElevatorCallFloor(),  run() methods in the ElevatorSubsystem class.
 
 
 MIT License:
