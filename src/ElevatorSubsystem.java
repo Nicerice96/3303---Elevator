@@ -168,6 +168,7 @@ public class ElevatorSubsystem extends Thread {
                 break;
             }
             System.out.println("Receiving data from Scheduler: " + data);
+            this.elevatorData.clear();
             this.elevatorData.addAll(data);
 
             setDestination();
