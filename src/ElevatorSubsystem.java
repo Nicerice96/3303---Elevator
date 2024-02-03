@@ -26,7 +26,7 @@ enum ElevatorDirection {
 public class ElevatorSubsystem extends Thread {
 
 
-    private ArrayList<Object> elevatorData;
+    ArrayList<Object> elevatorData;
 
     private Object data;
     private final long timeAdjacent = 8628;
@@ -34,11 +34,11 @@ public class ElevatorSubsystem extends Thread {
     private final float timeDoorClose = 3.32428571F;
     private final float loadTime = 4.71428571F;
     private final float unloadTime = 4.71285714F;
-    private int destination; //WHERE I NEED TO GO
+    int destination; //WHERE I NEED TO GO
     private ElevatorStatus status;
-    private ElevatorDirection direction;
-    private int currentFloor = 0;
-    private int callFloor; //Floor on which the elevator was called
+    ElevatorDirection direction;
+    int currentFloor = 0;
+    int callFloor; //Floor on which the elevator was called
 
     /**
      * Constructor which initializes the elevatorData

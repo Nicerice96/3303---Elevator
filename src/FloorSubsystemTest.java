@@ -6,11 +6,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * The FloorSubsystemTest class is responsible for conducting unit tests on the FloorSubsystem class.
+ *
+ * @author Mahad
+ * @version 1.0
+ */
 public class FloorSubsystemTest {
 
-    /**
-     * Test method for parseData to verify it parses data correctly and places it into SchedulerSystem.
-     */
     @Test
     public void testParseDataWithScheduler() {
         //test file with sample data
