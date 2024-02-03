@@ -11,6 +11,7 @@ public class SchedulerSystemTest {
     @Before
     public void setUp() throws Exception {
         schedulerSystem = new SchedulerSystem();
+        schedulerSystem.start();
         Thread.sleep(1000);
     }
 
