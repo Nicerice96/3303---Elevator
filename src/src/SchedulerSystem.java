@@ -50,7 +50,7 @@ public class SchedulerSystem {
 
     // return the elapsed time in milliseconds since program started
     public long getElapsedTime(){
-        return SchedulerSystem.GLOBAL_TIME - System.currentTimeMillis();
+        return System.currentTimeMillis() - SchedulerSystem.GLOBAL_TIME;
     }
 
     public static void main(String[] args) throws InterruptedException {
