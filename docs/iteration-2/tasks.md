@@ -21,10 +21,10 @@
 
 | No. | Task Name | Task Description | Fulfilled By | Completed |
 |-|-|-|-|-|
-|1.| Integrate events into Elevator class | Any events that occure (that is printed to console) must also be added to the log `ArrayList` | Hamza | No |
-|2.| `ElevatorNode` State | Implement Elevator state pattern | Hamza | No |
-|3.| Test `ElevatorNode.getPickupIndex()` | Test the method against 3 different scenarios | Hamza | No |
-|4.| Test `ElevatorNode.addPickup()` | Test the method against 3 different scenarios | Hamza | No |
+|1.| Integrate events into Elevator class | Any events that occure (that is printed to console) must also be added to the log `ArrayList` | | No |
+|2.| `ElevatorNode` State | Implement Elevator state pattern | | No |
+|3.| Test `ElevatorNode.getPickupIndex()` | Test the method against 3 different scenarios | | No |
+|4.| Test `ElevatorNode.addPickup()` | Test the method against 3 different scenarios | | No |
 
 ## Helper Classes
 
