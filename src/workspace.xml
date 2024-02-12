@@ -6,12 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="453f3641-47f3-4f2a-92ec-441647be51fe" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/3303---Elevator/ElevatorSubsystem.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/3303---Elevator/ElevatorSubsystem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/3303---Elevator/ElevatorNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/3303---Elevator/ElevatorNode.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/3303---Elevator/FloorSubsystem.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/3303---Elevator/FloorSubsystem.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/3303---Elevator/FloorSubsystemTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/3303---Elevator/FloorSubsystemTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/3303---Elevator/SchedulerSystem.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/3303---Elevator/SchedulerSystem.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/3303---Elevator/SchedulerSystemTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/3303---Elevator/SchedulerSystemTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ElevatorSubsystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ElevatorSubsystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ElevatorNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ElevatorNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FloorSubsystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FloorSubsystem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FloorSubsystemTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FloorSubsystemTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SchedulerSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SchedulerSystem.java" afterDir="false" />
@@ -59,10 +59,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ElevatorSubsystemTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ElevatorNodeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="3303---Elevator" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ElevatorSubsystemTest" />
+      <option name="MAIN_CLASS_NAME" value="ElevatorNodeTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -90,7 +90,7 @@
       <list>
         <item itemvalue="Application.SchedulerSystem" />
         <item itemvalue="JUnit.SchedulerSystemTest" />
-        <item itemvalue="JUnit.ElevatorSubsystemTest" />
+        <item itemvalue="JUnit.ElevatorNodeTest" />
         <item itemvalue="JUnit.FloorSubsystemTest" />
       </list>
     </recent_temporary>

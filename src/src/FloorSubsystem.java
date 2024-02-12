@@ -1,48 +1,59 @@
 package src;
 
+import src.payload.Direction;
+import src.payload.Payload;
+
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Floor Sub-system which carries out floor related behaviour
+ * @authors Zarif Nabeel Arun Hamza
+ * @version 1.0
+ */
 public class FloorSubsystem extends Thread {
-
-    private String[] dataList;
-    private String[] previousLine = {"", "", "", ""};
-    private ArrayList<Object> dataObjectList = new ArrayList<Object>();
     private String filename;
-    private File file;
-    private static Scanner scanner;
-    private boolean flag = true;
-
-    FloorSubsystem(String filename) {
+    public FloorSubsystem(String filename) {
+        super();
         this.filename = filename;
-        file = new File(this.filename);
     }
 
     public synchronized void parseData() {
+        String[] dataList;
+        String[] previousLine = {"", "", "", ""};
+        Scanner scanner;
+        File file = new File(filename);
         try {
-            scanner = new Scanner(this.file);
+            scanner = new Scanner(file);
 
-            while (flag && scanner.hasNextLine()) {
+            while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                this.dataList = line.split(",");
+                dataList = line.split(",");
 
                 if (Arrays.equals(dataList, previousLine)) {
                     continue;
                 }
 
                 System.arraycopy(dataList, 0, previousLine, 0, dataList.length);
+                int timestamp = 0;
+                int pickupFloor = 0;
+                int destinationFloor = 0;
+                try {
+                    timestamp = Integer.parseInt(dataList[0]);
+                    pickupFloor = Integer.parseInt(dataList[2]);
+                    destinationFloor = Integer.parseInt(dataList[3]);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    System.out.println("Error parsing timestamp/pickupFloor/destinationFloor, check FloorSybsystem.parseData()!!");
+                    System.exit(1);
+                }
 
-                dataObjectList.add(this.dataList[0]);
-                dataObjectList.add(this.dataList[1]);
-                dataObjectList.add(this.dataList[2]);
-                dataObjectList.add(this.dataList[3]);
+                Payload payload = new Payload(timestamp,
+                        dataList[1].equals("DOWN") ? Direction.DOWN : Direction.UP,
+                        pickupFloor, destinationFloor);
 
-                SchedulerSystem.putData(new ArrayList<Object>(dataObjectList));
-
-                dataObjectList.clear();
-                //After we've added the data to the floorDataQueue we can clear this list
+                SchedulerSystem.addPayload(payload);
             }
 
             scanner.close();
@@ -53,6 +64,8 @@ public class FloorSubsystem extends Thread {
 
     @Override
     public void run() {
-            parseData();
+
+        parseData();
+
     }
 }
