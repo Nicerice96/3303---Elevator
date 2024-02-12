@@ -1,7 +1,9 @@
 package src;
 
+import src.payload.Direction;
+import src.payload.Payload;
+
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -18,7 +20,6 @@ public class FloorSubsystem extends Thread {
     }
 
     public synchronized void parseData() {
-        ArrayList<Object> dataObjectList = new ArrayList<>();
         String[] dataList;
         String[] previousLine = {"", "", "", ""};
         Scanner scanner;
@@ -35,15 +36,24 @@ public class FloorSubsystem extends Thread {
                 }
 
                 System.arraycopy(dataList, 0, previousLine, 0, dataList.length);
+                int timestamp = 0;
+                int pickupFloor = 0;
+                int destinationFloor = 0;
+                try {
+                    timestamp = Integer.parseInt(dataList[0]);
+                    pickupFloor = Integer.parseInt(dataList[2]);
+                    destinationFloor = Integer.parseInt(dataList[3]);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    System.out.println("Error parsing timestamp/pickupFloor/destinationFloor, check FloorSybsystem.parseData()!!");
+                    System.exit(1);
+                }
 
-                dataObjectList.add(dataList[0]);
-                dataObjectList.add(dataList[1]);
-                dataObjectList.add(dataList[2]);
-                dataObjectList.add(dataList[3]);
+                Payload payload = new Payload(timestamp,
+                        dataList[1].equals("DOWN") ? Direction.DOWN : Direction.UP,
+                        pickupFloor, destinationFloor);
 
-                SchedulerSystem.putData(new ArrayList<>(dataObjectList));
-
-                dataObjectList.clear();
+                SchedulerSystem.addPayload(payload);
             }
 
             scanner.close();
