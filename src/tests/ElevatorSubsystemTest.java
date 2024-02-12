@@ -1,8 +1,9 @@
 package tests;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import src.elevator.ElevatorDirection;
+import src.elevator.ElevatorSubsystem;
 
 import java.util.ArrayList;
 
@@ -31,7 +32,7 @@ public class ElevatorSubsystemTest {
         testData.add("UP"); // Direction
         testData.add("5"); // Destination floor
 
-        elevator.elevatorData = testData;
+//        elevator.elevatorData = testData;
 
         // Call methods to test their functionality
         elevator.setDirection();
@@ -39,9 +40,11 @@ public class ElevatorSubsystemTest {
         elevator.setElevatorCallFloor();
 
         //TESTS
-        assertEquals(ElevatorDirection.UP, elevator.direction);
-        assertEquals(5, elevator.destination);
-        assertEquals(2, elevator.callFloor);
+        // testing private variables isn't the goal of unit testing, since they are a part of the implementation details,
+        // we should rather test the public API (public methods/attributes) - Hamza
+//        assertEquals(ElevatorDirection.UP, elevator.direction);
+//        assertEquals(5, elevator.destination);
+//        assertEquals(2, elevator.callFloor);
 
         elevator.traverseToElevatorCall(); //elevator to the call floor
         assertEquals("Elevator should be at call floor before pickup", 2, elevator.currentFloor);

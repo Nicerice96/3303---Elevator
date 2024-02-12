@@ -1,4 +1,6 @@
-package src;
+package src.elevator;
+
+import src.SchedulerSystem;
 
 import java.util.ArrayList;
 
@@ -9,13 +11,6 @@ import static java.lang.Math.abs;
  */
 enum ElevatorStatus {
     OK, UNLOADING, LOADING
-}
-
-/**
- * Describes the possible directions the elevator can traverse in
- */
-enum ElevatorDirection {
-    DOWN, STATIONARY, UP
 }
 
 
@@ -32,10 +27,10 @@ public class ElevatorSubsystem extends Thread {
 
     private Object data;
     private final long timeAdjacent = 8628;
-    private final float timeDoorOpen = 3.36428571F;
-    private final float timeDoorClose = 3.32428571F;
-    private final float loadTime = 4.71428571F;
-    private final float unloadTime = 4.71285714F;
+    private final float DOOR_OPEN_TIME = 3.36428571F;
+    private final float DOOR_CLOSE_TIME = 3.32428571F;
+    private final float LOAD_TIME = 4.71428571F;
+    private final float UNLOAD_TIME = 4.71285714F;
     int destination; //WHERE I NEED TO GO
     private ElevatorStatus status;
     ElevatorDirection direction;
@@ -45,7 +40,7 @@ public class ElevatorSubsystem extends Thread {
     /**
      * Constructor which initializes the elevatorData
      */
-    ElevatorSubsystem(){
+    public ElevatorSubsystem(){
         elevatorData = new ArrayList<>();
     }
 
@@ -165,7 +160,7 @@ public class ElevatorSubsystem extends Thread {
     public void doorOpen(){
         try {
             System.out.println("Opening doors...");
-            Thread.sleep((long) (timeDoorOpen * 1000));
+            Thread.sleep((long) (DOOR_OPEN_TIME * 1000));
             System.out.println("Doors opened.");
             //GLOBAL VARIABLE UPDATES HERE
         } catch (InterruptedException e) {
@@ -179,7 +174,7 @@ public class ElevatorSubsystem extends Thread {
     public void doorClose(){
         try {
             System.out.println("Closing doors...");
-            Thread.sleep((long) (timeDoorClose * 1000));
+            Thread.sleep((long) (DOOR_CLOSE_TIME * 1000));
             System.out.println("Doors closed.");
             //GLOBAL VARIABLE GOES HERE ASWELL
         } catch (InterruptedException e) {
@@ -194,7 +189,7 @@ public class ElevatorSubsystem extends Thread {
     public void peopleLoad(){
         try {
             System.out.println("Loading people...");
-            Thread.sleep((long) (loadTime * 1000));
+            Thread.sleep((long) (LOAD_TIME * 1000));
             System.out.println("People loaded.");
             //UPDATE GLOBAL VARIABLE HERE
         } catch (InterruptedException e) {
@@ -209,7 +204,7 @@ public class ElevatorSubsystem extends Thread {
     public void peopleUnload(){
         try {
             System.out.println("Unloading people...");
-            Thread.sleep((long) (unloadTime * 1000));
+            Thread.sleep((long) (UNLOAD_TIME * 1000));
             System.out.println("People unloaded.");
             //UPDATE GLOBAL VAR HERE
         } catch (InterruptedException e) {

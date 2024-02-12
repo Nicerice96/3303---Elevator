@@ -1,5 +1,7 @@
 package src;
 
+import src.elevator.ElevatorSubsystem;
+
 import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -54,10 +56,6 @@ public class SchedulerSystem {
     }
 
     public static void main(String[] args) throws InterruptedException {
-
-
-        SchedulerSystem schedulerSystem = new SchedulerSystem();
-
         // Create an instance of FloorSubsystem and start its thread
         FloorSubsystem floorSubsystem = new FloorSubsystem("testCase_1.txt");
         floorSubsystem.setName("floorSubsystem");
