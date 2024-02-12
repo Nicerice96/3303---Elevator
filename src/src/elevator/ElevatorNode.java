@@ -3,10 +3,9 @@ package src.elevator;
 import src.SchedulerSystem;
 import src.elevator.elevator_state.ElevatorState;
 import src.events.Event;
-import src.payload.Payload;
+import src.instruction.Instruction;
 
 import java.util.ArrayList;
-import java.util.Queue;
 
 import static java.lang.Math.abs;
 
@@ -25,10 +24,9 @@ public class ElevatorNode extends Thread {
     private float altitude;
     private float velocity;
     private ElevatorState state;
-    private int nextDestination;
     private ArrayList<Integer> destinations;
     private ArrayList<Event> log;
-    private ArrayList<Payload> pendingPayloads;
+    private ArrayList<Instruction> pendingInstructions;
 
     /**
      * Constructor which initializes the elevatorData
@@ -41,20 +39,20 @@ public class ElevatorNode extends Thread {
         // TODO: init state
         destinations = new ArrayList<>();
         log = new ArrayList<>();
-        pendingPayloads = new ArrayList<>();
+        pendingInstructions = new ArrayList<>();
     }
 
 
     public void setState(ElevatorState state) { this.state = state; }
 
-    public int getPickupIndex() {
+    public int getPickupIndex(Instruction instruction) {
         // TODO: implement method
         return 0;
     }
 
-    public void addPickup(Payload payload) {
-        pendingPayloads.add(payload);
-        destinations.add(getPickupIndex(), payload.getPickupFloor());
+    public void addPickup(Instruction instruction) {
+        pendingInstructions.add(instruction);
+        destinations.add(getPickupIndex(instruction), instruction.getPickupFloor());
     }
 
     /**
@@ -63,14 +61,14 @@ public class ElevatorNode extends Thread {
     @Override
     public void run(){
         while (true) {
-            Payload payload = SchedulerSystem.getPayload();
-            if (payload == null) {
+            Instruction instruction = SchedulerSystem.getPayload();
+            if (instruction == null) {
                 System.out.println("No more data from Scheduler");
                 break;
             }
-            System.out.println("Receiving data from Scheduler: " + payload);
+            System.out.println("Receiving data from Scheduler: " + instruction);
 //            this.elevatorData.clear();
-//            this.elevatorData.addAll(payload);
+//            this.elevatorData.addAll(instruction);
 
 
             System.out.println("Elevator arrived at Floor: " + currentFloor + " for drop off");

@@ -1,7 +1,7 @@
 package src;
 
-import src.payload.Direction;
-import src.payload.Payload;
+import src.instruction.Direction;
+import src.instruction.Instruction;
 
 import java.io.File;
 import java.util.Arrays;
@@ -49,11 +49,11 @@ public class FloorSubsystem extends Thread {
                     System.exit(1);
                 }
 
-                Payload payload = new Payload(timestamp,
+                Instruction instruction = new Instruction(timestamp,
                         dataList[1].equals("DOWN") ? Direction.DOWN : Direction.UP,
                         pickupFloor, destinationFloor);
 
-                SchedulerSystem.addPayload(payload);
+                SchedulerSystem.addPayload(instruction);
             }
 
             scanner.close();
