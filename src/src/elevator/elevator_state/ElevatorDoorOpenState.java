@@ -1,2 +1,4 @@
-package src.elevator.elevator_state;public class ElevatorDoorOpenState {
+package src.elevator.elevator_state;
+
+public class ElevatorDoorOpenState {
 }

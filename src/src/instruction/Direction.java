@@ -1,4 +1,4 @@
-package src.payload;
+package src.instruction;
 
 /**
  * Direction of the button taken from the instruction
