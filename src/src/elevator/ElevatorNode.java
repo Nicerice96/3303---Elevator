@@ -74,7 +74,7 @@ public class ElevatorNode extends Thread {
         destinations.add(getPickupIndex(instruction), instruction.getPickupFloor());
     }
 
-    public boolean getInstruction(){
+    public boolean getAvailableInstruction(){
 
         if (!destinations.isEmpty()){
             return true;

@@ -7,5 +7,20 @@ public class ElevatorDoorClosedState extends ElevatorState {
     public void handle(ElevatorNode context) {
         System.out.println("TODO ElevatorDoorClosedState");
 
+        // when door closed 2 paths:
+        // 1. goToFloor()
+        // 2. idle
+
+        //
+        if(context.getAvailableInstruction()){
+            //ElevatorState s = new ElevatorMovingState();
+            ElevatorState s = new ElevatorMovingState();
+            context.setState(s);
+            s.handle(context);
+        }else{
+            ElevatorState s = new ElevatorIdleState();
+            context.setState(s);
+            s.handle(context);
+        }
     }
 }
