@@ -14,12 +14,12 @@ public class ElevatorMovingState extends ElevatorState {
 
        if (context.getVelocity() < 0){
 
-           setDirection(Direction.UP);
+           setDirection(Direction.DOWN);
        }
 
        else{
 
-           setDirection(Direction.DOWN);
+           setDirection(Direction.UP);
        }
 
 //        try {
