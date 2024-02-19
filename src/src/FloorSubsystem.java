@@ -36,6 +36,10 @@ public class FloorSubsystem extends Thread {
                 }
 
                 System.arraycopy(dataList, 0, previousLine, 0, dataList.length);
+                System.out.println(dataList);
+                for(int i = 0; i< dataList.length; i++){
+                    System.out.println(dataList[i]);
+                }
                 int timestamp = 0;
                 int pickupFloor = 0;
                 int destinationFloor = 0;
