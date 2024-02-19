@@ -84,6 +84,11 @@ public class ElevatorNode extends Thread {
         }
     }
 
+    public float getVelocity(){
+
+        return velocity;
+    }
+
 
 
     /**

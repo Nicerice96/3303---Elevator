@@ -8,8 +8,12 @@ public class ElevatorIdleState extends ElevatorState {
 
         while (true){
 
-           if (context.getInstruction()){
-//               context.setState();
+           if (context.getAvailableInstruction()){
+
+               ElevatorState s = new ElevatorMovingState();
+               context.setState(s);
+               s.handle(context);
+
            }
         }
 
