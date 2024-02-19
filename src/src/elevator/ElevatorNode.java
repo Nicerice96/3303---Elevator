@@ -74,6 +74,18 @@ public class ElevatorNode extends Thread {
         destinations.add(getPickupIndex(instruction), instruction.getPickupFloor());
     }
 
+    public boolean getInstruction(){
+
+        if (!destinations.isEmpty()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+
+
     /**
      * Overrides the run method of Thread class.
      * This method is the entry point for the elevator thread.
