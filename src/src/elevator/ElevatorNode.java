@@ -99,18 +99,7 @@ public class ElevatorNode extends Thread {
     @Override
     public void run() {
         while (true) {
-            Instruction instruction = SchedulerSystem.getPayload();
-            if (instruction == null) {
-                System.out.println("No more data from Scheduler");
-                break;
-            }
-            System.out.println("Receiving data from Scheduler: " + instruction);
-//            this.elevatorData.clear();
-//            this.elevatorData.addAll(instruction);
 
-
-            System.out.println("Elevator arrived at Floor: " + currentFloor + " for drop off");
-//            this.currentFloor = this.destination;
         }
     }
 }

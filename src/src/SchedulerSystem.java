@@ -3,6 +3,7 @@ package src;
 import src.elevator.ElevatorNode;
 import src.instruction.Instruction;
 
+import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -14,6 +15,8 @@ import java.util.concurrent.BlockingQueue;
  * @version: 1.0
  */
 public class SchedulerSystem {
+
+    private static ArrayList <ElevatorNode> elevatorNodes = new ArrayList<>();
 
     /**
      * Blocking queue to hold instructions between the floor subsystem and elevator subsystem.
@@ -56,6 +59,8 @@ public class SchedulerSystem {
      * @throws InterruptedException if any thread interrupts the current thread before or while the activity is in progress
      */
     public static void main(String[] args) throws InterruptedException {
+
+
         // Create an instance of FloorSubsystem and start its thread
         FloorSubsystem floorSubsystem = new FloorSubsystem("testCase_1.txt");
         floorSubsystem.setName("floorSubsystem");
@@ -63,8 +68,12 @@ public class SchedulerSystem {
         floorSubsystem.join();
 
         // Create an instance of ElevatorNode and start its thread
-        ElevatorNode elevatorSubsystem = new ElevatorNode();
-        elevatorSubsystem.setName("elevatorSubsystem");
-        elevatorSubsystem.start();
+
+
+        ElevatorNode E1 = new ElevatorNode();
+        E1.setName("elevatorSubsystem");
+        E1.start();
+        elevatorNodes.add(E1);
+
     }
 }

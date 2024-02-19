@@ -5,6 +5,7 @@ import src.elevator.ElevatorNode;
 import src.instruction.Direction;
 
 public class ElevatorMovingState extends ElevatorState {
+    //
 
     Direction direction;
 
@@ -14,13 +15,13 @@ public class ElevatorMovingState extends ElevatorState {
 
        if (context.getVelocity() < 0){
 
-           setDirection(Direction.DOWN);
-       }
+        setDirection(Direction.DOWN);
+    }
 
        else{
 
-           setDirection(Direction.UP);
-       }
+        setDirection(Direction.UP);
+    }
 
 //        try {
 //            Thread.sleep(ElevatorDefs.DOOR_CLOSING_TIME);
@@ -32,7 +33,7 @@ public class ElevatorMovingState extends ElevatorState {
 //        s.handle(context);
 //    }
         throw new UnsupportedOperationException("Unimplemented method 'handle'");
-    }
+}
 
 
     public void setDirection(Direction direction){
