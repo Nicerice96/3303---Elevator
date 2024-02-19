@@ -53,7 +53,7 @@ public class FloorSubsystem extends Thread {
                 int destinationFloor = 0;
                 try {
                     timestamp = Integer.parseInt(dataList[0]);
-                    pickupFloor = Integer.parseInt(dataList[2]);
+                    pickupFloor = Integer.parseInt(dataList[1]);
                     destinationFloor = Integer.parseInt(dataList[3]);
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
