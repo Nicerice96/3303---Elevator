@@ -64,10 +64,8 @@ public class FloorSubsystem extends Thread {
                     System.out.println("Error parsing timestamp/pickupFloor/destinationFloor, check FloorSubsystem.parseData()!!");
                     System.exit(1);
                 }
-
-                Instruction instruction = new Instruction(timestamp,
-                        dataList[1].equals("DOWN") ? Direction.DOWN : Direction.UP,
-                        pickupFloor, destinationFloor);
+                
+                Instruction instruction = new Instruction(timestamp, dataList[2].equals("DOWN") ? Direction.DOWN : Direction.UP, pickupFloor, destinationFloor);
 
                 SchedulerSystem.addPayload(instruction);
             }
