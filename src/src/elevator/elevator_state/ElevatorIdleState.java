@@ -5,7 +5,18 @@ import src.elevator.ElevatorNode;
 public class ElevatorIdleState extends ElevatorState {
     @Override
     public void handle(ElevatorNode context) {
-        // wait until requests are sent
-//        while (true)
+
+        while (true){
+
+           if (context.getAvailableInstruction()){
+
+               ElevatorState s = new ElevatorMovingState();
+               context.setState(s);
+               s.handle(context);
+
+           }
+        }
+
+
     }
 }

@@ -8,17 +8,29 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
- * Floor Sub-system which carries out floor related behaviour
- * @authors Zarif Nabeel Arun Hamza
- * @version 1.0
+ * Floor Sub-system which manages floor-related behavior.
+ * This class reads instructions from a file, parses them, and sends them to the SchedulerSystem.
+ *
+ * @authors: Zarif, Nabeel, Arun, Hamza
+ * @version: 1.0
  */
 public class FloorSubsystem extends Thread {
     private String filename;
+
+    /**
+     * Constructs a FloorSubsystem object with the given filename.
+     *
+     * @param filename the name of the file containing floor instructions
+     */
     public FloorSubsystem(String filename) {
         super();
         this.filename = filename;
     }
 
+    /**
+     * Parses the floor instruction data from the file and sends instructions to the SchedulerSystem.
+     * This method ensures thread safety by synchronizing access to shared resources.
+     */
     public synchronized void parseData() {
         String[] dataList;
         String[] previousLine = {"", "", "", ""};
@@ -41,17 +53,15 @@ public class FloorSubsystem extends Thread {
                 int destinationFloor = 0;
                 try {
                     timestamp = Integer.parseInt(dataList[0]);
-                    pickupFloor = Integer.parseInt(dataList[2]);
+                    pickupFloor = Integer.parseInt(dataList[1]);
                     destinationFloor = Integer.parseInt(dataList[3]);
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
-                    System.out.println("Error parsing timestamp/pickupFloor/destinationFloor, check FloorSybsystem.parseData()!!");
+                    System.out.println("Error parsing timestamp/pickupFloor/destinationFloor, check FloorSubsystem.parseData()!!");
                     System.exit(1);
                 }
-
-                Instruction instruction = new Instruction(timestamp,
-                        dataList[1].equals("DOWN") ? Direction.DOWN : Direction.UP,
-                        pickupFloor, destinationFloor);
+                
+                Instruction instruction = new Instruction(timestamp, dataList[2].equals("DOWN") ? Direction.DOWN : Direction.UP, pickupFloor, destinationFloor);
 
                 SchedulerSystem.addPayload(instruction);
             }
@@ -62,10 +72,12 @@ public class FloorSubsystem extends Thread {
         }
     }
 
+    /**
+     * Overrides the run method of Thread class.
+     * Calls the parseData method to start processing floor instructions.
+     */
     @Override
     public void run() {
-
         parseData();
-
     }
 }

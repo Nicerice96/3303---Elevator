@@ -39,6 +39,8 @@ Test Instructions:
 
 Credits:
 -------------------
+
+### Milstone 1
 Mahad Mohamed Yonis: Co-author of README file. Author of all methods in FloorSubsystemTest, SchedulerSubsystemTest, ElevatorNodeTest classes. Author of methods doorOpen(), doorClose(), peopleLoad(), peopleUnload() methods in the ElevatorNode class.
 
 Nabeel Azard: Co-author of README file. Author of UML class diagram for the program. Co-author of all methods in the FloorSubsystem, Schedulersystem classes. Co-author of traverseOneFloor(), setDirection(), traverseToElevatorCall(), differenceBetweenDestinationAndCurrentFloor(),  and run() methods in the ElevatorNode class.
@@ -48,6 +50,9 @@ Zarif Khan: Co-author of README file. Author of Sequence diagram for the program
 Hamza Alsarakbi: Co-author of README file. Co-author of all methods in the FloorSubsystem, Schedulersystem classes. Co-author of traverseOneFloor(), setDirection(), setElevatorCallFloor(),  run() methods in the ElevatorNode class.
 
 Arun Karki: Co-author of README file. Co-author of all methods in the FloorSubsystem, Schedulersystem classes. Co-author of traverseOneFloor(), setDirection(), setElevatorCallFloor(),  run() methods in the ElevatorNode class.
+### Milestone 2
+
+Zarif & Arun : Diligently addressed and resolved bugs in the code, significantly enhancing its reliability and efficiency. 
 
 
 MIT License:
