@@ -1,8 +1,9 @@
 package src.elevator;
 
-import src.SchedulerSystem;
+import src.elevator.elevator_state.ElevatorIdleState;
 import src.elevator.elevator_state.ElevatorState;
 import src.events.Event;
+import src.events.EventType;
 import src.instruction.Instruction;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import static java.lang.Math.abs;
 public class ElevatorNode extends Thread {
     private static int nextId = 0;
     private final int id;
-    private int currentFloor;
+    public int currentFloor;
     private float altitude;
     private float velocity;
     private ElevatorState state;
@@ -50,6 +51,7 @@ public class ElevatorNode extends Thread {
      */
     public void setState(ElevatorState state) {
         this.state = state;
+        this.state.handle(this);
     }
 
     /**
@@ -61,7 +63,7 @@ public class ElevatorNode extends Thread {
      */
     public int getPickupIndex(Instruction instruction) {
         // TODO: implement method
-        return 0;
+        return destinations.size();
     }
 
     /**
@@ -69,24 +71,28 @@ public class ElevatorNode extends Thread {
      *
      * @param instruction the pickup instruction to add
      */
-    public void addPickup(Instruction instruction) {
+    public synchronized void addPickup(Instruction instruction) {
         pendingInstructions.add(instruction);
         destinations.add(getPickupIndex(instruction), instruction.getPickupFloor());
+        addEvent(new Event(EventType.ELEVATOR_RECEIVED_REQUEST, id));
+        System.out.println(this.id + " " + destinations);
     }
 
-    public boolean getAvailableInstruction(){
-
-        if (!destinations.isEmpty()){
-            return true;
-        }
-        else{
-            return false;
-        }
+    public synchronized boolean destinationsEmpty(){
+        return destinations.isEmpty();
     }
 
     public float getVelocity(){
 
         return velocity;
+    }
+
+    public int getElevatorId() { return this.id; }
+
+
+    public void addEvent(Event event) {
+        log.add(event);
+        System.out.println(event);
     }
 
 
@@ -99,7 +105,16 @@ public class ElevatorNode extends Thread {
     @Override
     public void run() {
         while (true) {
-
+            setState(new ElevatorIdleState());
         }
+    }
+
+    public Integer getNextDestination() {
+        if (destinations.isEmpty()) return null;
+        return destinations.getFirst();
+    }
+
+    public synchronized void clearDestination() {
+        destinations.removeFirst();
     }
 }

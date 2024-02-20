@@ -12,7 +12,7 @@ public class ElevatorDoorClosedState extends ElevatorState {
         // 2. idle
 
         //
-        if(context.getAvailableInstruction()){
+        if(context.destinationsEmpty()){
             //ElevatorState s = new ElevatorMovingState();
             ElevatorState s = new ElevatorMovingState();
             context.setState(s);

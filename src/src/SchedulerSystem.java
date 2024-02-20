@@ -2,6 +2,7 @@ package src;
 
 import src.elevator.ElevatorNode;
 import src.instruction.Instruction;
+import src.scheduler_state.SchedulerState;
 
 import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -14,7 +15,7 @@ import java.util.concurrent.BlockingQueue;
  * @authors: Zarif, Nabeel, Arun, Hamza
  * @version: 1.0
  */
-public class SchedulerSystem {
+public class SchedulerSystem extends Thread {
 
     private static ArrayList <ElevatorNode> elevatorNodes = new ArrayList<>();
 
@@ -22,7 +23,8 @@ public class SchedulerSystem {
      * Blocking queue to hold instructions between the floor subsystem and elevator subsystem.
      * It ensures thread safety for adding and retrieving instructions.
      */
-    private static BlockingQueue<Instruction> payloads = new ArrayBlockingQueue<>(10);
+    private static BlockingQueue<Instruction> instructions = new ArrayBlockingQueue<>(10);
+    private static SchedulerState state;
 
     /**
      * Adds an instruction to the scheduler system.
@@ -31,7 +33,7 @@ public class SchedulerSystem {
      */
     public static void addPayload(Instruction instruction) {
         try {
-            payloads.put(instruction);
+            instructions.put(instruction);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -43,12 +45,39 @@ public class SchedulerSystem {
      * @return the retrieved instruction, or null if the queue is empty
      */
     public static Instruction getPayload() {
-        if (payloads.isEmpty()) return null;
+        if (instructions.isEmpty()) return null;
         try {
-            return payloads.take();
+            return instructions.take();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    public static void pollElevators(){
+        System.out.println("polling?");
+        while (true) {
+            for(Instruction i : instructions) {
+                int min = Integer.MAX_VALUE;
+                ElevatorNode elevatorNode = null;
+                for (ElevatorNode e : elevatorNodes) {
+                    int pickupIndex = e.getPickupIndex(i);
+                    if (pickupIndex < min) {
+                        min = pickupIndex;
+                        elevatorNode = e;
+                    }
+                }
+
+                if (elevatorNode != null) {
+                    elevatorNode.addPickup(i);
+                    instructions.remove(i);
+                }
+            }
+        }
+    }
+    public static void setState(SchedulerState state) {
+        SchedulerSystem.state = state;
+        SchedulerSystem.state.handle();
     }
 
     /**
@@ -59,21 +88,24 @@ public class SchedulerSystem {
      * @throws InterruptedException if any thread interrupts the current thread before or while the activity is in progress
      */
     public static void main(String[] args) throws InterruptedException {
+        final int FLOOR_NUM = 4;
+        final int ELEVATOR_NUM = 3;
 
+        // Create multiple instances of FloorNode and start its thread
+        for(int i = 0; i < FLOOR_NUM; i++) {
+            FloorNode floorSubsystem = new FloorNode(i, "testCase_1.txt");
+            floorSubsystem.setName("floorSubsystem-"+i);
+            floorSubsystem.start();
+            floorSubsystem.join();
+        }
 
-        // Create an instance of FloorSubsystem and start its thread
-        FloorSubsystem floorSubsystem = new FloorSubsystem("testCase_1.txt");
-        floorSubsystem.setName("floorSubsystem");
-        floorSubsystem.start();
-        floorSubsystem.join();
-
-        // Create an instance of ElevatorNode and start its thread
-
-
-        ElevatorNode E1 = new ElevatorNode();
-        E1.setName("elevatorSubsystem");
-        E1.start();
-        elevatorNodes.add(E1);
-
+        // Create multiple instances of ElevatorNode and start its thread
+        for(int i = 0; i < ELEVATOR_NUM; i++) {
+            ElevatorNode e = new ElevatorNode();
+            e.setName("elevatorNode-"+i);
+            e.start();
+            elevatorNodes.add(e);
+        }
+        SchedulerSystem.pollElevators();
     }
 }

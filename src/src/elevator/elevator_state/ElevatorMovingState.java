@@ -2,43 +2,24 @@ package src.elevator.elevator_state;
 
 import src.defs.ElevatorDefs;
 import src.elevator.ElevatorNode;
+import src.events.Event;
+import src.events.EventType;
 import src.instruction.Direction;
 
 public class ElevatorMovingState extends ElevatorState {
-    //
-
-    Direction direction;
-
 
     @Override
     public void handle(ElevatorNode context) {
-
-       if (context.getVelocity() < 0){
-
-        setDirection(Direction.DOWN);
-    }
-
-       else{
-
-        setDirection(Direction.UP);
-    }
-
-//        try {
-//            Thread.sleep(ElevatorDefs.DOOR_CLOSING_TIME);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-//        ElevatorState s = new ElevatorDoorClosedState();
-//        context.setState(s);
-//        s.handle(context);
-//    }
-        throw new UnsupportedOperationException("Unimplemented method 'handle'");
-}
-
-
-    public void setDirection(Direction direction){
-
-        this.direction = direction;
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        context.addEvent(new Event(EventType.ELEVATOR_ARRIVED, context.getElevatorId()));
+        context.currentFloor = context.getNextDestination();
+        System.out.printf("e%d: currentFloor = %d\n", context.getElevatorId(), context.currentFloor);
+        context.clearDestination();
+        context.setState(new ElevatorIdleState());
     }
 
 

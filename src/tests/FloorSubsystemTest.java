@@ -1,12 +1,8 @@
 package tests;
 
 import org.junit.Test;
-import src.FloorSubsystem;
-import src.SchedulerSystem;
+import src.FloorNode;
 
-import java.io.File;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -18,7 +14,7 @@ import static org.junit.Assert.assertTrue;
  * @version 1.0
  */
 public class FloorSubsystemTest {
-    private FloorSubsystem subsystem;
+    private FloorNode subsystem;
     // Defined the FloorSubsystem instance here instead - Nabeel
 
     @Test

@@ -33,6 +33,7 @@ public class Event {
     public String toString() {
         return
             eventType == EventType.ELEVATOR_ARRIVED ?                       String.format("Elevator %d arrived.", elevatorId)
+                    : eventType == EventType.ELEVATOR_TRAVERSED_FLOOR ?     String.format("Elevator %d traversed 1 floor.", elevatorId)
                     : eventType == EventType.ELEVATOR_DEPARTED ?            String.format("Elevator %d departed.", elevatorId)
                     : eventType == EventType.ELEVATOR_LOADING ?             String.format("Elevator %d loading passengers", elevatorId)
                     : eventType == EventType.ELEVATOR_UNLOADING ?           String.format("Elevator %d unloading passengers", elevatorId)
