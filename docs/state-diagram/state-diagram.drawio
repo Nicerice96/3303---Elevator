@@ -1,11 +1,11 @@
-<mxfile host="Electron" modified="2024-02-20T01:24:41.696Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="QISiDyB05eHxVy79jutg" version="23.1.5" type="device" pages="2">
+<mxfile host="Electron" modified="2024-02-20T04:11:41.703Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="P-2Kt8mkECkL6TC7F5_7" version="23.1.5" type="device" pages="2">
   <diagram name="elevator" id="lBbN2NCT0ZHPfkmmuD4z">
-    <mxGraphModel dx="1668" dy="1365" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1195" dy="1097" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="ehmHsF2NZX7fLAidSFRX-17" value="&amp;nbsp; &amp;nbsp;Elevator Stopped" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;verticalAlign=top;align=left;strokeWidth=3;arcSize=6;" parent="1" vertex="1">
-          <mxGeometry x="280" y="240" width="280" height="480" as="geometry" />
+          <mxGeometry x="280" y="240" width="280" height="340" as="geometry" />
         </mxCell>
         <mxCell id="ehmHsF2NZX7fLAidSFRX-10" value="gotoFloor(floor)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="ehmHsF2NZX7fLAidSFRX-1" target="ehmHsF2NZX7fLAidSFRX-7" edge="1">
           <mxGeometry x="-0.5" relative="1" as="geometry">
@@ -44,8 +44,14 @@
         <mxCell id="ehmHsF2NZX7fLAidSFRX-4" value="DOOR_OPEN" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="360" y="400" width="120" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="ehmHsF2NZX7fLAidSFRX-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="ehmHsF2NZX7fLAidSFRX-5" target="ehmHsF2NZX7fLAidSFRX-8" edge="1">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="ehmHsF2NZX7fLAidSFRX-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="ehmHsF2NZX7fLAidSFRX-5" target="ehmHsF2NZX7fLAidSFRX-1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="640.0000000000002" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="200" y="540" />
+              <mxPoint x="200" y="60" />
+            </Array>
+          </mxGeometry>
         </mxCell>
         <mxCell id="ehmHsF2NZX7fLAidSFRX-24" value="Thread.sleep(closingDuration)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="ehmHsF2NZX7fLAidSFRX-16" vertex="1" connectable="0">
           <mxGeometry x="-0.2804" y="1" relative="1" as="geometry">
@@ -65,22 +71,6 @@
         </mxCell>
         <mxCell id="ehmHsF2NZX7fLAidSFRX-7" value="MOVING" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="360" y="160" width="120" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="ehmHsF2NZX7fLAidSFRX-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="ehmHsF2NZX7fLAidSFRX-8" target="ehmHsF2NZX7fLAidSFRX-1" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="200" y="670" />
-              <mxPoint x="200" y="60" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ehmHsF2NZX7fLAidSFRX-29" value="no floor requests" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="ehmHsF2NZX7fLAidSFRX-28" vertex="1" connectable="0">
-          <mxGeometry x="0.3877" y="-1" relative="1" as="geometry">
-            <mxPoint y="-61" as="offset" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ehmHsF2NZX7fLAidSFRX-8" value="DOOR_CLOSED" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="360" y="640" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="ehmHsF2NZX7fLAidSFRX-23" value="No need for a loading state since that is assumed &lt;br&gt;with the door open, the door instead remains open for&lt;br&gt;the passengers to board it" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="560" y="440" width="310" height="60" as="geometry" />
