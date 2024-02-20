@@ -2,6 +2,7 @@ package src;
 
 import src.elevator.ElevatorNode;
 import src.instruction.Instruction;
+import src.scheduler_state.SchedulerIdleState;
 import src.scheduler_state.SchedulerState;
 
 import java.util.ArrayList;
@@ -57,7 +58,11 @@ public class SchedulerSystem extends Thread {
     public static void pollElevators(){
         System.out.println("polling?");
         while (true) {
+
+
+
             for(Instruction i : instructions) {
+                System.out.println("im here");
                 int min = Integer.MAX_VALUE;
                 ElevatorNode elevatorNode = null;
                 for (ElevatorNode e : elevatorNodes) {
@@ -75,6 +80,20 @@ public class SchedulerSystem extends Thread {
             }
         }
     }
+
+
+    public static boolean receievedData(){
+
+        if (instructions.isEmpty()){
+            return false;
+        }
+        else{
+            return true;
+        }
+
+
+
+    }
     public static void setState(SchedulerState state) {
         SchedulerSystem.state = state;
         SchedulerSystem.state.handle();
@@ -91,6 +110,8 @@ public class SchedulerSystem extends Thread {
         final int FLOOR_NUM = 4;
         final int ELEVATOR_NUM = 1;
 
+
+
         // Create multiple instances of FloorNode and start its thread
         for(int i = 0; i < FLOOR_NUM; i++) {
             FloorNode floorSubsystem = new FloorNode(i, "testCase_1.txt");
@@ -106,6 +127,7 @@ public class SchedulerSystem extends Thread {
             e.start();
             elevatorNodes.add(e);
         }
-        SchedulerSystem.pollElevators();
+        SchedulerSystem.setState(new SchedulerIdleState());
+
     }
 }

@@ -106,8 +106,14 @@ public class ElevatorNode extends Thread {
         this.currentFloor += direction.ordinal()*2-1;
     }
 
+    public Integer getNextDestination() {
+        if (destinations.isEmpty()) return null;
+        return destinations.get(0);
+    }
 
-
+    public synchronized void clearDestination() {
+        destinations.remove(0);
+    }
     /**
      * Overrides the run method of Thread class.
      * This method is the entry point for the elevator thread.
@@ -117,16 +123,6 @@ public class ElevatorNode extends Thread {
     public void run() {
         setState(new ElevatorIdleState());
     }
-
-    public Integer getNextDestination() {
-        if (destinations.isEmpty()) return null;
-        return destinations.getFirst();
-    }
-
-    public synchronized void clearDestination() {
-        destinations.removeFirst();
-    }
-
     public synchronized void unwrapPendingInstructions() {
         int i = 0;
         while(i < pendingInstructions.size()) {
