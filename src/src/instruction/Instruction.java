@@ -11,8 +11,8 @@ public class Instruction {
     private final int destinationFloor;
 
     /**
-     * Constructs a Instruction.
-     * A instruction is the class representation of an elevator instruction that is read from a text file.
+     * Constructs an Instruction.
+     * An instruction is the class representation of an elevator instruction that is read from a text file.
      * @param timestamp timestamp in int (first element in an instruction)
      * @param buttonDirection button direction, can be DOWN or UP (second element in an instruction)
      * @param pickupFloor pickup floor in int (third element in an instruction)

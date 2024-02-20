@@ -1,11 +1,16 @@
 package src.elevator.elevator_state;
 
 import src.elevator.ElevatorNode;
+import src.events.Event;
+import src.events.EventType;
 
 public class ElevatorIdleState extends ElevatorState {
     @Override
     public void handle(ElevatorNode context) {
-        // wait until requests are sent
-//        while (true)
+        while (true){
+            if (!context.destinationsEmpty()){
+                context.setState(new ElevatorMovingState());
+            }
+        }
     }
 }
