@@ -31,4 +31,9 @@ public class Instruction {
     public Direction getButtonDirection() { return buttonDirection; }
     public int getPickupFloor() { return pickupFloor; }
     public int getDestinationFloor() { return destinationFloor; }
+
+    @Override
+    public String toString() {
+        return String.format("Instruction - timestamp: %d, pickup: %d, direction: %s, destination: %s", timestamp, pickupFloor, buttonDirection, destinationFloor);
+    }
 }

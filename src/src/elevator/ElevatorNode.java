@@ -4,6 +4,7 @@ import src.elevator.elevator_state.ElevatorIdleState;
 import src.elevator.elevator_state.ElevatorState;
 import src.events.Event;
 import src.events.EventType;
+import src.instruction.Direction;
 import src.instruction.Instruction;
 
 import java.util.ArrayList;
@@ -21,9 +22,9 @@ import static java.lang.Math.abs;
 public class ElevatorNode extends Thread {
     private static int nextId = 0;
     private final int id;
-    public int currentFloor;
+    private int currentFloor;
     private float altitude;
-    private float velocity;
+    public float velocity; // no need for private attribute
     private ElevatorState state;
     private ArrayList<Integer> destinations;
     private ArrayList<Event> log;
@@ -43,17 +44,9 @@ public class ElevatorNode extends Thread {
         log = new ArrayList<>();
         pendingInstructions = new ArrayList<>();
     }
-
-    /**
-     * Sets the state of the elevator.
-     *
-     * @param state the state to set
-     */
-    public void setState(ElevatorState state) {
-        this.state = state;
-        this.state.handle(this);
-    }
-
+    public int getElevatorId() { return this.id; }
+    public int getCurrentFloor() { return currentFloor; }
+    public float getAltitude() { return altitude; }
     /**
      * Determines the pickup index for the given instruction.
      * This method calculates the index at which the pickup floor should be inserted into the destinations list.
@@ -67,6 +60,13 @@ public class ElevatorNode extends Thread {
     }
 
     /**
+     * Checks if there are no destinations
+     * @return true if there are no destinations, otherwise false
+     */
+    public synchronized boolean destinationsEmpty(){
+        return destinations.isEmpty();
+    }
+    /**
      * Adds a pickup instruction to the pending instructions list.
      *
      * @param instruction the pickup instruction to add
@@ -74,38 +74,46 @@ public class ElevatorNode extends Thread {
     public synchronized void addPickup(Instruction instruction) {
         pendingInstructions.add(instruction);
         destinations.add(getPickupIndex(instruction), instruction.getPickupFloor());
-        addEvent(new Event(EventType.ELEVATOR_RECEIVED_REQUEST, id));
+        addEvent(new Event(EventType.ELEVATOR_RECEIVED_REQUEST, id, instruction.getPickupFloor()));
         System.out.println(this.id + " " + destinations);
     }
-
-    public synchronized boolean destinationsEmpty(){
-        return destinations.isEmpty();
+    /**
+     * Sets the state of the elevator.
+     *
+     * @param state the state to set
+     */
+    public void setState(ElevatorState state) {
+        this.state = state;
+        this.state.handle(this);
+    }
+    public void updateAltitude(float altitude) {
+        this.altitude += altitude;
     }
 
-    public float getVelocity(){
-
-        return velocity;
-    }
-
-    public int getElevatorId() { return this.id; }
-
-
+    /**
+     * Adds an event and prints that event to console
+     * @param event the event to add
+     */
     public void addEvent(Event event) {
         log.add(event);
         System.out.println(event);
     }
+    /**
+     * Traverses one floor
+     * @param direction the direction (DOWN, UP)
+     */
+    public void traverse(Direction direction) {
+        this.currentFloor += direction.ordinal()*2-1;
+    }
 
     public Integer getNextDestination() {
         if (destinations.isEmpty()) return null;
-        return destinations.getFirst();
+        return destinations.get(0);
     }
 
     public synchronized void clearDestination() {
-        destinations.removeFirst();
+        destinations.remove(0);
     }
-
-
-
     /**
      * Overrides the run method of Thread class.
      * This method is the entry point for the elevator thread.
@@ -113,10 +121,19 @@ public class ElevatorNode extends Thread {
      */
     @Override
     public void run() {
-        while (true) {
-            setState(new ElevatorIdleState());
+        setState(new ElevatorIdleState());
+    }
+    public synchronized void unwrapPendingInstructions() {
+        int i = 0;
+        while(i < pendingInstructions.size()) {
+            Instruction instruction = pendingInstructions.get(i);
+            if (instruction.getPickupFloor() == currentFloor && !destinations.contains(instruction.getDestinationFloor())) {
+                // TODO: find drop off index, don't insert at the end
+                destinations.add(instruction.getDestinationFloor());
+                pendingInstructions.remove(i);
+                continue;
+            }
+            i++;
         }
     }
-
-
 }
