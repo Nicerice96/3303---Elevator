@@ -4,10 +4,11 @@ import org.junit.Assert;
 import org.junit.Test;
 import src.instruction.Direction;
 import src.instruction.Instruction;
-
 import static org.junit.Assert.assertEquals;
 
-
+/**
+ * This is the test class for Instruction.java
+ */
 public class InstructionTest {
 
     @Test
