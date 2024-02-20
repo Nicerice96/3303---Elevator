@@ -95,6 +95,15 @@ public class ElevatorNode extends Thread {
         System.out.println(event);
     }
 
+    public Integer getNextDestination() {
+        if (destinations.isEmpty()) return null;
+        return destinations.getFirst();
+    }
+
+    public synchronized void clearDestination() {
+        destinations.removeFirst();
+    }
+
 
 
     /**
@@ -109,12 +118,5 @@ public class ElevatorNode extends Thread {
         }
     }
 
-    public Integer getNextDestination() {
-        if (destinations.isEmpty()) return null;
-        return destinations.getFirst();
-    }
 
-    public synchronized void clearDestination() {
-        destinations.removeFirst();
-    }
 }
