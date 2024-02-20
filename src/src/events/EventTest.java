@@ -28,17 +28,17 @@ public class EventTest {
 
     @Before
     public void setUp() {
-        elevatorArrived = new Event(EventType.ELEVATOR_ARRIVED, 1);
+        elevatorArrived = new Event(EventType.ELEVATOR_ARRIVED, 1,2);
         traversedFloor = new Event(ELEVATOR_TRAVERSED_FLOOR);
-        elevatorDeparted = new Event(ELEVATOR_DEPARTED, 21);
+        elevatorDeparted = new Event(ELEVATOR_DEPARTED, 21,4);
         elevatorLoading = new Event(ELEVATOR_LOADING);
-        elevatorUnloading = new Event(ELEVATOR_UNLOADING, 775);
+        elevatorUnloading = new Event(ELEVATOR_UNLOADING, 775, 2);
         elevatorDoorOpening = new Event(ELEVATOR_DOOR_OPENING);
-        elevatorDoorOpen = new Event(ELEVATOR_DOOR_OPEN, 87777);
+        elevatorDoorOpen = new Event(ELEVATOR_DOOR_OPEN, 87777, 4);
         elevatorDoorClosing = new Event(ELEVATOR_DOOR_CLOSING);
-        elevatorDoorClosed = new Event(ELEVATOR_DOOR_CLOSED, 0);
+        elevatorDoorClosed = new Event(ELEVATOR_DOOR_CLOSED, 0, 5);
         elevatorRecievedRequest = new Event(ELEVATOR_RECEIVED_REQUEST);
-        schedulerRecievedRequest = new Event(SCHEDULER_RECEIVED_REQUEST, -1);
+        schedulerRecievedRequest = new Event(SCHEDULER_RECEIVED_REQUEST, -1, 7);
     }
 
     @Test
@@ -68,12 +68,22 @@ public class EventTest {
     }
 
     @Test
+    public void testSecondary(){
+        assertEquals(2, elevatorArrived.getSecondary());
+        assertEquals(4, elevatorDeparted.getSecondary());
+        assertEquals(2, elevatorUnloading.getSecondary());
+        assertEquals(4, elevatorDoorOpen.getSecondary());
+        assertEquals(5, elevatorDoorClosed.getSecondary());
+        assertEquals(7, schedulerRecievedRequest.getSecondary());
+    }
+
+    @Test
     public void testToString() {
-        String arrived = "Elevator 1 arrived.";
+        String arrived = "Elevator 1 arrived to floor 2.";
         assertEquals(arrived, elevatorArrived.toString());
-        String traversed = "Elevator -1 traversed 1 floor.";
+        String traversed = "Elevator -2147483648 traversed 1 floor.";
         assertEquals(traversed, traversedFloor.toString());
-        String departed = "Elevator 21 departed.";
+        String departed = "Elevator 21 departed for floor 4.";
         assertEquals(departed, elevatorDeparted.toString());
         String unloading = "Elevator 775 unloading passengers.";
         assertEquals(unloading, elevatorUnloading.toString());
