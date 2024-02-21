@@ -142,8 +142,4 @@ public class ElevatorNode extends Thread {
             i++;
         }
     }
-
-    public static void main(String[] args) throws InterruptedException {
-            ElevatorNode aElevator = new ElevatorNode();
-    }
 }
