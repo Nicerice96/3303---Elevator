@@ -10,7 +10,7 @@ import java.time.Instant;
 public class ElevatorIdleState extends ElevatorState {
     @Override
     public void handle(ElevatorNode context) {
-        Instant idleTick = Instant.now();
+        Instant idleTick = Instant.now(); //What does this do?
         while (true){
             Instant tick = Instant.now();
             long idleDuration = Duration.between(idleTick, tick).toMillis();

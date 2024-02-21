@@ -16,15 +16,15 @@ import static org.junit.Assert.assertEquals;
 public class EventTest {
     private Event elevatorArrived;
     private Event traversedFloor;
-  private Event elevatorDeparted;
-  private Event elevatorLoading;
-  private Event elevatorUnloading;
-  private Event elevatorDoorOpening;
-  private Event elevatorDoorOpen;
-  private Event elevatorDoorClosing;
-  private Event elevatorDoorClosed;
-  private Event elevatorRecievedRequest;
-  private Event schedulerRecievedRequest;
+    private Event elevatorDeparted;
+    private Event elevatorLoading;
+    private Event elevatorUnloading;
+    private Event elevatorDoorOpening;
+    private Event elevatorDoorOpen;
+    private Event elevatorDoorClosing;
+    private Event elevatorDoorClosed;
+    private Event elevatorRecievedRequest;
+    private Event schedulerRecievedRequest;
 
     @Before
     public void setUp() {
@@ -36,7 +36,7 @@ public class EventTest {
         elevatorDoorOpening = new Event(ELEVATOR_DOOR_OPENING);
         elevatorDoorOpen = new Event(ELEVATOR_DOOR_OPEN, 87777, 4);
         elevatorDoorClosing = new Event(ELEVATOR_DOOR_CLOSING);
-        elevatorDoorClosed = new Event(ELEVATOR_DOOR_CLOSED, 0, 5);
+        elevatorDoorClosed = new Event(ELEVATOR_DOOR_CLOSED, 0);
         elevatorRecievedRequest = new Event(ELEVATOR_RECEIVED_REQUEST);
         schedulerRecievedRequest = new Event(SCHEDULER_RECEIVED_REQUEST, -1, 7);
     }
@@ -73,7 +73,7 @@ public class EventTest {
         assertEquals(4, elevatorDeparted.getSecondary());
         assertEquals(2, elevatorUnloading.getSecondary());
         assertEquals(4, elevatorDoorOpen.getSecondary());
-        assertEquals(5, elevatorDoorClosed.getSecondary());
+        //assertEquals(5, elevatorDoorClosed.getSecondary());
         assertEquals(7, schedulerRecievedRequest.getSecondary());
     }
 

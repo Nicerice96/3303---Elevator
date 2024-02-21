@@ -18,7 +18,7 @@ public class ElevatorMovingState extends ElevatorState {
         direction = context.getNextDestination() - context.getCurrentFloor() > 0 ? Direction.UP : Direction.DOWN;
         // lil tick system here
 
-        Instant prevTick = Instant.now();
+        Instant prevTick = Instant.now(); //What do these do?
         Instant firstTick = prevTick;
         Instant floorTick = prevTick;
         Instant approachTick = null;

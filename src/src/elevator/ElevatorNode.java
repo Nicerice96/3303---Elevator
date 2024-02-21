@@ -35,7 +35,8 @@ public class ElevatorNode extends Thread {
      * Initializes elevator properties such as id, current floor, altitude, velocity, state, and data structures.
      */
     public ElevatorNode() {
-        id = ElevatorNode.nextId++;
+        id = ElevatorNode.nextId++; //Why not just do: id = 0??
+        //System.out.println("ID is:"+id);
         currentFloor = 0;
         altitude = 0.0f;
         velocity = 0.0f;
@@ -107,8 +108,13 @@ public class ElevatorNode extends Thread {
     }
 
     public Integer getNextDestination() {
-        if (destinations.isEmpty()) return null;
-        return destinations.get(0);
+        if (destinations.isEmpty()) {
+            return null;
+        }else if(currentFloor == destinations.get(0)){
+            return null;
+        }else {
+            return destinations.get(0);
+        }
     }
 
     public synchronized void clearDestination() {
@@ -135,5 +141,9 @@ public class ElevatorNode extends Thread {
             }
             i++;
         }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+            ElevatorNode aElevator = new ElevatorNode();
     }
 }
