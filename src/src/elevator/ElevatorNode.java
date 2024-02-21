@@ -26,7 +26,7 @@ public class ElevatorNode extends Thread {
     private float altitude;
     public float velocity; // no need for private attribute
     private ElevatorState state;
-    private ArrayList<Integer> destinations;
+    public ArrayList<Integer> destinations;
     private ArrayList<Event> log;
     private ArrayList<Instruction> pendingInstructions;
 
