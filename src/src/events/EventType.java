@@ -1,8 +1,7 @@
 package src.events;
 
 public enum EventType {
-
-
+    ELEVATOR_IDLE_TOO_LONG,
     ELEVATOR_TRAVERSED_FLOOR,
     ELEVATOR_ARRIVED,
     ELEVATOR_DEPARTED,

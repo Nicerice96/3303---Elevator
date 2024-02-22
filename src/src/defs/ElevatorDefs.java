@@ -31,17 +31,16 @@ public class ElevatorDefs {
     public static final long UNLOADING_TIME = 4713; // ms
 
     /**
-     * Acceleration rate of the elevator in meters per second squared (m/s^2).
+     * The acceleration time in milliseconds.
      */
-    public static final float ACCELERATION = 1.0F; // m/s^2
+    public static final long ACCELERATION_TIME = 262; // ms
+    /**
+     * The elevator max speed in (m/s)
+     */
+    public static final float MAX_SPEED = 1.225f; // (m/s)
 
     /**
-     * Deceleration rate of the elevator in meters per second squared (m/s^2).
+     * Tick rate (used for ElevatorMovingState), in milliseconds.
      */
-    public static final float DECELERATION = 1.0F; // m/s^2
-
-    /**
-     * Maximum speed of the elevator in meters per second (m/s).
-     */
-    public static final float MAX_SPEED = 5.0F; // m/s
+    public static final long TICK_RATE = 5; // ms
 }

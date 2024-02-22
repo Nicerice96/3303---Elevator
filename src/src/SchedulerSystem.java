@@ -87,7 +87,7 @@ public class SchedulerSystem extends Thread {
 
     public static void main(String[] args) throws InterruptedException {
         final int FLOOR_NUM = 4;
-        final int ELEVATOR_NUM = 3;
+        final int ELEVATOR_NUM = 1;
 
         for (int i = 0; i < FLOOR_NUM; i++) {
             FloorNode floorSubsystem = new FloorNode(i, "testCase_1.txt");

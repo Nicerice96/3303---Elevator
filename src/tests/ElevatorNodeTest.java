@@ -3,15 +3,11 @@ package tests;
 import org.junit.Before;
 import org.junit.Test;
 import src.elevator.ElevatorNode;
-import java.util.ArrayList;
+import src.instruction.Instruction;
+import src.instruction.Direction;
+
 import static org.junit.Assert.*;
 
-/**
- * The ElevatorNodeTest class is responsible for conducting unit tests on the ElevatorNode class.
- *
- * @author Mahad
- * @version 1.0
- */
 public class ElevatorNodeTest {
 
     private ElevatorNode elevator;
@@ -22,30 +18,49 @@ public class ElevatorNodeTest {
     }
 
     @Test
-    public void testElevatorMovement() {
-        ArrayList<Object> testData = new ArrayList<>();
-        testData.add("Time");
-        testData.add("2"); // Call floor
-        testData.add("UP"); // Direction
-        testData.add("5"); // Destination floor
-
-//        elevator.elevatorData = testData;
-
-        // Call methods to test their functionality
-//        elevator.setDirection();
-//        elevator.setDestination();
-//        elevator.setElevatorCallFloor();
-
-        //TESTS
-        // testing private variables isn't the goal of unit testing, since they are a part of the implementation details,
-        // we should rather test the public API (public methods/attributes) - Hamza
-//        assertEquals(ElevatorDirection.UP, elevator.direction);
-//        assertEquals(5, elevator.destination);
-//        assertEquals(2, elevator.callFloor);
-
-//        elevator.traverseToElevatorCall(); //elevator to the call floor
-//        assertEquals("Elevator should be at call floor before pickup", 2, elevator.currentFloor);
+    public void testAddingPickupInstruction() {
+        Instruction instruction = new Instruction(1, Direction.UP, 2, 5);
+        elevator.addPickup(instruction);
+        assertFalse("Destinations should not be empty after adding a pickup", elevator.destinationsEmpty());
+        assertEquals("The first destination should be the pickup floor", Integer.valueOf(2), elevator.getNextDestination());
 
     }
 
+    @Test
+    public void testUpdateAltitude() {
+        float initialAltitude = elevator.getAltitude();
+        elevator.updateAltitude(5.0f);
+        assertEquals("Altitude should increase by 5.0", initialAltitude + 5.0f, elevator.getAltitude(), 0.01);
+    }
+
+    @Test
+    public void testTraverseUp() {
+        int initialFloor = elevator.getCurrentFloor();
+        elevator.traverse(Direction.UP);
+        assertEquals("Should move up one floor", initialFloor + 1, elevator.getCurrentFloor());
+    }
+
+    @Test
+    public void testTraverseDown() {
+        elevator.traverse(Direction.UP); // initial floor is 0
+        int initialFloor = elevator.getCurrentFloor();
+        elevator.traverse(Direction.DOWN);
+        assertEquals("Should move down one floor", initialFloor - 1, elevator.getCurrentFloor());
+    }
+
+    @Test
+    public void testClearDestination() {
+        Instruction instruction = new Instruction(1, Direction.UP, 2, 5);
+        elevator.addPickup(instruction);
+        assertEquals("Destination should be added", Integer.valueOf(2), elevator.getNextDestination());
+        elevator.clearDestination();
+        assertNull("Destinations should be cleared", elevator.getNextDestination());
+    }
+
+    @Test
+    public void testUnwrapPendingInstructions() {
+        elevator.addPickup(new Instruction(1, Direction.UP, elevator.getCurrentFloor(), 5));
+        elevator.unwrapPendingInstructions();
+        assertTrue("Destination for current floor should be added", elevator.destinations.contains(5));
+    }
 }
