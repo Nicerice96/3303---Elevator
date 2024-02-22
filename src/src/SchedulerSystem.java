@@ -1,37 +1,32 @@
 package src;
 
-import src.elevator.ElevatorNode;
-import src.instruction.Instruction;
-import src.scheduler_state.SchedulerIdleState;
+import src.events.Event;
 import src.scheduler_state.SchedulerState;
+import src.scheduler_state.SchedulerIdleState;
+import src.instruction.Instruction;
+import src.elevator.ElevatorNode;
+import src.events.EventType;
 
 import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-/**
- * Scheduler Sub-system which carries out Scheduler related behavior.
- * This class manages the scheduling of instructions between the floor subsystem and elevator subsystem.
- * Instructions are passed through a blocking queue for synchronization.
- * @authors: Zarif, Nabeel, Arun, Hamza
- * @version: 1.0
- */
 public class SchedulerSystem extends Thread {
-
-    private static ArrayList <ElevatorNode> elevatorNodes = new ArrayList<>();
-
-    /**
-     * Blocking queue to hold instructions between the floor subsystem and elevator subsystem.
-     * It ensures thread safety for adding and retrieving instructions.
-     */
+    private static ArrayList<ElevatorNode> elevatorNodes = new ArrayList<>();
+    private static ArrayList<Event> log = new ArrayList<>();
     private static BlockingQueue<Instruction> instructions = new ArrayBlockingQueue<>(10);
     private static SchedulerState state;
+    public static volatile boolean running = true; // Flag to indicate if the scheduler system should keep running
 
-    /**
-     * Adds an instruction to the scheduler system.
-     *
-     * @param instruction the instruction to be added
-     */
+    public static void stopScheduler(boolean flag) {
+        if (true) {
+            running = false;
+        }
+        else{
+            running = true;
+        }
+    }
+
     public static void addPayload(Instruction instruction) {
         try {
             instructions.put(instruction);
@@ -40,11 +35,6 @@ public class SchedulerSystem extends Thread {
         }
     }
 
-    /**
-     * Retrieves an instruction from the scheduler system.
-     *
-     * @return the retrieved instruction, or null if the queue is empty
-     */
     public static Instruction getPayload() {
         if (instructions.isEmpty()) return null;
         try {
@@ -54,80 +44,71 @@ public class SchedulerSystem extends Thread {
         }
     }
 
+    public static void clearPayLoad() {
+        instructions.clear();
+    }
 
-    public static void pollElevators(){
+    public static void pollElevators() {
         System.out.println("polling?");
-        while (true) {
-
-
-
-            for(Instruction i : instructions) {
-                System.out.println("im here");
-                int min = Integer.MAX_VALUE;
-                ElevatorNode elevatorNode = null;
-                for (ElevatorNode e : elevatorNodes) {
-                    int pickupIndex = e.getPickupIndex(i);
-                    if (pickupIndex < min) {
-                        min = pickupIndex;
-                        elevatorNode = e;
-                    }
+        for (Instruction i : instructions) {
+            int min = Integer.MAX_VALUE;
+            ElevatorNode elevatorNode = null;
+            for (ElevatorNode e : elevatorNodes) {
+                int pickupIndex = e.getPickupIndex(i);
+                if (pickupIndex < min) {
+                    min = pickupIndex;
+                    elevatorNode = e;
                 }
-
-                if (elevatorNode != null) {
-                    elevatorNode.addPickup(i);
-                    instructions.remove(i);
-                }
+            }
+            if (elevatorNode != null) {
+                elevatorNode.addPickup(i);
+                instructions.remove(i);
             }
         }
     }
 
-
-    public static boolean receievedData(){
-
-        if (instructions.isEmpty()){
-            return false;
-        }
-        else{
-            return true;
-        }
-
-
-
+    public static void addEvent(Event event) {
+        log.add(event);
+        System.out.println(event);
     }
-    public static void setState(SchedulerState state) {
+
+    public static SchedulerState getSchedulerState() {
+        return state;
+    }
+
+    public static void setSchedulerState(SchedulerState state) {
         SchedulerSystem.state = state;
         SchedulerSystem.state.handle();
     }
 
-    /**
-     * The main method of the SchedulerSystem class.
-     * It initializes and starts the floor subsystem and elevator subsystem threads.
-     *
-     * @param args command line arguments (not used)
-     * @throws InterruptedException if any thread interrupts the current thread before or while the activity is in progress
-     */
+    public static boolean receievedData() {
+        return !instructions.isEmpty();
+    }
+
     public static void main(String[] args) throws InterruptedException {
         final int FLOOR_NUM = 4;
         final int ELEVATOR_NUM = 1;
 
-
-
-        // Create multiple instances of FloorNode and start its thread
-        for(int i = 0; i < FLOOR_NUM; i++) {
+        for (int i = 0; i < FLOOR_NUM; i++) {
             FloorNode floorSubsystem = new FloorNode(i, "testCase_1.txt");
-            floorSubsystem.setName("floorSubsystem-"+i);
+            floorSubsystem.setName("floorSubsystem-" + i);
             floorSubsystem.start();
             floorSubsystem.join();
         }
 
-        // Create multiple instances of ElevatorNode and start its thread
-        for(int i = 0; i < ELEVATOR_NUM; i++) {
+        for (int i = 0; i < ELEVATOR_NUM; i++) {
             ElevatorNode e = new ElevatorNode();
-            e.setName("elevatorNode-"+i);
+            e.setName("elevatorNode-" + i);
             e.start();
             elevatorNodes.add(e);
         }
-        SchedulerSystem.setState(new SchedulerIdleState());
 
+        SchedulerSystem.setSchedulerState(new SchedulerIdleState());
+
+        // Keep the scheduler system running for some time (for testing purpose)
+        Thread.sleep(5000); // Sleep for 5 seconds
+
+        // Stop the scheduler system (for testing purpose)
+        stopScheduler(true);
     }
 }
