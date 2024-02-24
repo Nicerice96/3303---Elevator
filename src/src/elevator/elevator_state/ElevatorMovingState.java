@@ -40,7 +40,7 @@ public class ElevatorMovingState extends ElevatorState {
                     // stop or continue to next floor
                     context.traverse(direction);
                     context.addEvent(new Event(EventType.ELEVATOR_TRAVERSED_FLOOR, context.getElevatorId(), context.getCurrentFloor()));
-
+                    System.out.println(context.getNextDestination());
                     if (context.getCurrentFloor() == context.getNextDestination()) break;
                     floorTick = tick;
                 } else if(floorDuration > ElevatorDefs.ADJACENT_FLOOR_TIME - ElevatorDefs.ACCELERATION_TIME &&
@@ -55,6 +55,7 @@ public class ElevatorMovingState extends ElevatorState {
                 }
 
             }
+            // vectorize velocity
             context.velocity *= direction.ordinal()*2-1;
             context.updateAltitude(context.velocity * (duration / 1000.0F));
             // clamp altitude

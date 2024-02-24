@@ -108,13 +108,9 @@ public class ElevatorNode extends Thread {
     }
 
     public Integer getNextDestination() {
-        if (destinations.isEmpty()) {
-            return null;
-        }else if(currentFloor == destinations.get(0)){
-            return null;
-        }else {
-            return destinations.get(0);
-        }
+        System.out.println(destinations);
+        if (destinations.isEmpty()) return null;
+        return destinations.get(0);
     }
 
     public synchronized void clearDestination() {
@@ -133,9 +129,11 @@ public class ElevatorNode extends Thread {
         int i = 0;
         while(i < pendingInstructions.size()) {
             Instruction instruction = pendingInstructions.get(i);
-            if (instruction.getPickupFloor() == currentFloor && !destinations.contains(instruction.getDestinationFloor())) {
+            if (instruction.getPickupFloor() == currentFloor) {
                 // TODO: find drop off index, don't insert at the end
-                destinations.add(instruction.getDestinationFloor());
+                if(!destinations.contains(instruction.getDestinationFloor())) {
+                    destinations.add(instruction.getDestinationFloor());
+                }
                 pendingInstructions.remove(i);
                 continue;
             }

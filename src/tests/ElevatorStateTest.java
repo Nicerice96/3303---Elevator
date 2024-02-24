@@ -7,8 +7,7 @@ import src.elevator.ElevatorNode;
 import src.instruction.Direction;
 import src.instruction.Instruction;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 /**
  * The ElevatorStateTest class is responsible for conducting unit tests on the ElevatorState class,
@@ -34,7 +33,7 @@ public class ElevatorStateTest {
     @Test
     public void testGetNextDestination_Null2() {
         elevatorNode.addPickup(new Instruction(1, Direction.DOWN, 0, 0));
-        assertNull(elevatorNode.getNextDestination());
+        assertNotNull(elevatorNode.getNextDestination());
     }
 
     @Test
