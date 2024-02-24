@@ -108,7 +108,6 @@ public class ElevatorNode extends Thread {
     }
 
     public Integer getNextDestination() {
-        System.out.println(destinations);
         if (destinations.isEmpty()) return null;
         return destinations.get(0);
     }
