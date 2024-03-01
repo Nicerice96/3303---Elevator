@@ -6,7 +6,10 @@ import src.elevator.ElevatorNode;
 import src.instruction.Instruction;
 import src.instruction.Direction;
 
+import java.time.LocalTime;
+
 import static org.junit.Assert.*;
+import static src.defs.Defs.TIMESTAMP_FORMATTER;
 
 public class ElevatorNodeTest {
 
@@ -19,7 +22,7 @@ public class ElevatorNodeTest {
 
     @Test
     public void testAddingPickupInstruction() {
-        Instruction instruction = new Instruction(1, Direction.UP, 2, 5);
+        Instruction instruction = new Instruction(LocalTime.parse("00:00:01.000", TIMESTAMP_FORMATTER), Direction.UP, 2, 5);
         elevator.addPickup(instruction);
         assertFalse("Destinations should not be empty after adding a pickup", elevator.destinationsEmpty());
         assertEquals("The first destination should be the pickup floor", Integer.valueOf(2), elevator.getNextDestination());
@@ -50,7 +53,7 @@ public class ElevatorNodeTest {
 
     @Test
     public void testClearDestination() {
-        Instruction instruction = new Instruction(1, Direction.UP, 2, 5);
+        Instruction instruction = new Instruction(LocalTime.parse("00:00:01.000", TIMESTAMP_FORMATTER), Direction.UP, 2, 5);
         elevator.addPickup(instruction);
         assertEquals("Destination should be added", Integer.valueOf(2), elevator.getNextDestination());
         elevator.clearDestination();
@@ -59,7 +62,7 @@ public class ElevatorNodeTest {
 
     @Test
     public void testUnwrapPendingInstructions() {
-        elevator.addPickup(new Instruction(1, Direction.UP, elevator.getCurrentFloor(), 5));
+        elevator.addPickup(new Instruction(LocalTime.parse("00:00:01.000", TIMESTAMP_FORMATTER), Direction.UP, elevator.getCurrentFloor(), 5));
         elevator.unwrapPendingInstructions();
         assertTrue("Destination for current floor should be added", elevator.destinations.contains(5));
     }

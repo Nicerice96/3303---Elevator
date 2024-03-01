@@ -4,8 +4,11 @@ import src.instruction.Direction;
 import src.instruction.Instruction;
 
 import java.io.File;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Scanner;
+
+import static src.defs.Defs.TIMESTAMP_FORMATTER;
 
 /**
  * Floor Sub-system which manages floor-related behavior.
@@ -50,11 +53,10 @@ public class FloorNode extends Thread {
                 }
 
                 System.arraycopy(dataList, 0, previousLine, 0, dataList.length);
-                int timestamp = 0;
+                LocalTime timestamp = LocalTime.parse(dataList[0], TIMESTAMP_FORMATTER);
                 int pickupFloor = 0;
                 int destinationFloor = 0;
                 try {
-                    timestamp = Integer.parseInt(dataList[0]);
                     pickupFloor = Integer.parseInt(dataList[1]);
                     destinationFloor = Integer.parseInt(dataList[3]);
                 } catch (NumberFormatException e) {

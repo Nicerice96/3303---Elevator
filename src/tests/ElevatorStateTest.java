@@ -7,7 +7,10 @@ import src.elevator.ElevatorNode;
 import src.instruction.Direction;
 import src.instruction.Instruction;
 
+import java.time.LocalTime;
+
 import static org.junit.Assert.*;
+import static src.defs.Defs.TIMESTAMP_FORMATTER;
 
 /**
  * The ElevatorStateTest class is responsible for conducting unit tests on the ElevatorState class,
@@ -32,19 +35,19 @@ public class ElevatorStateTest {
 
     @Test
     public void testGetNextDestination_Null2() {
-        elevatorNode.addPickup(new Instruction(1, Direction.DOWN, 0, 0));
+        elevatorNode.addPickup(new Instruction(LocalTime.parse("00:00:01.000", TIMESTAMP_FORMATTER), Direction.DOWN, 0, 0));
         assertNotNull(elevatorNode.getNextDestination());
     }
 
     @Test
     public void testGetNextDestination_1() {
-        elevatorNode.addPickup(new Instruction(1, Direction.UP, 1, 3));
+        elevatorNode.addPickup(new Instruction(LocalTime.parse("00:00:01.000", TIMESTAMP_FORMATTER), Direction.UP, 1, 3));
         assertEquals(Integer.valueOf(1), elevatorNode.getNextDestination());
     }
 
     @Test
     public void testGetNextDestination_Negative1() {
-        elevatorNode.addPickup(new Instruction(1, Direction.UP, -1, 3));
+        elevatorNode.addPickup(new Instruction(LocalTime.parse("00:00:01.000", TIMESTAMP_FORMATTER), Direction.UP, -1, 3));
         assertEquals(Integer.valueOf(-1), elevatorNode.getNextDestination());
     }
 //    private ElevatorNode elevator;
