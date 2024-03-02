@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2024-02-20T01:12:01.046Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="OALErsWGaZoyqr_zuTou" version="23.1.5" type="device">
+<mxfile host="Electron" modified="2024-03-02T18:10:33.523Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="eptQ9bghMkATK-5jDAsn" version="23.1.5" type="device">
   <diagram name="Page-1" id="W-hvJWC9LnS0oZOQdCDl">
-    <mxGraphModel dx="1982" dy="683" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1619" dy="878" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -11,36 +11,36 @@
           <mxGeometry x="-650" y="720" width="1020" height="680" as="geometry" />
         </mxCell>
         <mxCell id="OUGzcpc-ft89BkLeORVE-1" value="ElevatorNode" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="-20" y="4" width="320" height="286" as="geometry" />
+          <mxGeometry x="-20" y="-40" width="320" height="306" as="geometry" />
         </mxCell>
         <mxCell id="JZciVl0iC011m3xnHKb6-45" value="- nextId: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" parent="OUGzcpc-ft89BkLeORVE-1" vertex="1">
           <mxGeometry y="26" width="320" height="24" as="geometry" />
         </mxCell>
-        <mxCell id="OUGzcpc-ft89BkLeORVE-2" value="- id: int&lt;br&gt;- currentFloor: int&lt;br&gt;- altitude: float&lt;br&gt;- velocity: float&lt;br&gt;- state: ElevatorState&lt;br&gt;- destinations: ArrayList&amp;lt;Integer&amp;gt;&lt;br&gt;- log: ArrayList&amp;lt;Event&amp;gt;&lt;br&gt;- pendingInstructions: ArrayList&amp;lt;Instruction&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="OUGzcpc-ft89BkLeORVE-1" vertex="1">
-          <mxGeometry y="50" width="320" height="140" as="geometry" />
+        <mxCell id="OUGzcpc-ft89BkLeORVE-2" value="- id: int&lt;br&gt;- currentFloor: int&lt;br&gt;- sSocket: DatagramSocket&lt;br&gt;- rSocket: DatagramSocket&lt;br&gt;- altitude: float&lt;br&gt;- velocity: float&lt;br&gt;- state: ElevatorState&lt;br&gt;- destinations: ArrayList&amp;lt;Integer&amp;gt;&lt;br&gt;- log: ArrayList&amp;lt;Event&amp;gt;&lt;br&gt;- pendingInstructions: ArrayList&amp;lt;Instruction&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="OUGzcpc-ft89BkLeORVE-1" vertex="1">
+          <mxGeometry y="50" width="320" height="160" as="geometry" />
         </mxCell>
         <mxCell id="OUGzcpc-ft89BkLeORVE-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="OUGzcpc-ft89BkLeORVE-1" vertex="1">
-          <mxGeometry y="190" width="320" height="8" as="geometry" />
+          <mxGeometry y="210" width="320" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="OUGzcpc-ft89BkLeORVE-4" value="+ ElevatorNode(): ElevatorNode&lt;br&gt;+ setState(state: ElevatorState): void&lt;br&gt;+ getPickupIndex(instruction: Instruction): int&lt;br&gt;+ addPickup(instruction: Instruction): void&lt;br&gt;+ run(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="OUGzcpc-ft89BkLeORVE-1" vertex="1">
-          <mxGeometry y="198" width="320" height="88" as="geometry" />
+        <mxCell id="OUGzcpc-ft89BkLeORVE-4" value="+ ElevatorNode(): ElevatorNode&lt;br&gt;+ setState(state: ElevatorState): void&lt;br&gt;+ getPickupIndex(pickup: int): int&lt;br&gt;+ addPickup(instruction: Instruction): void&lt;br&gt;+ run(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="OUGzcpc-ft89BkLeORVE-1" vertex="1">
+          <mxGeometry y="218" width="320" height="88" as="geometry" />
         </mxCell>
         <mxCell id="OUGzcpc-ft89BkLeORVE-5" value="SchedulerSystem" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="450" y="40" width="370" height="200" as="geometry" />
+          <mxGeometry x="450" y="4" width="370" height="250" as="geometry" />
         </mxCell>
-        <mxCell id="OUGzcpc-ft89BkLeORVE-6" value="&lt;u&gt;- instructions BlockingQueue&amp;lt;Instruction&lt;/u&gt;&lt;u&gt;&amp;gt;&lt;br&gt;- log: ArrayList&amp;lt;Event&amp;gt;&lt;br&gt;- state: SchedulerState&lt;br&gt;&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="OUGzcpc-ft89BkLeORVE-5" vertex="1">
-          <mxGeometry y="26" width="370" height="64" as="geometry" />
+        <mxCell id="OUGzcpc-ft89BkLeORVE-6" value="&lt;u&gt;- instructions BlockingQueue&amp;lt;Instruction&lt;/u&gt;&lt;u&gt;&amp;gt;&lt;br&gt;- log: ArrayList&amp;lt;Event&amp;gt;&lt;br&gt;- state: SchedulerState&lt;br&gt;- rSocket: DatagramSocket&lt;br&gt;- sSocket: DatagramSocket&lt;br&gt;- elevators: HashMap&amp;lt;Integer, Integer&amp;gt;&lt;br&gt;- floors: HashMap&amp;lt;Integer, Integer&amp;gt;&lt;br&gt;&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="OUGzcpc-ft89BkLeORVE-5" vertex="1">
+          <mxGeometry y="26" width="370" height="114" as="geometry" />
         </mxCell>
         <mxCell id="OUGzcpc-ft89BkLeORVE-7" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="OUGzcpc-ft89BkLeORVE-5" vertex="1">
-          <mxGeometry y="90" width="370" height="8" as="geometry" />
+          <mxGeometry y="140" width="370" height="8" as="geometry" />
         </mxCell>
         <mxCell id="OUGzcpc-ft89BkLeORVE-8" value="&lt;u&gt;+ addInstruction(instruction: Instruction): void&lt;/u&gt;&lt;br&gt;&lt;u&gt;+ getInstruction(): Instruction&lt;/u&gt;&lt;br&gt;+ getElapsedTime(): long&lt;br&gt;+ setState(state: SchedulerState): void&lt;br&gt;&lt;u&gt;+ main(args: String[]): void&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="OUGzcpc-ft89BkLeORVE-5" vertex="1">
-          <mxGeometry y="98" width="370" height="102" as="geometry" />
+          <mxGeometry y="148" width="370" height="102" as="geometry" />
         </mxCell>
         <mxCell id="OUGzcpc-ft89BkLeORVE-9" value="FloorNode" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="910" y="130" width="300" height="186" as="geometry" />
         </mxCell>
-        <mxCell id="CccvZBvPhkPoPK1yr44a-7" value="- floor: int&lt;br&gt;- filename: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="OUGzcpc-ft89BkLeORVE-9">
+        <mxCell id="CccvZBvPhkPoPK1yr44a-7" value="- floor: int&lt;br&gt;- filename: String&lt;br&gt;- rSocket: DatagramSocket&lt;br&gt;- sSocket: DatagramSocket" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="OUGzcpc-ft89BkLeORVE-9" vertex="1">
           <mxGeometry y="26" width="300" height="76" as="geometry" />
         </mxCell>
         <mxCell id="OUGzcpc-ft89BkLeORVE-11" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="OUGzcpc-ft89BkLeORVE-9" vertex="1">

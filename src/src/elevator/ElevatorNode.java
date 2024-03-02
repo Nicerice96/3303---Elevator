@@ -1,5 +1,6 @@
 package src.elevator;
 
+import src.FloorNode;
 import src.elevator.elevator_state.ElevatorIdleState;
 import src.elevator.elevator_state.ElevatorState;
 import src.events.Event;
@@ -7,6 +8,8 @@ import src.events.EventType;
 import src.instruction.Direction;
 import src.instruction.Instruction;
 
+import java.net.DatagramSocket;
+import java.net.SocketException;
 import java.util.ArrayList;
 
 import static java.lang.Math.abs;
@@ -137,6 +140,17 @@ public class ElevatorNode extends Thread {
                 continue;
             }
             i++;
+        }
+    }
+
+    public static void main(String[] args) {
+        final int ELEVATOR_NUM = 1;
+
+
+        for (int i = 0; i < ELEVATOR_NUM; i++) {
+            ElevatorNode e = new ElevatorNode();
+            e.setName("elevatorNode-" + i);
+            e.start();
         }
     }
 }

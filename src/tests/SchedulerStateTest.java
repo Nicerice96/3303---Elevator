@@ -3,12 +3,9 @@ package tests;
 import org.junit.After;
 import org.junit.Test;
 import src.SchedulerSystem;
-import src.elevator.ElevatorNode;
 import src.instruction.Direction;
 import src.instruction.Instruction;
 import src.scheduler_state.SchedulerIdleState;
-import src.scheduler_state.SchedulerProcessingRequestState;
-import src.scheduler_state.SchedulerState;
 
 import java.time.LocalTime;
 

@@ -36,6 +36,6 @@ public class Instruction {
 
     @Override
     public String toString() {
-        return String.format("Instruction - timestamp: %d, pickup: %d, direction: %s, destination: %s", timestamp, pickupFloor, buttonDirection, destinationFloor);
+        return String.format("Instruction - %d|%d|%s|%s", timestamp, pickupFloor, buttonDirection, destinationFloor);
     }
 }

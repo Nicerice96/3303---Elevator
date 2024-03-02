@@ -5,14 +5,17 @@ import src.scheduler_state.SchedulerState;
 import src.scheduler_state.SchedulerIdleState;
 import src.instruction.Instruction;
 import src.elevator.ElevatorNode;
-import src.events.EventType;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 public class SchedulerSystem extends Thread {
-    private static ArrayList<ElevatorNode> elevatorNodes = new ArrayList<>();
+    // [elevator.id, port]
+    private static final HashMap<Integer, Integer> elevators = new HashMap<>();
+    // [floor.floor, port]
+    private static final HashMap<Integer, Integer> floors = new HashMap<>();
     private static ArrayList<Event> log = new ArrayList<>();
     private static BlockingQueue<Instruction> instructions = new ArrayBlockingQueue<>(10);
     private static SchedulerState state;
@@ -49,22 +52,22 @@ public class SchedulerSystem extends Thread {
     }
 
     public static void pollElevators() {
-        System.out.println("polling?");
-        for (Instruction i : instructions) {
-            int min = Integer.MAX_VALUE;
-            ElevatorNode elevatorNode = null;
-            for (ElevatorNode e : elevatorNodes) {
-                int pickupIndex = e.getPickupIndex(i);
-                if (pickupIndex < min) {
-                    min = pickupIndex;
-                    elevatorNode = e;
-                }
-            }
-            if (elevatorNode != null) {
-                elevatorNode.addPickup(i);
-                instructions.remove(i);
-            }
-        }
+        // TODO: move this to SchedulerProcessingFloorRequestState and update it to adapt to the sockets
+//        for (Instruction i : instructions) {
+//            int min = Integer.MAX_VALUE;
+//            ElevatorNode elevatorNode = null;
+//            for (ElevatorNode e : elevatorNodes) {
+//                int pickupIndex = e.getPickupIndex(i);
+//                if (pickupIndex < min) {
+//                    min = pickupIndex;
+//                    elevatorNode = e;
+//                }
+//            }
+//            if (elevatorNode != null) {
+//                elevatorNode.addPickup(i);
+//                instructions.remove(i);
+//            }
+//        }
     }
 
     public static void addEvent(Event event) {
@@ -81,34 +84,11 @@ public class SchedulerSystem extends Thread {
         SchedulerSystem.state.handle();
     }
 
-    public static boolean receievedData() {
+    public static boolean receivedData() {
         return !instructions.isEmpty();
     }
 
     public static void main(String[] args) throws InterruptedException {
-        final int FLOOR_NUM = 4;
-        final int ELEVATOR_NUM = 1;
-
-        for (int i = 0; i < FLOOR_NUM; i++) {
-            FloorNode floorSubsystem = new FloorNode(i, "testCase_1.txt");
-            floorSubsystem.setName("floorSubsystem-" + i);
-            floorSubsystem.start();
-            floorSubsystem.join();
-        }
-
-        for (int i = 0; i < ELEVATOR_NUM; i++) {
-            ElevatorNode e = new ElevatorNode();
-            e.setName("elevatorNode-" + i);
-            e.start();
-            elevatorNodes.add(e);
-        }
-
         SchedulerSystem.setSchedulerState(new SchedulerIdleState());
-
-        // Keep the scheduler system running for some time (for testing purpose)
-        Thread.sleep(5000); // Sleep for 5 seconds
-
-        // Stop the scheduler system (for testing purpose)
-        stopScheduler(true);
     }
 }

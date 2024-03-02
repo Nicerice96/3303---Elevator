@@ -38,7 +38,7 @@ public class EventTest {
         elevatorDoorClosing = new Event(ELEVATOR_DOOR_CLOSING);
         elevatorDoorClosed = new Event(ELEVATOR_DOOR_CLOSED, 0);
         elevatorRecievedRequest = new Event(ELEVATOR_RECEIVED_REQUEST);
-        schedulerRecievedRequest = new Event(SCHEDULER_RECEIVED_REQUEST, -1, 7);
+        schedulerRecievedRequest = new Event(SCHEDULER_RECEIVED_FLOOR_REQUEST, -1, 7);
     }
 
     @Test
@@ -53,7 +53,7 @@ public class EventTest {
         assertEquals(EventType.ELEVATOR_DOOR_CLOSING, elevatorDoorClosing.getEventType());
         assertEquals(EventType.ELEVATOR_DOOR_CLOSED,  elevatorDoorClosed.getEventType());
         assertEquals(EventType.ELEVATOR_RECEIVED_REQUEST,  elevatorRecievedRequest.getEventType());
-        assertEquals(EventType.SCHEDULER_RECEIVED_REQUEST,  schedulerRecievedRequest.getEventType());
+        assertEquals(EventType.SCHEDULER_RECEIVED_FLOOR_REQUEST,  schedulerRecievedRequest.getEventType());
 
     }
 

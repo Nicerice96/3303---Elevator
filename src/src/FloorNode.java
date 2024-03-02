@@ -84,6 +84,22 @@ public class FloorNode extends Thread {
      */
     @Override
     public void run() {
+        // TODO: register floor and wait infinitely for incoming messages
         parseData();
+    }
+
+
+    public static void main(String[] args) {
+        final int FLOOR_NUM = 4;
+        for (int i = 0; i < FLOOR_NUM; i++) {
+            FloorNode floorSubsystem = new FloorNode(i, "testCase_1.txt");
+            floorSubsystem.setName("floorSubsystem-" + i);
+            floorSubsystem.start();
+            try {
+                floorSubsystem.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }
