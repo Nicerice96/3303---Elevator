@@ -2,6 +2,8 @@ package src.instruction;
 
 import java.time.LocalTime;
 
+import static src.defs.Defs.TIMESTAMP_FORMATTER;
+
 /**
  * Class representation of an elevator instruction that is read from a text file.
  * @author Hamza
@@ -27,6 +29,25 @@ public class Instruction {
         this.destinationFloor = destinationFloor;
     }
 
+    /**
+     * Creates an instruction from the toString() method
+     * @return parsed Instruction
+     */
+    public static Instruction parse(String instruction) {
+        String clean = instruction.strip().replace("Instruction - ", "");
+        String[] seg = clean.split("\\|");
+        LocalTime timestamp = LocalTime.parse(seg[0], TIMESTAMP_FORMATTER);
+        int pickupFloor, destinationFloor;
+        Direction direction = seg[2].equals("DOWN") ? Direction.DOWN : Direction.UP;
+        try {
+            pickupFloor = Integer.parseInt(seg[1]);
+            destinationFloor = Integer.parseInt(seg[3]);
+        } catch(NumberFormatException e) {
+            throw new RuntimeException(e);
+        }
+        return new Instruction(timestamp, direction, pickupFloor, destinationFloor);
+    }
+
 
     // Getters
     public LocalTime getTimestamp() { return timestamp; }
@@ -36,6 +57,6 @@ public class Instruction {
 
     @Override
     public String toString() {
-        return String.format("Instruction - %d|%d|%s|%s", timestamp, pickupFloor, buttonDirection, destinationFloor);
+        return String.format("Instruction - %s|%d|%s|%d", timestamp.format(TIMESTAMP_FORMATTER), pickupFloor, buttonDirection, destinationFloor);
     }
 }

@@ -57,4 +57,47 @@ public class InstructionTest {
         // Assert
         assertEquals(expectedDestinationFloor, instruction.getDestinationFloor());
     }
+
+    @Test
+    public void testParser1() {
+        //set up
+        LocalTime expectedTimestamp = LocalTime.parse("00:00:05.000", TIMESTAMP_FORMATTER);
+        Direction direction = Direction.UP;
+        int pickup = 1, destination = 4;
+        Instruction instruction = Instruction.parse(new Instruction(expectedTimestamp, direction, pickup, destination).toString());
+
+        // Assert
+        assertEquals(expectedTimestamp, instruction.getTimestamp());
+        assertEquals(direction, instruction.getButtonDirection());
+        assertEquals(pickup, instruction.getPickupFloor());
+        assertEquals(destination, instruction.getDestinationFloor());
+    }
+    @Test
+    public void testParser2() {
+        //set up
+        LocalTime expectedTimestamp = LocalTime.parse("00:00:05.000", TIMESTAMP_FORMATTER);
+        Direction direction = Direction.DOWN;
+        int pickup = 10, destination = -10;
+        Instruction instruction = Instruction.parse(new Instruction(expectedTimestamp, direction, pickup, destination).toString());
+
+        // Assert
+        assertEquals(expectedTimestamp, instruction.getTimestamp());
+        assertEquals(direction, instruction.getButtonDirection());
+        assertEquals(pickup, instruction.getPickupFloor());
+        assertEquals(destination, instruction.getDestinationFloor());
+    }
+    @Test
+    public void testParserWhitespace() {
+        //set up
+        LocalTime expectedTimestamp = LocalTime.parse("00:00:05.000", TIMESTAMP_FORMATTER);
+        Direction direction = Direction.DOWN;
+        int pickup = 10, destination = -10;
+        Instruction instruction = Instruction.parse(" " + new Instruction(expectedTimestamp, direction, pickup, destination).toString() + " ");
+
+        // Assert
+        assertEquals(expectedTimestamp, instruction.getTimestamp());
+        assertEquals(direction, instruction.getButtonDirection());
+        assertEquals(pickup, instruction.getPickupFloor());
+        assertEquals(destination, instruction.getDestinationFloor());
+    }
 }
