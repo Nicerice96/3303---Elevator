@@ -4,6 +4,8 @@ import src.instruction.Direction;
 import src.instruction.Instruction;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -15,6 +17,10 @@ import java.util.Scanner;
  * @version: 1.0
  */
 public class FloorNode extends Thread {
+
+    private DatagramSocket FloorsendSocket;
+
+    private DatagramSocket FloorreceiveSocket;
     private String filename;
     private final int floor;
 
@@ -27,6 +33,15 @@ public class FloorNode extends Thread {
         super();
         this.floor = floor;
         this.filename = filename;
+
+        try {
+            FloorsendSocket = new DatagramSocket(7000 + this.floor);
+            FloorreceiveSocket = new DatagramSocket(8000 + this.floor);
+
+        } catch (SocketException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     /**
@@ -76,12 +91,36 @@ public class FloorNode extends Thread {
         }
     }
 
+    public void registerPort(){
+
+        String string = "registered floor " + this.floor +  " Receieve Port: " + this.FloorreceiveSocket.getLocalPort() + " Send Port " + this.FloorsendSocket.getLocalPort();
+
+        byte [] message = string.getBytes();
+
+        try {
+            DatagramPacket registerFloorPacket = new DatagramPacket(message, message.length, InetAddress.getLocalHost(), 5000);
+            this.FloorsendSocket.send(registerFloorPacket);
+        }
+        catch (UnknownHostException e){
+            System.out.println(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+
+    public void generateInstructionPacket(){
+
+    }
+
     /**
      * Overrides the run method of Thread class.
      * Calls the parseData method to start processing floor instructions.
      */
     @Override
     public void run() {
+        registerPort();
         parseData();
     }
 }
