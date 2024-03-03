@@ -93,7 +93,7 @@ public class FloorNode extends Thread {
 
     public void registerPort(){
 
-        String string = "registered floor " + this.floor +  " Receieve Port: " + this.FloorreceiveSocket.getLocalPort() + " Send Port " + this.FloorsendSocket.getLocalPort();
+        String string = "registered floor " + this.floor +  " Receive Port: " + this.FloorreceiveSocket.getLocalPort() + " Send Port: " + this.FloorsendSocket.getLocalPort();
 
         byte [] message = string.getBytes();
 
