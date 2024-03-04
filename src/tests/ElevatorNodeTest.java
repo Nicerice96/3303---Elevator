@@ -66,4 +66,19 @@ public class ElevatorNodeTest {
         elevator.unwrapPendingInstructions();
         assertTrue("Destination for current floor should be added", elevator.destinations.contains(5));
     }
+
+    @Test
+    public void testDirectionNull() {
+        assertNull(elevator.getDirection());
+    }
+    @Test
+    public void testDirectionUp() {
+        elevator.addPickup(new Instruction(LocalTime.parse("00:00:01.000", TIMESTAMP_FORMATTER), Direction.UP, elevator.getCurrentFloor()+2, 5));
+        assertEquals(elevator.getDirection(), Direction.UP);
+    }
+    @Test
+    public void testDirectionDown() {
+        elevator.addPickup(new Instruction(LocalTime.parse("00:00:01.000", TIMESTAMP_FORMATTER), Direction.UP, elevator.getCurrentFloor()-2, 5));
+        assertEquals(elevator.getDirection(), Direction.DOWN);
+    }
 }

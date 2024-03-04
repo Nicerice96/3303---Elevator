@@ -59,8 +59,40 @@ public class ElevatorNode extends Thread {
      * @return the index where the pickup floor should be inserted
      */
     public int getPickupIndex(Instruction instruction) {
-        // TODO: implement method
-        return destinations.size();
+        int index = 0;
+        int pickup = instruction.getPickupFloor();
+        Direction directionToPickup = instruction.getPickupFloor() - getCurrentFloor() > 0 ? Direction.UP : Direction.DOWN;
+        int prevDestination = getCurrentFloor();
+        Direction prevDirection = getDirection();
+        for(int i = 0; i < destinations.size(); i++) {
+            int curDestination = destinations.get(i);
+            Direction curDirection = curDestination - prevDestination > 0 ? Direction.UP : Direction.DOWN;
+            if(curDirection == instruction.getButtonDirection() && curDirection == directionToPickup) {
+                if (pickup < curDestination) break;
+            }
+
+            // find if pickup is on the way
+            int min = Math.min(prevDestination, curDestination);
+            int max = Math.max(prevDestination, curDestination);
+            if(min < pickup && pickup < max && curDirection != directionToPickup) {
+                break;
+            }
+            index++;
+            prevDirection = curDirection;
+            prevDestination = curDestination;
+        }
+
+        return index;
+    }
+
+    /**
+     * Calculates the elevator direction based on the next destination
+     * @return null if the elevator isn't going anywhere, otherwise the direction the elevator needs to go to get to
+     * its next destination
+     */
+    public Direction getDirection() {
+        if(destinations.isEmpty()) return null;
+        return getNextDestination() - currentFloor > 0 ? Direction.UP : Direction.DOWN;
     }
 
     /**
@@ -79,7 +111,6 @@ public class ElevatorNode extends Thread {
         pendingInstructions.add(instruction);
         destinations.add(getPickupIndex(instruction), instruction.getPickupFloor());
         addEvent(new Event(EventType.ELEVATOR_RECEIVED_REQUEST, id, instruction.getPickupFloor()));
-        System.out.println(this.id + " " + destinations);
     }
     /**
      * Sets the state of the elevator.
@@ -116,6 +147,7 @@ public class ElevatorNode extends Thread {
     }
 
     public synchronized void clearDestination() {
+        if(destinations.isEmpty()) return;
         destinations.remove(0);
     }
     /**
@@ -132,9 +164,9 @@ public class ElevatorNode extends Thread {
         while(i < pendingInstructions.size()) {
             Instruction instruction = pendingInstructions.get(i);
             if (instruction.getPickupFloor() == currentFloor) {
-                // TODO: find drop off index, don't insert at the end
                 if(!destinations.contains(instruction.getDestinationFloor())) {
-                    destinations.add(instruction.getDestinationFloor());
+                    Instruction temp = new Instruction(instruction.getTimestamp(), getDirection(), instruction.getDestinationFloor(), Integer.MAX_VALUE);
+                    destinations.add(getPickupIndex(temp), instruction.getDestinationFloor());
                 }
                 pendingInstructions.remove(i);
                 continue;
