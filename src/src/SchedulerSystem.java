@@ -47,6 +47,10 @@ public class SchedulerSystem extends Thread {
         }
     }
 
+    public static boolean receivedData() {
+        return !instructions.isEmpty();
+    }
+
 
     public static void sendAndReceive() {
 
