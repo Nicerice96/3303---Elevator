@@ -5,18 +5,17 @@ import src.scheduler_state.SchedulerState;
 import src.scheduler_state.SchedulerIdleState;
 import src.instruction.Instruction;
 import src.elevator.ElevatorNode;
-import src.events.EventType;
 
-import javax.xml.crypto.Data;
+
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.HashMap;
-import java.util.List;
+
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.regex.Matcher;
@@ -94,6 +93,7 @@ public class SchedulerSystem extends Thread {
 
     public static void receivePacket() throws IOException {
 
+
         byte[] messagercv = new byte[1024];
         DatagramPacket rcvpacket = new DatagramPacket(messagercv, 1024);
 
@@ -127,6 +127,7 @@ public class SchedulerSystem extends Thread {
                     } if (encryptionNum.get(0) == 1) {
 
                         System.out.println("Scheduler Received Instruction Packet: " + new String(rcvpacket.getData()));
+
 
                     }
                 } catch (IOException | RuntimeException e) {
@@ -217,12 +218,16 @@ public class SchedulerSystem extends Thread {
         }
 
 
+
+
         for (int i = 0; i < ELEVATOR_NUM; i++) {
+
             ElevatorNode e = new ElevatorNode();
             e.setName("elevatorNode-" + i);
             e.start();
             elevatorNodes.add(e);
         }
+
 
 
         SchedulerSystem.setSchedulerState(new SchedulerIdleState());

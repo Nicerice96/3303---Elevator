@@ -86,9 +86,9 @@ public class FloorNode extends Thread {
                 sendInstructionPacket(instruction);
 
                 SchedulerSystem.addPayload(instruction);
-                System.out.println("test222");
+
                 SchedulerSystem.receivePacket();
-                System.out.println("test3434334");
+
             }
 
 
