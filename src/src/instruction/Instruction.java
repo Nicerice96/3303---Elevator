@@ -40,8 +40,8 @@ public class Instruction {
         int pickupFloor, destinationFloor;
         Direction direction = seg[2].equals("DOWN") ? Direction.DOWN : Direction.UP;
         try {
-            pickupFloor = Integer.parseInt(seg[1]);
-            destinationFloor = Integer.parseInt(seg[3]);
+            pickupFloor = Integer.parseInt(seg[1].trim());
+            destinationFloor = Integer.parseInt(seg[3].trim());
         } catch(NumberFormatException e) {
             throw new RuntimeException(e);
         }

@@ -132,8 +132,10 @@ public class SchedulerSystem extends Thread {
                     } if (encryptionNum.get(0) == 1) {
 
                         String instructionString = new String(rcvpacket.getData()).substring(3); // Assuming [1] is always at the start
-                        //Instruction instruction = Instruction.parse(instructionString);
                         System.out.println("Scheduler Received Instruction Packet: " + instructionString);
+
+                        Instruction instruction = Instruction.parse(instructionString);
+                        addPayload(instruction);
 
 
                     }
