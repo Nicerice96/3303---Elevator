@@ -74,7 +74,6 @@ public class SchedulerSystem extends Thread {
 
         }
 
-        System.out.println(results);
 
         return results;
 
@@ -119,7 +118,6 @@ public class SchedulerSystem extends Thread {
                         if (matcher.find()) {
                             String numberStr = matcher.group(1);
                             int number = Integer.parseInt(numberStr);
-                            System.out.println("Number inside []: " + number);
 
                             floorPhoneBook.put(number, rcvpacket);
                         } else {
@@ -133,7 +131,7 @@ public class SchedulerSystem extends Thread {
                         try {
                             SchedulerReceive.receive(recieveDatagramPacket);
 
-                            System.out.println("Received Instruction Packet: " + new String(recieveDatagramPacket.getData()));
+                            System.out.println("Scheduler Received Instruction Packet: " + new String(recieveDatagramPacket.getData()));
 
                         } catch (IOException e) {
                             throw new RuntimeException(e);
@@ -226,7 +224,9 @@ public class SchedulerSystem extends Thread {
             floorSubsystem.setName("floorSubsystem-" + i);
             floorSubsystem.start();
             floorSubsystem.join();
+
         }
+
 
         for (int i = 0; i < ELEVATOR_NUM; i++) {
             ElevatorNode e = new ElevatorNode();
@@ -235,7 +235,9 @@ public class SchedulerSystem extends Thread {
             elevatorNodes.add(e);
         }
 
-        SchedulerSystem.receivePacket();
+
+
+
 
         SchedulerSystem.setSchedulerState(new SchedulerIdleState());
 

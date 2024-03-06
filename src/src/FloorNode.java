@@ -85,7 +85,11 @@ public class FloorNode extends Thread {
                 Instruction instruction = new Instruction(timestamp, dataList[2].equals("DOWN") ? Direction.DOWN : Direction.UP, pickupFloor, destinationFloor);
                 sendInstructionPacket(instruction);
                 SchedulerSystem.addPayload(instruction);
+
+
+
             }
+
 
             scanner.close();
         } catch (Exception e) {
@@ -116,12 +120,11 @@ public class FloorNode extends Thread {
 
     public void sendInstructionPacket(Instruction instruction){
 
-        System.out.println(instruction.toString());
+
         byte [] sendInstructionPacket = ("[1]" + instruction).getBytes();
 
         try {
             DatagramPacket instructionPacket = new DatagramPacket(sendInstructionPacket, sendInstructionPacket.length, InetAddress.getLocalHost(), 5000);
-            System.out.println("Floor " + this.floor + " is sending instruction!");
             FloorsendSocket.send(instructionPacket);
 
         } catch (IOException e) {
@@ -139,5 +142,12 @@ public class FloorNode extends Thread {
     public void run() {
         registerPort();
         parseData();
+        try {
+            SchedulerSystem.receivePacket(); //this is such a cheat but it should work
+        } catch (IOException e) {
+
+        }
+
+
     }
 }
