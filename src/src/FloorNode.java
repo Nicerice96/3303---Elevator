@@ -84,11 +84,9 @@ public class FloorNode extends Thread {
                 
                 Instruction instruction = new Instruction(timestamp, dataList[2].equals("DOWN") ? Direction.DOWN : Direction.UP, pickupFloor, destinationFloor);
                 sendInstructionPacket(instruction);
-
+                
                 SchedulerSystem.addPayload(instruction);
-                System.out.println("test222");
                 SchedulerSystem.receivePacket();
-                System.out.println("test3434334");
             }
 
 

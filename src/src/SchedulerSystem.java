@@ -1,5 +1,6 @@
 package src;
 
+import static src.defs.Defs.TIMESTAMP_FORMATTER;
 import src.events.Event;
 import src.scheduler_state.SchedulerState;
 import src.scheduler_state.SchedulerIdleState;
@@ -13,6 +14,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.sql.SQLOutput;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -21,6 +23,8 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import src.instruction.Direction;
+
 
 public class SchedulerSystem extends Thread {
     private static ArrayList<ElevatorNode> elevatorNodes = new ArrayList<>();
@@ -126,7 +130,9 @@ public class SchedulerSystem extends Thread {
 
                     } if (encryptionNum.get(0) == 1) {
 
-                        System.out.println("Scheduler Received Instruction Packet: " + new String(rcvpacket.getData()));
+                        String instructionString = new String(rcvpacket.getData()).substring(3); // Assuming [1] is always at the start
+                        //Instruction instruction = Instruction.parse(instructionString);
+                        System.out.println("Scheduler Received Instruction Packet: " + instructionString);
 
                     }
                 } catch (IOException | RuntimeException e) {
