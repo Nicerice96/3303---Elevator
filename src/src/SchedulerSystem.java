@@ -12,9 +12,11 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.regex.Matcher;
@@ -55,52 +57,93 @@ public class SchedulerSystem extends Thread {
         return !instructions.isEmpty();
     }
 
-    public void receiveInstructionPacket(){
 
-        byte [] recievePacket = new byte[1024];
-        DatagramPacket recieveDatagramPacket = new DatagramPacket(recievePacket, recievePacket.length);
+    public static ArrayList<Integer> decodePacket(String message){
 
-        try {
-            SchedulerReceive.receive(recieveDatagramPacket);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        ArrayList<Integer> results = new ArrayList<>();
+        Pattern pattern = Pattern.compile("\\[(\\d+)\\]");
+
+        // Match the pattern against the message
+        Matcher matcher = pattern.matcher(message);
+
+        // Check if the pattern is found and extract the number
+        while (matcher.find()) {
+            String numberStr = matcher.group(1);
+            int number = Integer.parseInt(numberStr);
+            results.add(number);
+
         }
+
+        System.out.println(results);
+
+        return results;
+
+
     }
 
-    public static void receiveRegistration() {
+//    public void receiveInstructionPacket(){
+//
+//        byte [] recievePacket = new byte[1024];
+//        DatagramPacket recieveDatagramPacket = new DatagramPacket(recievePacket, recievePacket.length);
+//
+//        try {
+//            SchedulerReceive.receive(recieveDatagramPacket);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
+    public static void receivePacket() throws IOException {
 
         byte[] messagercv = new byte[1024];
         DatagramPacket rcvpacket = new DatagramPacket(messagercv, 1024);
-        try {
-            SchedulerReceive.receive(rcvpacket);
-
-            String message = new String(rcvpacket.getData());
-            System.out.println("OK receieved: " + message);
 
 
-            Pattern pattern = Pattern.compile("\\[(\\d+)\\]");
+                try {
+                    SchedulerReceive.receive(rcvpacket);
+                    ArrayList<Integer> encryptionNum = decodePacket(new String(rcvpacket.getData()));
 
-            // Match the pattern against the message
-            Matcher matcher = pattern.matcher(message);
-
-            // Check if the pattern is found and extract the number
-            if (matcher.find()) {
-                String numberStr = matcher.group(1);
-                int number = Integer.parseInt(numberStr);
-                System.out.println("Number inside []: " + number);
-
-                floorPhoneBook.put(number, rcvpacket);
-            } else {
-                System.out.println("No number encased in [] found.");
-            }
+                    if (encryptionNum.get(0) == 0) {
 
 
+                        String message = new String(rcvpacket.getData());
+                        System.out.println("OK receieved: " + message);
 
 
+                        Pattern pattern = Pattern.compile("\\[(\\d+)\\]");
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+                        // Match the pattern against the message
+                        Matcher matcher = pattern.matcher(message);
+
+                        // Check if the pattern is found and extract the number
+                        if (matcher.find()) {
+                            String numberStr = matcher.group(1);
+                            int number = Integer.parseInt(numberStr);
+                            System.out.println("Number inside []: " + number);
+
+                            floorPhoneBook.put(number, rcvpacket);
+                        } else {
+                            System.out.println("No number encased in [] found.");
+                        }
+                    } if (encryptionNum.get(0) == 1) {
+
+
+                        byte[] recievePacket = new byte[1024];
+                        DatagramPacket recieveDatagramPacket = new DatagramPacket(recievePacket, recievePacket.length);
+                        try {
+                            SchedulerReceive.receive(recieveDatagramPacket);
+
+                            System.out.println("Received Instruction Packet: " + new String(recieveDatagramPacket.getData()));
+
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                } catch (IOException | RuntimeException e) {
+                    throw new RuntimeException(e);
+                }
+
+
     }
 
 
@@ -172,7 +215,7 @@ public class SchedulerSystem extends Thread {
         return !instructions.isEmpty();
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, IOException {
         final int FLOOR_NUM = 4;
         final int ELEVATOR_NUM = 1;
 
@@ -192,7 +235,7 @@ public class SchedulerSystem extends Thread {
             elevatorNodes.add(e);
         }
 
-        SchedulerSystem.receiveRegistration();
+        SchedulerSystem.receivePacket();
 
         SchedulerSystem.setSchedulerState(new SchedulerIdleState());
 

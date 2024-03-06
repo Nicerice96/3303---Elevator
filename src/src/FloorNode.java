@@ -95,7 +95,9 @@ public class FloorNode extends Thread {
 
     public void registerPort(){
 
-        String string = "registered floor [" + this.floor +  "] Receive Port: " + this.FloorreceiveSocket.getLocalPort() + " Send Port: " + this.FloorsendSocket.getLocalPort();
+        String string = "[0]registered floor [" + this.floor +  "] Receive Port: " + this.FloorreceiveSocket.getLocalPort() + " Send Port: " + this.FloorsendSocket.getLocalPort();
+
+
 
         byte [] message = string.getBytes();
 
@@ -115,11 +117,13 @@ public class FloorNode extends Thread {
     public void sendInstructionPacket(Instruction instruction){
 
         System.out.println(instruction.toString());
-        byte [] sendInstructionPacket = instruction.toString().getBytes();
+        byte [] sendInstructionPacket = ("[1]" + instruction).getBytes();
 
         try {
             DatagramPacket instructionPacket = new DatagramPacket(sendInstructionPacket, sendInstructionPacket.length, InetAddress.getLocalHost(), 5000);
+            System.out.println("Floor " + this.floor + " is sending instruction!");
             FloorsendSocket.send(instructionPacket);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
