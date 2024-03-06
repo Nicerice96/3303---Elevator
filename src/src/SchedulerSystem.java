@@ -17,6 +17,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SchedulerSystem extends Thread {
     private static ArrayList<ElevatorNode> elevatorNodes = new ArrayList<>();
@@ -24,6 +26,8 @@ public class SchedulerSystem extends Thread {
     private static BlockingQueue<Instruction> instructions = new ArrayBlockingQueue<>(10);
     private static SchedulerState state;
     public static volatile boolean running = true; // Flag to indicate if the scheduler system should keep running
+
+    public static HashMap<Integer, DatagramPacket> floorPhoneBook = new HashMap<>();
 
 
 
@@ -51,18 +55,55 @@ public class SchedulerSystem extends Thread {
         return !instructions.isEmpty();
     }
 
+    public void receiveInstructionPacket(){
 
-    public static void sendAndReceive() {
+        byte [] recievePacket = new byte[1024];
+        DatagramPacket recieveDatagramPacket = new DatagramPacket(recievePacket, recievePacket.length);
 
-        byte[] messagercv = new byte[100];
-        DatagramPacket rcvpacket = new DatagramPacket(messagercv, 100);
         try {
-            SchedulerReceive.receive(rcvpacket);
-            System.out.println("OK receieved: " + new String(rcvpacket.getData()));
+            SchedulerReceive.receive(recieveDatagramPacket);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
+    public static void receiveRegistration() {
+
+        byte[] messagercv = new byte[1024];
+        DatagramPacket rcvpacket = new DatagramPacket(messagercv, 1024);
+        try {
+            SchedulerReceive.receive(rcvpacket);
+
+            String message = new String(rcvpacket.getData());
+            System.out.println("OK receieved: " + message);
+
+
+            Pattern pattern = Pattern.compile("\\[(\\d+)\\]");
+
+            // Match the pattern against the message
+            Matcher matcher = pattern.matcher(message);
+
+            // Check if the pattern is found and extract the number
+            if (matcher.find()) {
+                String numberStr = matcher.group(1);
+                int number = Integer.parseInt(numberStr);
+                System.out.println("Number inside []: " + number);
+
+                floorPhoneBook.put(number, rcvpacket);
+            } else {
+                System.out.println("No number encased in [] found.");
+            }
+
+
+
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
     public static void stopScheduler(boolean flag) {
         if (true) {
@@ -151,7 +192,7 @@ public class SchedulerSystem extends Thread {
             elevatorNodes.add(e);
         }
 
-        SchedulerSystem.sendAndReceive();
+        SchedulerSystem.receiveRegistration();
 
         SchedulerSystem.setSchedulerState(new SchedulerIdleState());
 

@@ -26,6 +26,7 @@ public class FloorNode extends Thread {
     private String filename;
     private final int floor;
 
+
     /**
      * Constructs a FloorSubsystem object with the given filename.
      *
@@ -82,7 +83,7 @@ public class FloorNode extends Thread {
                 if (this.floor != pickupFloor) continue;
                 
                 Instruction instruction = new Instruction(timestamp, dataList[2].equals("DOWN") ? Direction.DOWN : Direction.UP, pickupFloor, destinationFloor);
-
+                sendInstructionPacket(instruction);
                 SchedulerSystem.addPayload(instruction);
             }
 
@@ -94,7 +95,7 @@ public class FloorNode extends Thread {
 
     public void registerPort(){
 
-        String string = "registered floor " + this.floor +  " Receive Port: " + this.FloorreceiveSocket.getLocalPort() + " Send Port: " + this.FloorsendSocket.getLocalPort();
+        String string = "registered floor [" + this.floor +  "] Receive Port: " + this.FloorreceiveSocket.getLocalPort() + " Send Port: " + this.FloorsendSocket.getLocalPort();
 
         byte [] message = string.getBytes();
 
@@ -111,7 +112,18 @@ public class FloorNode extends Thread {
     }
 
 
-    public void generateInstructionPacket(){
+    public void sendInstructionPacket(Instruction instruction){
+
+        System.out.println(instruction.toString());
+        byte [] sendInstructionPacket = instruction.toString().getBytes();
+
+        try {
+            DatagramPacket instructionPacket = new DatagramPacket(sendInstructionPacket, sendInstructionPacket.length, InetAddress.getLocalHost(), 5000);
+            FloorsendSocket.send(instructionPacket);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
 
