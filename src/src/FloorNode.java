@@ -84,10 +84,11 @@ public class FloorNode extends Thread {
                 
                 Instruction instruction = new Instruction(timestamp, dataList[2].equals("DOWN") ? Direction.DOWN : Direction.UP, pickupFloor, destinationFloor);
                 sendInstructionPacket(instruction);
+
                 SchedulerSystem.addPayload(instruction);
-
-
-
+                System.out.println("test222");
+                SchedulerSystem.receivePacket();
+                System.out.println("test3434334");
             }
 
 
@@ -141,13 +142,12 @@ public class FloorNode extends Thread {
     @Override
     public void run() {
         registerPort();
-        parseData();
         try {
-            SchedulerSystem.receivePacket(); //this is such a cheat but it should work
+            SchedulerSystem.receivePacket();
         } catch (IOException e) {
-
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-
-
+        parseData();
     }
 }

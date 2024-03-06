@@ -101,7 +101,7 @@ public class SchedulerSystem extends Thread {
                 try {
                     SchedulerReceive.receive(rcvpacket);
                     ArrayList<Integer> encryptionNum = decodePacket(new String(rcvpacket.getData()));
-
+                    
                     if (encryptionNum.get(0) == 0) {
 
 
@@ -123,19 +123,11 @@ public class SchedulerSystem extends Thread {
                         } else {
                             System.out.println("No number encased in [] found.");
                         }
+
                     } if (encryptionNum.get(0) == 1) {
 
+                        System.out.println("Scheduler Received Instruction Packet: " + new String(rcvpacket.getData()));
 
-                        byte[] recievePacket = new byte[1024];
-                        DatagramPacket recieveDatagramPacket = new DatagramPacket(recievePacket, recievePacket.length);
-                        try {
-                            SchedulerReceive.receive(recieveDatagramPacket);
-
-                            System.out.println("Scheduler Received Instruction Packet: " + new String(recieveDatagramPacket.getData()));
-
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
                     }
                 } catch (IOException | RuntimeException e) {
                     throw new RuntimeException(e);
@@ -217,14 +209,11 @@ public class SchedulerSystem extends Thread {
         final int FLOOR_NUM = 4;
         final int ELEVATOR_NUM = 1;
 
-
-
         for (int i = 0; i < FLOOR_NUM; i++) {
             FloorNode floorSubsystem = new FloorNode(i, "testCase_1.txt");
             floorSubsystem.setName("floorSubsystem-" + i);
             floorSubsystem.start();
             floorSubsystem.join();
-
         }
 
 
@@ -234,9 +223,6 @@ public class SchedulerSystem extends Thread {
             e.start();
             elevatorNodes.add(e);
         }
-
-
-
 
 
         SchedulerSystem.setSchedulerState(new SchedulerIdleState());
