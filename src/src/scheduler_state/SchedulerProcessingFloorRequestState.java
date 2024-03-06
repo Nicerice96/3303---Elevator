@@ -1,17 +1,16 @@
 package src.scheduler_state;
 
 import src.SchedulerSystem;
-import src.elevator.elevator_state.ElevatorMovingState;
 import src.events.Event;
 import src.events.EventType;
 
-public class SchedulerProcessingRequestState extends SchedulerState  {
+public class SchedulerProcessingFloorRequestState extends SchedulerState  {
     @Override
     public void handle() {
 
         while (SchedulerSystem.running) {
 
-            while (SchedulerSystem.receievedData()) {
+            while (SchedulerSystem.receivedData()) {
                 SchedulerSystem.pollElevators();
             }
 

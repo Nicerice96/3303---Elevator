@@ -53,7 +53,8 @@ public class Event {
                     : eventType == EventType.ELEVATOR_DOOR_CLOSING ?        String.format("Elevator %d closing its doors.", elevatorId)
                     : eventType == EventType.ELEVATOR_DOOR_CLOSED ?         String.format("Elevator %d closed its doors.", elevatorId)
                     : eventType == EventType.ELEVATOR_RECEIVED_REQUEST ?    String.format("Elevator %d received a pickup request for floor %d.", elevatorId, secondary)
-                    : eventType == EventType.SCHEDULER_RECEIVED_REQUEST ?   "Scheduler received a pickup request."
+                    : eventType == EventType.SCHEDULER_RECEIVED_FLOOR_REQUEST ?   "Scheduler received a pickup request."
+                    : eventType == EventType.SCHEDULER_RECEIVED_ELEVATOR_REQUEST ?   "Scheduler received an elevator event."
                     : eventType == EventType.SCHEDULER_MOVE_TO_IDLE ?       "Scheduler moving to idle."
                     :                                                       String.format("Unknown event: %s. Please update Event.toString().", eventType);
     }
