@@ -2,13 +2,14 @@ package src;
 
 import src.instruction.Direction;
 import src.instruction.Instruction;
+import static src.defs.Defs.TIMESTAMP_FORMATTER;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.*;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Scanner;
-
-import static src.defs.Defs.TIMESTAMP_FORMATTER;
 
 /**
  * Floor Sub-system which manages floor-related behavior.
@@ -18,8 +19,13 @@ import static src.defs.Defs.TIMESTAMP_FORMATTER;
  * @version: 1.0
  */
 public class FloorNode extends Thread {
+
+    private DatagramSocket FloorsendSocket;
+
+    private DatagramSocket FloorreceiveSocket;
     private String filename;
     private final int floor;
+
 
     /**
      * Constructs a FloorSubsystem object with the given filename.
@@ -30,6 +36,15 @@ public class FloorNode extends Thread {
         super();
         this.floor = floor;
         this.filename = filename;
+
+        try {
+            FloorsendSocket = new DatagramSocket(7000 + this.floor);
+            FloorreceiveSocket = new DatagramSocket(8000 + this.floor);
+
+        } catch (SocketException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     /**
@@ -68,14 +83,53 @@ public class FloorNode extends Thread {
                 if (this.floor != pickupFloor) continue;
                 
                 Instruction instruction = new Instruction(timestamp, dataList[2].equals("DOWN") ? Direction.DOWN : Direction.UP, pickupFloor, destinationFloor);
+                sendInstructionPacket(instruction);
 
-                SchedulerSystem.addPayload(instruction);
+                SchedulerSystem.receivePacket();
             }
+
 
             scanner.close();
         } catch (Exception e) {
             System.out.println("ERROR :: FloorSubsystem :: parseData() " + e);
         }
+    }
+
+    public void registerPort(){
+
+        String string = "[0]registered floor [" + this.floor +  "] Receive Port: " + this.FloorreceiveSocket.getLocalPort() + " Send Port: " + this.FloorsendSocket.getLocalPort();
+
+
+
+        byte [] message = string.getBytes();
+
+        try {
+            DatagramPacket registerFloorPacket = new DatagramPacket(message, message.length, InetAddress.getLocalHost(), 5000);
+            this.FloorsendSocket.send(registerFloorPacket);
+        }
+        catch (UnknownHostException e){
+            System.out.println(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+
+    public void sendInstructionPacket(Instruction instruction){
+
+
+        byte [] sendInstructionPacket = ("[1]" + instruction).getBytes();
+
+        try {
+            DatagramPacket instructionPacket = new DatagramPacket(sendInstructionPacket, sendInstructionPacket.length, InetAddress.getLocalHost(), 5000);
+            FloorsendSocket.send(instructionPacket);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
     /**
@@ -84,22 +138,13 @@ public class FloorNode extends Thread {
      */
     @Override
     public void run() {
-        // TODO: register floor and wait infinitely for incoming messages
-        parseData();
-    }
-
-
-    public static void main(String[] args) {
-        final int FLOOR_NUM = 4;
-        for (int i = 0; i < FLOOR_NUM; i++) {
-            FloorNode floorSubsystem = new FloorNode(i, "testCase_1.txt");
-            floorSubsystem.setName("floorSubsystem-" + i);
-            floorSubsystem.start();
-            try {
-                floorSubsystem.join();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+        registerPort();
+        try {
+            SchedulerSystem.receivePacket();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
+        parseData();
     }
 }
