@@ -58,7 +58,7 @@ public class FloorNode extends Thread {
      * Parses the floor instruction data from the file and sends instructions to the SchedulerSystem.
      * This method ensures thread safety by synchronizing access to shared resources.
      */
-    public synchronized void parseData() {
+    private synchronized void parseData() {
         String[] dataList;
         String[] previousLine = {"", "", "", ""};
         Scanner scanner;
@@ -100,21 +100,15 @@ public class FloorNode extends Thread {
         }
     }
 
-    public boolean registerPort() {
+    private boolean registerPort() {
         String msgString = String.format("floor %d,register,%d", this.floor, this.rSocket.getLocalPort());
-
-        byte [] resByte = new byte[MSG_SIZE];
-
         try {
             byte [] msg = msgString.getBytes();
             DatagramPacket registerFloorPacket = new DatagramPacket(msg, msg.length, InetAddress.getLocalHost(), SCHEDULER_PORT);
-            DatagramPacket rPacket = new DatagramPacket(resByte, resByte.length);
             this.sSocket.send(registerFloorPacket);
             addEvent(new Event(EventType.SENT, msgString));
-            this.rSocket.receive(rPacket);
-            String res = Defs.getMessage(rPacket.getData(), rPacket.getLength());
+            String res = awaitConfirmation();
             if(res.equals("OK")) {
-                addEvent(new Event(EventType.RECEIVED, res));
                 System.out.println("Registration complete!");
                 return true;
             } else {
@@ -129,12 +123,23 @@ public class FloorNode extends Thread {
         return false;
     }
 
+    private String awaitConfirmation() throws IOException {
+        byte [] resByte = new byte[MSG_SIZE];
+        DatagramPacket rPacket = new DatagramPacket(resByte, resByte.length);
+        this.rSocket.receive(rPacket);
+        String res = Defs.getMessage(rPacket.getData(), rPacket.getLength());
+        addEvent(new Event(EventType.RECEIVED, res));
+        return res;
+    }
 
-    public void sendInstructionPacket(Instruction instruction){
-        byte [] sendInstructionPacket = ("[1]" + instruction).getBytes();
+
+    private void sendInstructionPacket(Instruction instruction) {
+        String msg = String.format("floor %d,addInstruction,%s", floor, instruction);
+        byte [] data = msg.getBytes();
         try {
-            DatagramPacket instructionPacket = new DatagramPacket(sendInstructionPacket, sendInstructionPacket.length, InetAddress.getLocalHost(), 5000);
-            sSocket.send(instructionPacket);
+            DatagramPacket packet = new DatagramPacket(data, data.length, InetAddress.getLocalHost(), SCHEDULER_PORT);
+            sSocket.send(packet);
+            addEvent(new Event(EventType.SENT, msg));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -151,10 +156,10 @@ public class FloorNode extends Thread {
     @Override
     public void run() {
         registerPort();
+        parseData();
         while(true) {
-//            do nothing, wait
+            // TODO: wait for event coming in from the elevator through the scheduler
         }
-//        parseData();
     }
 
 

@@ -1,6 +1,9 @@
 package src.scheduler_state;
 
 import src.SchedulerSystem;
+import src.events.Event;
+import src.events.EventType;
+import src.scheduler_state.elevator.SchedulerProcessingElevatorRequestState;
 import src.scheduler_state.floor.SchedulerProcessingFloorRequestState;
 
 import java.io.IOException;
@@ -19,9 +22,12 @@ public class SchedulerIdleState extends SchedulerState  {
             try {
                 SchedulerSystem.rSocket.receive(rcvpacket);
                 String msg = getMessage(messagercv, rcvpacket.getLength());
-                System.out.println(msg);
-                if(msg.contains("floor")) {
+                SchedulerSystem.addEvent(new Event(EventType.RECEIVED, msg));
+                String origin = msg.split(",")[0];
+                if(origin.startsWith("floor")) {
                     SchedulerSystem.setState(new SchedulerProcessingFloorRequestState(msg));
+                } else if(origin.startsWith("elevator")) {
+                    SchedulerSystem.setState(new SchedulerProcessingElevatorRequestState(msg));
                 }
 
 

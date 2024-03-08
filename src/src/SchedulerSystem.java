@@ -16,11 +16,11 @@ import java.util.concurrent.BlockingQueue;
 import static src.defs.Defs.SCHEDULER_PORT;
 
 public class SchedulerSystem extends Thread {
-    private static ArrayList<ElevatorNode> elevatorNodes = new ArrayList<>();
     private static ArrayList<Event> log = new ArrayList<>();
     private static BlockingQueue<Instruction> instructions = new ArrayBlockingQueue<>(10);
     private static SchedulerState state;
     public static volatile boolean running = true; // Flag to indicate if the scheduler system should keep running
+    public static HashMap<Integer, Integer> elevators = new HashMap<>();
     public static HashMap<Integer, Integer> floors = new HashMap<>();
 
     public static DatagramSocket sSocket;
@@ -47,9 +47,6 @@ public class SchedulerSystem extends Thread {
             throw new RuntimeException(e);
         }
     }
-    public static void registerFloor(int floor, int port) {
-        floors.put(floor, port);
-    }
 
     public static Instruction getInstruction() {
         if (instructions.isEmpty()) return null;
@@ -65,17 +62,18 @@ public class SchedulerSystem extends Thread {
     }
 
     public static void pollElevators() {
+        // TODO: move this to ProcessingFloorAddInstructionState
         System.out.println("polling?");
         for (Instruction i : instructions) {
             int min = Integer.MAX_VALUE;
             ElevatorNode elevatorNode = null;
-            for (ElevatorNode e : elevatorNodes) {
-                int pickupIndex = e.getPickupIndex(i);
-                if (pickupIndex < min) {
-                    min = pickupIndex;
-                    elevatorNode = e;
-                }
-            }
+//            for (ElevatorNode e : elevatorNodes) {
+//                int pickupIndex = e.getPickupIndex(i);
+//                if (pickupIndex < min) {
+//                    min = pickupIndex;
+//                    elevatorNode = e;
+//                }
+//            }
             if (elevatorNode != null) {
                 elevatorNode.addPickup(i);
                 instructions.remove(i);
@@ -98,22 +96,7 @@ public class SchedulerSystem extends Thread {
     }
 
     public static void main(String[] args) throws InterruptedException, IOException {
-        final int ELEVATOR_NUM = 1;
-        for (int i = 0; i < ELEVATOR_NUM; i++) {
-
-            ElevatorNode e = new ElevatorNode();
-            e.setName("elevatorNode-" + i);
-            e.start();
-            elevatorNodes.add(e);
-        }
         System.out.println("Scheduler Online.");
         SchedulerSystem.setState(new SchedulerIdleState());
-
-
-        // Keep the scheduler system running for some time (for testing purpose)
-//        Thread.sleep(5000); // Sleep for 5 seconds
-
-        // Stop the scheduler system (for testing purpose)
-//        stopScheduler(true);
     }
 }

@@ -1,6 +1,8 @@
 package src.scheduler_state.floor;
 
 import src.SchedulerSystem;
+import src.scheduler_state.SchedulerIdleState;
+import src.scheduler_state.SchedulerProcessingRegistrationState;
 import src.scheduler_state.SchedulerState;
 
 public class SchedulerProcessingFloorRequestState extends SchedulerState {
@@ -17,9 +19,12 @@ public class SchedulerProcessingFloorRequestState extends SchedulerState {
 
         // mini router, find the appropriate state
         if(action.equals("register")) {
-            SchedulerSystem.setState(new ProcessingFloorRegistrationState(msg));
+            SchedulerSystem.setState(new SchedulerProcessingRegistrationState(msg, floor, SchedulerSystem.floors));
+        } else if (action.equals("addInstruction")) {
+            SchedulerSystem.setState(new ProcessingFloorAddInstructionState(msg));
         } else {
-            System.out.printf("SCHEDULER ERROR: Uknown action \"%s\", moving back to idle\n", action);
+            System.out.printf("SCHEDULER ERROR: Unknown action \"%s\", moving back to idle\n", action);
+            SchedulerSystem.setState(new SchedulerIdleState());
         }
     }
 }
