@@ -20,7 +20,9 @@ public class SchedulerSystem extends Thread {
     private static BlockingQueue<Instruction> instructions = new ArrayBlockingQueue<>(10);
     private static SchedulerState state;
     public static volatile boolean running = true; // Flag to indicate if the scheduler system should keep running
+    // id, port
     public static HashMap<Integer, Integer> elevators = new HashMap<>();
+    // floor, port
     public static HashMap<Integer, Integer> floors = new HashMap<>();
 
     public static DatagramSocket sSocket;

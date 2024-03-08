@@ -2,11 +2,13 @@ package src.defs;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * General definitions and constants
+ */
 public class Defs {
     public static final DateTimeFormatter TIMESTAMP_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
     public static final int MSG_SIZE = 1024;
     public static final int SCHEDULER_PORT = 5000;
-
     /**
      * Trims and returns the message from a byte stream taken from a packet
      * @param buff the byte array buffer

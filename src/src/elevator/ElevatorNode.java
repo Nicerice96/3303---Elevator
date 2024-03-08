@@ -1,18 +1,20 @@
 package src.elevator;
 
-import src.FloorNode;
+import src.defs.Defs;
+import src.elevator.elevator_comm_state.ElevatorCommState;
+import src.elevator.elevator_comm_state.ElevatorIdleCommState;
 import src.elevator.elevator_state.ElevatorIdleState;
 import src.elevator.elevator_state.ElevatorState;
 import src.events.Event;
 import src.events.EventType;
 import src.instruction.Direction;
 import src.instruction.Instruction;
-
-import java.net.DatagramSocket;
-import java.net.SocketException;
+import java.io.IOException;
+import java.net.*;
 import java.util.ArrayList;
 
-import static java.lang.Math.abs;
+import static src.defs.Defs.MSG_SIZE;
+import static src.defs.Defs.SCHEDULER_PORT;
 
 /**
  * Elevator Sub-system which manages elevator-related behavior.
@@ -29,9 +31,12 @@ public class ElevatorNode extends Thread {
     private float altitude;
     public float velocity; // no need for private attribute
     private ElevatorState state;
+    private ElevatorCommState commState;
     public ArrayList<Integer> destinations;
     private ArrayList<Event> log;
     private ArrayList<Instruction> pendingInstructions;
+    public DatagramSocket sSocket;
+    public DatagramSocket rSocket;
 
     /**
      * Constructs an ElevatorNode object with default values.
@@ -47,6 +52,44 @@ public class ElevatorNode extends Thread {
         destinations = new ArrayList<>();
         log = new ArrayList<>();
         pendingInstructions = new ArrayList<>();
+        setCommState(new ElevatorIdleCommState(this));
+        try {
+            sSocket = new DatagramSocket();
+            rSocket = new DatagramSocket();
+        } catch (SocketException e) {
+            throw new RuntimeException(e);
+        }
+        registerPort();
+    }
+    private boolean registerPort(){
+        String msgString = String.format("elevator %d,register,%d", this.currentFloor, this.rSocket.getLocalPort());
+        try {
+            byte [] msg = msgString.getBytes();
+            DatagramPacket registerFloorPacket = new DatagramPacket(msg, msg.length, InetAddress.getLocalHost(), SCHEDULER_PORT);
+            this.sSocket.send(registerFloorPacket);
+            addEvent(new Event(EventType.SENT, msgString));
+            String res = awaitConfirmation();
+            if(res.equals("OK")) {
+                System.out.println("Registration complete!");
+                return true;
+            } else {
+                System.out.println("Registration failed. Trying again...");
+                return false;
+            }
+        } catch (UnknownHostException e){
+            System.out.println(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+    private String awaitConfirmation() throws IOException {
+        byte [] resByte = new byte[MSG_SIZE];
+        DatagramPacket rPacket = new DatagramPacket(resByte, resByte.length);
+        this.rSocket.receive(rPacket);
+        String res = Defs.getMessage(rPacket.getData(), rPacket.getLength());
+        addEvent(new Event(EventType.RECEIVED, res));
+        return res;
     }
     public int getElevatorId() { return this.id; }
     public int getCurrentFloor() { return currentFloor; }
@@ -120,6 +163,10 @@ public class ElevatorNode extends Thread {
     public void setState(ElevatorState state) {
         this.state = state;
         this.state.handle(this);
+    }
+    public void setCommState(ElevatorCommState state) {
+        this.commState = state;
+        this.commState.start();
     }
     public void updateAltitude(float altitude) {
         this.altitude += altitude;
