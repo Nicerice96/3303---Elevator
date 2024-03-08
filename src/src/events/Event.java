@@ -8,6 +8,7 @@ public class Event {
     private EventType eventType;
     private final int elevatorId;
     private final int secondary;
+    private final String message;
 
     /**
      * Creates a non-elevator event instance
@@ -32,6 +33,18 @@ public class Event {
         this.eventType = eventType;
         this.elevatorId = elevatorId;
         this.secondary = secondary;
+        this.message = null;
+    }
+    /**
+     * Creates an general communication event instance with some supplementary information
+     * @param eventType the elevator event type
+     * @param message the message
+     */
+    public Event(EventType eventType, String message) {
+        this.eventType = eventType;
+        this.message = message;
+        this.elevatorId = Integer.MAX_VALUE;
+        this.secondary = Integer.MAX_VALUE;
     }
 
     // Getters
@@ -56,6 +69,8 @@ public class Event {
                     : eventType == EventType.SCHEDULER_RECEIVED_FLOOR_REQUEST ?   "Scheduler received a pickup request."
                     : eventType == EventType.SCHEDULER_RECEIVED_ELEVATOR_REQUEST ?   "Scheduler received an elevator event."
                     : eventType == EventType.SCHEDULER_MOVE_TO_IDLE ?       "Scheduler moving to idle."
+                    : eventType == EventType.SENT ?    String.format("Sent \"%s\".", message)
+                    : eventType == EventType.RECEIVED ?    String.format("Received \"%s\".", message)
                     :                                                       String.format("Unknown event: %s. Please update Event.toString().", eventType);
     }
 

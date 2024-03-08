@@ -22,10 +22,10 @@ public class SchedulerStateTest {
     public void testStateTransition() {
         // Create a SchedulerSystem instance
         SchedulerSystem schedulerSystem = new SchedulerSystem();
-        schedulerSystem.addPayload(new Instruction(LocalTime.parse("00:00:01.000", TIMESTAMP_FORMATTER), Direction.UP, 1, 2));
+        schedulerSystem.addInstruction(new Instruction(LocalTime.parse("00:00:01.000", TIMESTAMP_FORMATTER), Direction.UP, 1, 2));
         schedulerSystem.stopScheduler(true);
 
-        schedulerSystem.setSchedulerState(new SchedulerIdleState());
+        schedulerSystem.setState(new SchedulerIdleState());
 
         // Initially, the state should be SchedulerIdleState
         assertTrue(schedulerSystem.getSchedulerState() instanceof SchedulerIdleState);
