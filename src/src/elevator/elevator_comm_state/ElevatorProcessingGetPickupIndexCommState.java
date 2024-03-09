@@ -1,6 +1,8 @@
 package src.elevator.elevator_comm_state;
 
 import src.elevator.ElevatorNode;
+import src.events.Event;
+import src.events.EventType;
 import src.instruction.Instruction;
 
 import java.io.IOException;
@@ -31,6 +33,7 @@ public class ElevatorProcessingGetPickupIndexCommState extends ElevatorProcessin
         try {
             DatagramPacket packet = new DatagramPacket(sByte, sByte.length, InetAddress.getLocalHost(), SCHEDULER_PORT);
             context.sSocket.send(packet);
+            context.addEvent(new Event(EventType.SENT, sString));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

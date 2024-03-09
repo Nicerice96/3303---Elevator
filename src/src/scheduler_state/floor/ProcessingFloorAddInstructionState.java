@@ -26,6 +26,36 @@ public class ProcessingFloorAddInstructionState extends SchedulerProcessingFloor
     public void handle() {
         for (Instruction i : SchedulerSystem.instructions) {
             int id = getMinPickupIndex(i);
+            // send pickup request
+            // "addPickup,[i.toString()]
+            String sString = "addPickup," + i;
+            byte[] sBytes = sString.getBytes();
+            try {
+                DatagramPacket packet = new DatagramPacket(sBytes, sBytes.length, InetAddress.getLocalHost(), SchedulerSystem.elevators.get(id));
+                SchedulerSystem.sSocket.send(packet);
+                SchedulerSystem.addEvent(new Event(EventType.SENT, sString));
+                byte[] rBytes = new byte[MSG_SIZE];
+                DatagramPacket rPacket = new DatagramPacket(rBytes, rBytes.length);
+                try {
+                    SchedulerSystem.rSocket.receive(rPacket);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                String res = getMessage(rBytes, rPacket.getLength());
+                SchedulerSystem.addEvent(new Event(EventType.RECEIVED, res));
+                String[] split = res.split(",");
+                if(!split[0].equals("elevator " + id)) {
+                    System.out.printf("ERROR: failed to get return of addPickup from elevator %d, unknown originator \"%s\"\n", id, split[0]);
+                    return;
+                } else if(!split[1].equals("addPickup")) {
+                    System.out.printf("ERROR: failed to get return of addPickup from elevator %d, unknown action \"%s\"\n", id, split[1]);
+                    return;
+                }
+
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -59,10 +89,10 @@ public class ProcessingFloorAddInstructionState extends SchedulerProcessingFloor
             SchedulerSystem.addEvent(new Event(EventType.RECEIVED, res));
             String[] split = res.split(",");
             if(!split[0].equals("elevator " + id)) {
-                System.out.printf("ERROR: failed to get return of getPickupIndex from elevator %d, unknown originator\n", id);
+                System.out.printf("ERROR: failed to get return of getPickupIndex from elevator %d, unknown originator \"%s\"\n", id, split[0]);
                 continue;
             } else if(!split[1].equals("getPickupIndex")) {
-                System.out.printf("ERROR: failed to get return of getPickupIndex from elevator %d, unknown action\n", id);
+                System.out.printf("ERROR: failed to get return of getPickupIndex from elevator %d, unknown action \"%s\"\n", id, split[1]);
                 continue;
             }
 

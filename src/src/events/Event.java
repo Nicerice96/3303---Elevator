@@ -69,6 +69,7 @@ public class Event {
                     : eventType == EventType.SCHEDULER_RECEIVED_FLOOR_REQUEST ?   "Scheduler received a pickup request."
                     : eventType == EventType.SCHEDULER_RECEIVED_ELEVATOR_REQUEST ?   "Scheduler received an elevator event."
                     : eventType == EventType.SCHEDULER_MOVE_TO_IDLE ?       "Scheduler moving to idle."
+                    : eventType == EventType.FORWARDED ?    String.format("Forwarded \"%s\".", message)
                     : eventType == EventType.SENT ?    String.format("Sent \"%s\".", message)
                     : eventType == EventType.RECEIVED ?    String.format("Received \"%s\".", message)
                     :                                                       String.format("Unknown event: %s. Please update Event.toString().", eventType);

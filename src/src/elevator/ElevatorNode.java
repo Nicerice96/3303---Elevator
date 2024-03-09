@@ -47,7 +47,6 @@ public class ElevatorNode extends Thread {
         currentFloor = 0;
         altitude = 0.0f;
         velocity = 0.0f;
-        // TODO: init state
         destinations = new ArrayList<>();
         log = new ArrayList<>();
         pendingInstructions = new ArrayList<>();
@@ -189,15 +188,27 @@ public class ElevatorNode extends Thread {
     public void addEvent(Event event) {
         log.add(event);
         System.out.println(event);
-        if(event.getEventType() == EventType.RECEIVED || event.getEventType() == EventType.SENT) return;
-        // TODO: send event
+        if(event.getEventType() == EventType.RECEIVED ||
+                event.getEventType() == EventType.SENT ||
+                event.getEventType() == EventType.FORWARDED
+        ) return;
         sendEvent(event);
     }
 
     public void sendEvent(Event event) {
-      // 1. wrap event in a string
-      // 2. initialize packet with the wrapped event
-      // 3. send packet to elevator
+        // TODO: send event
+        // 1. wrap event in a string
+        // "elevator [id],event,[event.toString()]"
+        String eventString = String.format("elevator %d, event, %s", id, event.toString());
+        // 2. initialize packet with the wrapped event
+        // 3. send packet to elevator
+        try {
+            byte[] eventData = eventString.getBytes();
+            DatagramPacket eventPacket = new DatagramPacket(eventData, eventData.length, InetAddress.getLocalHost(),SCHEDULER_PORT);
+            sSocket.send(eventPacket);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
     }
     /**
      * Traverses one floor
