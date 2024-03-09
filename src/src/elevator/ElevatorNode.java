@@ -21,8 +21,7 @@ import static src.defs.Defs.SCHEDULER_PORT;
  * This class represents an elevator node that receives instructions from the scheduler system
  * and performs elevator operations accordingly.
  *
- * Authors: Arun, Hamza, Mahad, Nabeel, Zarif
- * Version: 1.0
+ * @author All
  */
 public class ElevatorNode extends Thread {
     private static int nextId = 0;
@@ -52,23 +51,28 @@ public class ElevatorNode extends Thread {
         destinations = new ArrayList<>();
         log = new ArrayList<>();
         pendingInstructions = new ArrayList<>();
-        setCommState(new ElevatorIdleCommState(this));
         try {
             sSocket = new DatagramSocket();
             rSocket = new DatagramSocket();
         } catch (SocketException e) {
             throw new RuntimeException(e);
         }
-        registerPort();
+        register();
+        setCommState(new ElevatorIdleCommState(this));
     }
-    private boolean registerPort(){
+
+    /**
+     * Registers the elevator node with the Scheduler.
+     * @return true if registration was successful, otherwise false.
+     */
+    private boolean register(){
         String msgString = String.format("elevator %d,register,%d", this.currentFloor, this.rSocket.getLocalPort());
         try {
             byte [] msg = msgString.getBytes();
             DatagramPacket registerFloorPacket = new DatagramPacket(msg, msg.length, InetAddress.getLocalHost(), SCHEDULER_PORT);
             this.sSocket.send(registerFloorPacket);
             addEvent(new Event(EventType.SENT, msgString));
-            String res = awaitConfirmation();
+            String res = awaitResponse();
             if(res.equals("OK")) {
                 System.out.println("Registration complete!");
                 return true;
@@ -83,7 +87,13 @@ public class ElevatorNode extends Thread {
         }
         return false;
     }
-    private String awaitConfirmation() throws IOException {
+
+    /**
+     * Awaits response by the Scheduler, blocking method.
+     * @return the response
+     * @throws IOException if rSocket.receive throws an exception
+     */
+    private String awaitResponse() throws IOException {
         byte [] resByte = new byte[MSG_SIZE];
         DatagramPacket rPacket = new DatagramPacket(resByte, resByte.length);
         this.rSocket.receive(rPacket);

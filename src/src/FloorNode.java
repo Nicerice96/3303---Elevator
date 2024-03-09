@@ -164,7 +164,7 @@ public class FloorNode extends Thread {
 
 
     public static void main(String[] args) {
-        final int FLOORS = 5;
+        final int FLOORS = 2;
         for (int i = 0; i < FLOORS; i++) {
             FloorNode floorNode = new FloorNode(i, "testCase_1.txt");
             floorNode.setName("floorNode-" + i);

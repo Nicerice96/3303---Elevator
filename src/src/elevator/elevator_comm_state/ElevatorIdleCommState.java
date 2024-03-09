@@ -1,6 +1,13 @@
 package src.elevator.elevator_comm_state;
 
 import src.elevator.ElevatorNode;
+import src.events.Event;
+import src.events.EventType;
+
+import java.io.IOException;
+import java.net.DatagramPacket;
+
+import static src.defs.Defs.MSG_SIZE;
 
 public class ElevatorIdleCommState extends ElevatorCommState {
     public ElevatorIdleCommState(ElevatorNode context) {
@@ -10,6 +17,19 @@ public class ElevatorIdleCommState extends ElevatorCommState {
     @Override
     public void run() {
         // TODO: busy wait until a packet is received.
-
+        while (true) {
+            //wait until packet is received
+            byte[] buffer = new byte[MSG_SIZE];
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+            try {
+                context.rSocket.receive(packet);
+                String receivedMessage = new String(packet.getData(), 0, packet.getLength());
+                context.addEvent(new Event(EventType.RECEIVED, receivedMessage));
+//                TODO: route
+            } catch (IOException e) {
+                e.printStackTrace();
+                // Handle exception
+            }
+        }
     }
 }
