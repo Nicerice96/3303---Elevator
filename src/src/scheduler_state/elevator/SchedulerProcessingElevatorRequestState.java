@@ -16,13 +16,15 @@ public class SchedulerProcessingElevatorRequestState extends SchedulerState {
     }
     @Override
     public void handle() {
-        String action = msg.split(",")[1];
+        String action = msg.split(",")[1].strip();
 
         // mini router, find the appropriate state
         if(action.equals("register")) {
             SchedulerSystem.setState(new SchedulerProcessingRegistrationState(msg, id, SchedulerSystem.elevators));
         } else if (action.equals("addInstruction")) {
             SchedulerSystem.setState(new ProcessingFloorAddInstructionState(msg));
+        } else if (action.equals("event")) {
+            SchedulerSystem.setState(new ProcessingForwardEventState(msg));
         } else {
             System.out.printf("SCHEDULER ERROR: Unknown action \"%s\", moving back to idle\n", action);
             SchedulerSystem.setState(new SchedulerIdleState());

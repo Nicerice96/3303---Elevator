@@ -158,13 +158,20 @@ public class FloorNode extends Thread {
         registerPort();
         parseData();
         while(true) {
-            // TODO: wait for event coming in from the elevator through the scheduler
+            byte[] rBytes = new byte[MSG_SIZE];
+            DatagramPacket packet = new DatagramPacket(rBytes, rBytes.length);
+            try {
+                rSocket.receive(packet);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.printf("floor %d,received %s \n", floor, getMessage(rBytes, packet.getLength()));
         }
     }
 
 
     public static void main(String[] args) {
-        final int FLOORS = 5;
+        final int FLOORS = 2;
         for (int i = 0; i < FLOORS; i++) {
             FloorNode floorNode = new FloorNode(i, "testCase_1.txt");
             floorNode.setName("floorNode-" + i);

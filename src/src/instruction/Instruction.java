@@ -43,7 +43,7 @@ public class Instruction {
             pickupFloor = Integer.parseInt(seg[1].trim());
             destinationFloor = Integer.parseInt(seg[3].trim());
         } catch(NumberFormatException e) {
-            throw new RuntimeException(e);
+            return null;
         }
         return new Instruction(timestamp, direction, pickupFloor, destinationFloor);
     }

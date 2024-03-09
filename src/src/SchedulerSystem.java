@@ -17,7 +17,7 @@ import static src.defs.Defs.SCHEDULER_PORT;
 
 public class SchedulerSystem extends Thread {
     private static ArrayList<Event> log = new ArrayList<>();
-    private static BlockingQueue<Instruction> instructions = new ArrayBlockingQueue<>(10);
+    public static BlockingQueue<Instruction> instructions = new ArrayBlockingQueue<>(128);
     private static SchedulerState state;
     public static volatile boolean running = true; // Flag to indicate if the scheduler system should keep running
     // id, port
@@ -61,26 +61,6 @@ public class SchedulerSystem extends Thread {
 
     public static void clearInstructions() {
         instructions.clear();
-    }
-
-    public static void pollElevators() {
-        // TODO: move this to ProcessingFloorAddInstructionState
-        System.out.println("polling?");
-        for (Instruction i : instructions) {
-            int min = Integer.MAX_VALUE;
-            ElevatorNode elevatorNode = null;
-//            for (ElevatorNode e : elevatorNodes) {
-//                int pickupIndex = e.getPickupIndex(i);
-//                if (pickupIndex < min) {
-//                    min = pickupIndex;
-//                    elevatorNode = e;
-//                }
-//            }
-            if (elevatorNode != null) {
-                elevatorNode.addPickup(i);
-                instructions.remove(i);
-            }
-        }
     }
 
     public static void addEvent(Event event) {

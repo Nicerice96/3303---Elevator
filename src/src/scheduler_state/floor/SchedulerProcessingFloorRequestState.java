@@ -15,7 +15,7 @@ public class SchedulerProcessingFloorRequestState extends SchedulerState {
     }
     @Override
     public void handle() {
-        String action = msg.split(",")[1];
+        String action = msg.split(",")[1].strip();
 
         // mini router, find the appropriate state
         if(action.equals("register")) {

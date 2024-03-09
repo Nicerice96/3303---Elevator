@@ -23,7 +23,7 @@ public class SchedulerIdleState extends SchedulerState  {
                 SchedulerSystem.rSocket.receive(rcvpacket);
                 String msg = getMessage(messagercv, rcvpacket.getLength());
                 SchedulerSystem.addEvent(new Event(EventType.RECEIVED, msg));
-                String origin = msg.split(",")[0];
+                String origin = msg.split(",")[0].strip();
                 if(origin.startsWith("floor")) {
                     SchedulerSystem.setState(new SchedulerProcessingFloorRequestState(msg));
                 } else if(origin.startsWith("elevator")) {
