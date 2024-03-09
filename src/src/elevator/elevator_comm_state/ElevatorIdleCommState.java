@@ -3,6 +3,8 @@ package src.elevator.elevator_comm_state;
 import src.elevator.ElevatorNode;
 import src.events.Event;
 import src.events.EventType;
+import src.instruction.Direction;
+import src.instruction.Instruction;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -26,6 +28,11 @@ public class ElevatorIdleCommState extends ElevatorCommState {
                 String receivedMessage = new String(packet.getData(), 0, packet.getLength());
                 context.addEvent(new Event(EventType.RECEIVED, receivedMessage));
 //                TODO: route
+                if (receivedMessage.startsWith("addPickup")) {
+                    context.setCommState(new ElevatorProcessingAddPickupCommState(context, receivedMessage));
+                } else if(receivedMessage.startsWith("getPickupIndex")){
+                    context.setCommState(new ElevatorProcessingGetPickupIndexCommState(context, receivedMessage));
+                }
             } catch (IOException e) {
                 e.printStackTrace();
                 // Handle exception

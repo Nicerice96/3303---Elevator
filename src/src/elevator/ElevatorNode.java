@@ -189,6 +189,15 @@ public class ElevatorNode extends Thread {
     public void addEvent(Event event) {
         log.add(event);
         System.out.println(event);
+        if(event.getEventType() == EventType.RECEIVED || event.getEventType() == EventType.SENT) return;
+        // TODO: send event
+        sendEvent(event);
+    }
+
+    public void sendEvent(Event event) {
+      // 1. wrap event in a string
+      // 2. initialize packet with the wrapped event
+      // 3. send packet to elevator
     }
     /**
      * Traverses one floor
