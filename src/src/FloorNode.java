@@ -155,8 +155,12 @@ public class FloorNode extends Thread {
      */
     @Override
     public void run() {
+        System.out.printf("Floor node %d Online\n", floor);
+        System.out.println("Registering");
         registerPort();
+        System.out.println("\nParsing data:");
         parseData();
+        System.out.println("\nListening");
         while(true) {
             byte[] rBytes = new byte[MSG_SIZE];
             DatagramPacket packet = new DatagramPacket(rBytes, rBytes.length);
@@ -171,12 +175,11 @@ public class FloorNode extends Thread {
 
 
     public static void main(String[] args) {
-        final int FLOORS = 2;
+        final int FLOORS = 4;
         for (int i = 0; i < FLOORS; i++) {
             FloorNode floorNode = new FloorNode(i, "testCase_1.txt");
             floorNode.setName("floorNode-" + i);
             floorNode.start();
-
         }
     }
 }

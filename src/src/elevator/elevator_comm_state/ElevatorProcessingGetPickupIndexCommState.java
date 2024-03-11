@@ -17,10 +17,10 @@ public class ElevatorProcessingGetPickupIndexCommState extends ElevatorProcessin
     private final Instruction instruction;
     public ElevatorProcessingGetPickupIndexCommState(ElevatorNode context, String msg) {
         super(context, msg);
-        // msg                  = "getPickupIndex,Instruction - 00:00:01.000|3|DOWN|0"
-        // msg.split(",")       = ["getPickupIndex", "Instruction - 00:00:01.000|3|DOWN|0"]
-        // msg.split(","([1]    = "Instruction - 00:00:01.000|3|DOWN|0"
-        this.instruction = Instruction.parse(msg.split(",")[1]);
+        // msg                  = "scheduler 12313,getPickupIndex,Instruction - 00:00:01.000|3|DOWN|0"
+        // msg.split(",")       = ["scheduler 12313", "getPickupIndex", "Instruction - 00:00:01.000|3|DOWN|0"]
+        // msg.split(","[2])    = "Instruction - 00:00:01.000|3|DOWN|0"
+        this.instruction = Instruction.parse(msg.split(",")[2]);
     }
     @Override
     public void run() {
@@ -31,7 +31,7 @@ public class ElevatorProcessingGetPickupIndexCommState extends ElevatorProcessin
         byte[] sByte = sString.getBytes();
 
         try {
-            DatagramPacket packet = new DatagramPacket(sByte, sByte.length, InetAddress.getLocalHost(), SCHEDULER_PORT);
+            DatagramPacket packet = new DatagramPacket(sByte, sByte.length, InetAddress.getLocalHost(), callbackPort);
             context.sSocket.send(packet);
             context.addEvent(new Event(EventType.SENT, sString));
         } catch (IOException e) {

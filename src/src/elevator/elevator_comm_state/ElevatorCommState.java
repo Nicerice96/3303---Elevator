@@ -7,10 +7,8 @@ import src.elevator.ElevatorNode;
  * @authors Mahad, Nabeel, Hamza
  */
 public abstract class ElevatorCommState extends Thread {
-    protected final String msg;
     protected final ElevatorNode context;
-    public ElevatorCommState(ElevatorNode context, String msg) {
-        this.msg = msg;
+    public ElevatorCommState(ElevatorNode context) {
         this.context = context;
     }
 }

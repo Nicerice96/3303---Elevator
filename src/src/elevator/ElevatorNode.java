@@ -56,7 +56,10 @@ public class ElevatorNode extends Thread {
         } catch (SocketException e) {
             throw new RuntimeException(e);
         }
+        System.out.printf("Elevator node %d Online\n", id);
+        System.out.println("Registering");
         register();
+        System.out.println("\nListening");
         setCommState(new ElevatorIdleCommState(this));
     }
 
@@ -65,7 +68,7 @@ public class ElevatorNode extends Thread {
      * @return true if registration was successful, otherwise false.
      */
     private boolean register(){
-        String msgString = String.format("elevator %d,register,%d", this.currentFloor, this.rSocket.getLocalPort());
+        String msgString = String.format("elevator %d,register,%d", this.id, this.rSocket.getLocalPort());
         try {
             byte [] msg = msgString.getBytes();
             DatagramPacket registerFloorPacket = new DatagramPacket(msg, msg.length, InetAddress.getLocalHost(), SCHEDULER_PORT);
@@ -253,7 +256,7 @@ public class ElevatorNode extends Thread {
     }
 
     public static void main(String[] args) {
-        final int ELEVATOR_NUM = 1;
+        final int ELEVATOR_NUM = 4;
 
 
         for (int i = 0; i < ELEVATOR_NUM; i++) {
