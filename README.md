@@ -15,19 +15,39 @@ Team:
 
 Files:
 ------
-- `FloorSubsystem.java`: Handles the simulation of floor-related events, including the generation of elevator requests.
-- `g5.elevator.FloorSubsystemTest.java`: Contains unit tests for the `FloorSubsystem`, ensuring its reliability in processing and forwarding requests.
+- 'FloorNode.java': Floor Sub-system which manages floor-related behavior. This class reads instructions from a file, parses them, and sends them to the SchedulerSystem.
+- 'ProcessingFloorAddInstructionState.java': Process the instructions sent to the floor and forwards them to the scheduler.
+- 'SchedulerProcessingFloorRequestState': Process the floor requests sent by the scheduler.
 - `ElevatorNode.java`: Represents the elevator's functionality, responding to requests and simulating elevator movements.
+- `SchedulerSystem.java`: Acts as the central coordinator, receiving requests from the `FloorSubsystem.java` and assigning them to the `ElevatorNode`.
+- `ElevatorDirection.java`: contains an enum contain possible directions for a given elevator node.
+- `Direction.java`: Describes the `UP` or `DOWN`. 
+- `Event.java`: Describes statements to be printed to the console in each State of the Project.
+- `Event Type.java`: Describes an enum to house each type of event that can be encountered during the execution of the project.
+- `Event Test.java`: Adequately test's each event for correctness.
+- 'SchedulerFaultState.java': Handles errors that may occur in the program.
+- 'SchedulerIdleState.java': Waits for an instruction.
+- 'SchedulerProcessingRegistrationState.java': Registers an elevator.
+- 'ProcessingForwardEventState.java': Represents the even state that is to be processed.
+- 'SchedulerProcessingElevatorRequestState.java': Where the scheduler processes the requests from the floor and sends it to the elevator.
+- 'ElevatorDoorClosedState.java': Performs the action of when the elevator door is closed.
+- 'ElevatorDoorClosingState.java': Performs the action of when the elevator door is closing.
+- 'ElevatorDoorOpeningState.java': Performs the action of when the elevator door is opening.
+- 'ElevatorDoorOpenState.java': Performs the action of when the elevator door is open.
+- 'ElevatorIdleState.java': Represents what occurs when the elevator waits for an instruction.
+- 'ElevatorMovingState.java': Represents what occurs when the elevator executes an instruction.
+- 'ElevatorState.java': Represents the general elevator state.
+- 'ElevatorCommState.java': General Comm State, acts as an interface and holds the common attributes.
+- 'ElevatorIdleCommState.java': Waits until datagram packet is received and processes the packet once it is recieved.
+- 'ElevatorProcessingAddPickupCommState.java': Represents the process of adding a pickup to an elevator.
+- 'ElevatorProcessingCommState.java': Represents the communication between Elevator and the Scheduler.
+- 'ElevatorProcessingGetPickupIndexCommState.java': Represents the process of getting the index of the pickup locaiton in a datagram packet.
+- `FloorSubsystem.java`: Handles the simulation of floor-related events, including the generation of elevator requests.
+- `FloorSubsystemTest.java`: Contains unit tests for the `FloorSubsystem`, ensuring its reliability in processing and forwarding requests.
 - `ElevatorNodeTest.java`: Provides tests for the `ElevatorNode` to verify its operations and state transitions.
-- `SchedulerSystem.java`: Acts as the central coordinator, receiving requests from the `FloorSubsystem` and assigning them to the `ElevatorNode`.
 - `SchedulerSystemTest.java`: Tests the scheduling logic within the `SchedulerSystem` to ensure efficient and correct request handling.
-- `ElevatorDirection`: contains an enum contain possible directions for a given elevator node.
 - `testCase_1.txt`: Sample input file used by `FloorSubsystem` for testing. Contains elevator request scenarios to simulate real-world elevator calls.
 - `Instruction`: Representation of an elevator instruction that is read from a text file.
-- `Direction`: Describes the `UP` or `DOWN`. 
-- `Event`: Describes statements to be printed to the console in each State of the Project.
-- `Event Type`: Describes an enum to house each type of event that can be encountered during the execution of the project.
-- `Event Test`: Adequately test's each event for correctness.
 
 Setup Instructions:
 -------------------
@@ -47,8 +67,9 @@ Test Instructions:
 Credits:
 -------------------
 
-### Milstone 1
-__Mahad Mohamed Yonis__: Co-author of README file. Author of all methods in g5.elevator.FloorSubsystemTest, SchedulerSubsystemTest, ElevatorNodeTest classes. Author of methods doorOpen(), doorClose(), peopleLoad(), peopleUnload() methods in the ElevatorNode class.
+
+### Ieration 1
+__Mahad Mohamed Yonis__: Co-author of README file. Author of all methods in FloorSubsystemTest, SchedulerSubsystemTest, ElevatorNodeTest classes. Author of methods doorOpen(), doorClose(), peopleLoad(), peopleUnload() methods in the ElevatorNode class.
 
 __Nabeel Azard__: Co-author of README file. Author of UML class diagram for the program. Co-author of all methods in the FloorSubsystem, Schedulersystem classes. Co-author of traverseOneFloor(), setDirection(), traverseToElevatorCall(), differenceBetweenDestinationAndCurrentFloor(),  and run() methods in the ElevatorNode class.
 
@@ -58,7 +79,7 @@ __Hamza Alsarakbi__: Co-author of README file. Co-author of all methods in the F
 
 __Arun Karki__: Co-author of README file. Co-author of all methods in the FloorSubsystem, Schedulersystem classes. Co-author of traverseOneFloor(), setDirection(), setElevatorCallFloor(),  run() methods in the ElevatorNode class.
 
-### Milestone 2
+### Iteration 2
 __Hamza Alsarakbi__: State diagrams, Elevator States, Class diagram
 
 __Mahad Mohamed Yonis__: Elevator node tests, Documentation, State diagram assistance 
@@ -68,6 +89,30 @@ __Nabeel Azard__: Elevator state tests, Documentation, State diagram assitance
 __Arun Karki__: Minor bug fixes, State diagram assistance
 
 __Zarif Khan__: Scheduler States, Scheduler State test, Updated Class/State diagrams
+
+### Iteration 3
+__Hamza Alsarakbi__: 
+Worked on Scheduler Communication: Floor Registration, Elevator Events, Floor Pickup Request. 
+Worked on ElevatorNode communication: Initialize sockets on unspecified ports, Events List, Pickup Requests, implemented getPickupIndex() in ElevatorNode. Designed and implemented a UI for the system.
+Documentation: Scheduler Sequence Diagram, Elevator State Diagram, Elevator Comm State Diagram
+
+__Mahad Mohamed Yonis__: 
+Worked on ElevatorNode communication: Implemented run() method in ElevatorProcessingAddPickupCommState. 
+Documentation: Elevator Sequence Diagram
+Implemented Unit Tests
+
+__Nabeel Azard__: 
+Worked on Scheduler Communication: Initialize sockets, Elevator Registration, 
+Worked on ElevatorNode communication: implemetnted run() method in ElevatorIdleCommState, register() method in ElevatorNode, and sentEvent() method in ElevatorNode. 
+Documentation: README file, Scheduer State Diagram
+
+__Arun Karki__: 
+Implemented FloorNode communication: Initialize sockets on unspecified ports, Floor Registration, Floor Pickup Request, Elevator Events.
+Documentation: Class Diagram
+
+__Zarif Khan__: 
+Implemented FloorNode communication: Initialize sockets on unspecified ports, Floor Registration, Floor Pickup Request, Elevator Events.
+Documentation: Floor Sequence Diagram
 
 MIT License:
 -----------------
