@@ -9,7 +9,7 @@ public class ElevatorIdleState extends ElevatorState {
     @Override
     public void handle(ElevatorNode context) {
         Instant idleTick = Instant.now(); //What does this do?
-        while (true){
+        while (context.running){
             Instant tick = Instant.now();
             long idleDuration = Duration.between(idleTick, tick).toMillis();
             if (!context.destinationsEmpty()){

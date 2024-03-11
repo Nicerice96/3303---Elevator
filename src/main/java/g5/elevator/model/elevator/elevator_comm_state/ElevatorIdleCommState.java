@@ -7,6 +7,7 @@ import g5.elevator.model.events.EventType;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
+import java.net.SocketException;
 
 public class ElevatorIdleCommState extends ElevatorCommState {
     public ElevatorIdleCommState(ElevatorNode context) {
@@ -15,7 +16,7 @@ public class ElevatorIdleCommState extends ElevatorCommState {
 
     @Override
     public void run() {
-        while (true) {
+        while (context.running) {
             // Wait until packet is received
             byte[] buffer = new byte[Defs.MSG_SIZE];
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
@@ -25,9 +26,11 @@ public class ElevatorIdleCommState extends ElevatorCommState {
                 System.out.println();
                 context.addEvent(new Event(EventType.RECEIVED, receivedMessage));
                 context.setCommState(new ElevatorProcessingCommState(context, receivedMessage));
+            } catch (SocketException e) {
+                if(e.getMessage().equals("Socket closed")) return;
+                throw new RuntimeException(e);
             } catch (IOException e) {
-                e.printStackTrace();
-                // Handle exception
+                throw new RuntimeException(e);
             }
         }
     }

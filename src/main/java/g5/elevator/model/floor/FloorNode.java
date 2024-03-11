@@ -29,6 +29,7 @@ public class FloorNode extends Thread {
     private String filename;
     private final int floor;
     private ArrayList<Event> log;
+    private boolean running;
 
 
     /**
@@ -50,6 +51,11 @@ public class FloorNode extends Thread {
             throw new RuntimeException(e);
         }
 
+    }
+    public void close() {
+        rSocket.close();
+        sSocket.close();
+        running = false;
     }
 
     /**
@@ -159,11 +165,14 @@ public class FloorNode extends Thread {
         System.out.println("\nParsing data:");
         parseData();
         System.out.println("\nListening");
-        while(true) {
+        while(running) {
             byte[] rBytes = new byte[Defs.MSG_SIZE];
             DatagramPacket packet = new DatagramPacket(rBytes, rBytes.length);
             try {
                 rSocket.receive(packet);
+            } catch (SocketException e) {
+                if(e.getMessage().equals("Socket closed")) return;
+                throw new RuntimeException(e);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

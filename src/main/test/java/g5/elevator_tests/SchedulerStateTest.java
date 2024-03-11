@@ -22,22 +22,22 @@ public class SchedulerStateTest {
     }
     @After
     public void cleanup() {
-        schedulerSystem.stopScheduler(true);
+        schedulerSystem.close();
     }
 
     @Test
     public void testStateTransition() {
         // Create a SchedulerSystem instance
         schedulerSystem.addInstruction(new Instruction(LocalTime.parse("00:00:01.000", TIMESTAMP_FORMATTER), Direction.UP, 1, 2));
-        schedulerSystem.stopScheduler(true);
+        schedulerSystem.close();
 
         schedulerSystem.setState(new SchedulerIdleState(schedulerSystem));
 
         // Initially, the state should be SchedulerIdleState
         assertTrue(schedulerSystem.getSchedulerState() instanceof SchedulerIdleState);
 
-        schedulerSystem.stopScheduler(false);
-        schedulerSystem.stopScheduler(true);
+        schedulerSystem.close();
+        schedulerSystem.close();
 
         assertTrue(schedulerSystem.getSchedulerState() instanceof SchedulerIdleState);
     }

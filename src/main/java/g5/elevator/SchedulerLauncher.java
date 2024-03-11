@@ -1,4 +1,5 @@
 package g5.elevator;
+import g5.elevator.controllers.SchedulerController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,6 +13,11 @@ public class SchedulerLauncher extends Application {
         stage.setTitle("Scheduler System");
         stage.setScene(scene);
         stage.show();
+        stage.setOnCloseRequest(event -> onClose(fxmlLoader.getController()));
+    }
+
+    private void onClose(SchedulerController controller) {
+        controller.close();
     }
 
 

@@ -1,5 +1,6 @@
 package g5.elevator.model;
 
+import g5.elevator.controllers.Updatable;
 import g5.elevator.model.events.Event;
 import g5.elevator.defs.Defs;
 import g5.elevator.model.scheduler_state.SchedulerState;
@@ -26,21 +27,26 @@ public class SchedulerSystem extends Thread {
 
     public DatagramSocket sSocket;
     public DatagramSocket rSocket;
+    private Updatable controller;
 
     public SchedulerSystem() {
+        this(null);
+    }
+    public SchedulerSystem(Updatable controller) {
+        this.controller = controller;
         try {
             rSocket = new DatagramSocket(Defs.SCHEDULER_PORT);
             sSocket = new DatagramSocket();
         } catch (SocketException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Scheduler Online.");
-        setState(new SchedulerIdleState(this));
     }
 
 
-    public void stopScheduler(boolean flag) {
+    public void close() {
         running = false;
+        sSocket.close();
+        rSocket.close();
     }
 
     public void addInstruction(Instruction instruction) {
@@ -66,6 +72,7 @@ public class SchedulerSystem extends Thread {
 
     public void addEvent(Event event) {
         log.add(event);
+        updateController();
         System.out.println(event);
     }
 
@@ -75,7 +82,20 @@ public class SchedulerSystem extends Thread {
 
     public void setState(SchedulerState state) {
         this.state = state;
+        updateController();
         this.state.handle();
+    }
+    public void updateController() {
+        if(controller == null) return;
+        System.out.println("calling update");
+        controller.update();
+    }
+    public ArrayList<Event> getLog() { return log; }
+
+    @Override
+    public void run() {
+        System.out.println("Scheduler Online.");
+        setState(new SchedulerIdleState(this));
     }
 
     public static void main(String[] args) throws InterruptedException, IOException {

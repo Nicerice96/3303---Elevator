@@ -34,14 +34,17 @@ public class ElevatorNode extends Thread {
     private ArrayList<Instruction> pendingInstructions;
     public DatagramSocket sSocket;
     public DatagramSocket rSocket;
+    public boolean running;
 
     /**
      * Constructs an ElevatorNode object with default values.
      * Initializes elevator properties such as id, current floor, altitude, velocity, state, and data structures.
      */
     public ElevatorNode() {
-        id = ElevatorNode.nextId++; //Why not just do: id = 0??
-        //System.out.println("ID is:"+id);
+        id = ElevatorNode.nextId++; // Why not just do: id = 0??
+        // Because we need unique ids for each elevator, so we start with 0 and increment.
+        // If you set it to 0, then all elevators have an id of 0, which defeats the point of an id. - Hamza
+        running = true;
         currentFloor = 0;
         altitude = 0.0f;
         velocity = 0.0f;
@@ -59,6 +62,12 @@ public class ElevatorNode extends Thread {
         register();
         System.out.println("\nListening");
         setCommState(new ElevatorIdleCommState(this));
+    }
+
+    public void close() {
+        rSocket.close();
+        sSocket.close();
+        running = false;
     }
 
     /**

@@ -51,14 +51,14 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <RadioButton mnemonicParsing="false" text="Idle" GridPane.rowIndex="1" />
-                                    <RadioButton mnemonicParsing="false" text="Fault" GridPane.rowIndex="7" />
+                                    <RadioButton fx:id="idleButton" disable="true" mnemonicParsing="false" text="Idle" GridPane.rowIndex="1" />
+                                    <RadioButton fx:id="faultButton" disable="true" mnemonicParsing="false" text="Fault" GridPane.rowIndex="7" />
                                     <Label text="General States" GridPane.halignment="CENTER" />
-                                    <RadioButton mnemonicParsing="false" text="Processing Elevator Request" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="2" />
-                                    <RadioButton mnemonicParsing="false" text="Processing Floor Request" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.rowSpan="2" />
-                                    <RadioButton mnemonicParsing="false" text="Processing Registration Request" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                                    <RadioButton mnemonicParsing="false" text="Forward Event" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                                    <RadioButton mnemonicParsing="false" text="Add Instruction" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                                    <RadioButton fx:id="pElevatorRequestButton" disable="true" mnemonicParsing="false" text="Processing Elevator Request" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="2" />
+                                    <RadioButton fx:id="pFloorRequestButton" disable="true" mnemonicParsing="false" text="Processing Floor Request" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.rowSpan="2" />
+                                    <RadioButton fx:id="pRegistrationRequestButton" disable="true" mnemonicParsing="false" text="Processing Registration Request" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <RadioButton fx:id="forwardEventButton" disable="true" mnemonicParsing="false" text="Forward Event" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                    <RadioButton fx:id="addInstructionButton" disable="true" mnemonicParsing="false" text="Add Instruction" GridPane.columnIndex="3" GridPane.rowIndex="4" />
                                     <Label text="---&gt;" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.rowSpan="2" />
                                     <Label text="---&gt;" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.rowSpan="2" />
                                     <Label text="Processing Request States" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
