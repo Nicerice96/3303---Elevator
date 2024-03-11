@@ -2,15 +2,15 @@ package tests;
 
 import org.junit.After;
 import org.junit.Test;
-import src.SchedulerSystem;
-import src.instruction.Direction;
-import src.instruction.Instruction;
-import src.scheduler_state.SchedulerIdleState;
+import g5.elevator.model.SchedulerSystem;
+import g5.elevator.model.instruction.Direction;
+import g5.elevator.model.instruction.Instruction;
+import g5.elevator.model.scheduler_state.SchedulerIdleState;
 
 import java.time.LocalTime;
 
 import static org.junit.Assert.*;
-import static src.defs.Defs.TIMESTAMP_FORMATTER;
+import static g5.elevator.defs.Defs.TIMESTAMP_FORMATTER;
 
 public class SchedulerStateTest {
     @After

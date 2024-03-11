@@ -1,16 +1,15 @@
 package tests;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import src.elevator.ElevatorNode;
-import src.instruction.Direction;
-import src.instruction.Instruction;
+import g5.elevator.model.elevator.ElevatorNode;
+import g5.elevator.model.instruction.Direction;
+import g5.elevator.model.instruction.Instruction;
 
 import java.time.LocalTime;
 
 import static org.junit.Assert.*;
-import static src.defs.Defs.TIMESTAMP_FORMATTER;
+import static g5.elevator.defs.Defs.TIMESTAMP_FORMATTER;
 
 /**
  * The ElevatorStateTest class is responsible for conducting unit tests on the ElevatorState class,

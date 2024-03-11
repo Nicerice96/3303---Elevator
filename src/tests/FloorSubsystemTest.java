@@ -1,7 +1,7 @@
 package tests;
 
 import org.junit.Test;
-import src.FloorNode;
+import g5.elevator.model.floor.FloorNode;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

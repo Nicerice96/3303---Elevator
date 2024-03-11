@@ -1,13 +1,13 @@
 package tests;
 
 import org.junit.Test;
-import src.instruction.Direction;
-import src.instruction.Instruction;
+import g5.elevator.model.instruction.Direction;
+import g5.elevator.model.instruction.Instruction;
 
 import java.time.LocalTime;
 
 import static org.junit.Assert.assertEquals;
-import static src.defs.Defs.TIMESTAMP_FORMATTER;
+import static g5.elevator.defs.Defs.TIMESTAMP_FORMATTER;
 
 /**
  * This is the test class for Instruction.java

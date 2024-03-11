@@ -2,14 +2,14 @@ package tests;
 
 import org.junit.Before;
 import org.junit.Test;
-import src.elevator.ElevatorNode;
-import src.instruction.Direction;
-import src.instruction.Instruction;
+import g5.elevator.model.elevator.ElevatorNode;
+import g5.elevator.model.instruction.Direction;
+import g5.elevator.model.instruction.Instruction;
 
 import java.time.LocalTime;
 
 import static org.junit.Assert.assertEquals;
-import static src.defs.Defs.TIMESTAMP_FORMATTER;
+import static g5.elevator.defs.Defs.TIMESTAMP_FORMATTER;
 
 public class ElevatorPickupTest {
     private static final LocalTime ts = java.time.LocalTime.parse("00:00:01.000", TIMESTAMP_FORMATTER);

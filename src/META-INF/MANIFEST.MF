@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: src.SchedulerSystem
+Main-Class: g5.elevator.model.SchedulerSystem
 

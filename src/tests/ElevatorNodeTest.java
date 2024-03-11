@@ -2,14 +2,14 @@ package tests;
 
 import org.junit.Before;
 import org.junit.Test;
-import src.elevator.ElevatorNode;
-import src.instruction.Instruction;
-import src.instruction.Direction;
+import g5.elevator.model.elevator.ElevatorNode;
+import g5.elevator.model.instruction.Instruction;
+import g5.elevator.model.instruction.Direction;
 
 import java.time.LocalTime;
 
 import static org.junit.Assert.*;
-import static src.defs.Defs.TIMESTAMP_FORMATTER;
+import static g5.elevator.defs.Defs.TIMESTAMP_FORMATTER;
 
 public class ElevatorNodeTest {
 
