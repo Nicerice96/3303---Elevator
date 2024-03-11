@@ -9,22 +9,22 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 
 public class ProcessingForwardEventState extends SchedulerProcessingElevatorRequestState{
-    public ProcessingForwardEventState(String msg) {
-        super(msg);
+    public ProcessingForwardEventState(SchedulerSystem context, String msg) {
+        super(context, msg);
     }
 
     @Override
     public void handle() {
         String sString = "event," + msg.split(",")[2].strip();
         byte[] sBytes = sString.getBytes();
-        for(int floor : SchedulerSystem.floors.keySet()) {
+        for(int floor : context.floors.keySet()) {
             try {
-                DatagramPacket packet = new DatagramPacket(sBytes, sBytes.length, InetAddress.getLocalHost(), SchedulerSystem.floors.get(floor));
-                SchedulerSystem.sSocket.send(packet);
+                DatagramPacket packet = new DatagramPacket(sBytes, sBytes.length, InetAddress.getLocalHost(), context.floors.get(floor));
+                context.sSocket.send(packet);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
-        SchedulerSystem.addEvent(new Event(EventType.FORWARDED, sString));
+        context.addEvent(new Event(EventType.FORWARDED, sString));
     }
 }

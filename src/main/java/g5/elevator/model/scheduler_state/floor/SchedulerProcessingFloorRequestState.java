@@ -8,8 +8,8 @@ import g5.elevator.model.scheduler_state.SchedulerState;
 public class SchedulerProcessingFloorRequestState extends SchedulerState {
     protected final String msg;
     protected final int floor;
-    public SchedulerProcessingFloorRequestState(String msg) {
-        super();
+    public SchedulerProcessingFloorRequestState(SchedulerSystem context, String msg) {
+        super(context);
         this.msg = msg;
         this.floor = Integer.parseInt(msg.split(",")[0].replace("floor", "").strip());
     }
@@ -19,12 +19,12 @@ public class SchedulerProcessingFloorRequestState extends SchedulerState {
 
         // mini router, find the appropriate state
         if(action.equals("register")) {
-            SchedulerSystem.setState(new SchedulerProcessingRegistrationState(msg, floor, SchedulerSystem.floors));
+            context.setState(new SchedulerProcessingRegistrationState(context, msg, floor, context.floors));
         } else if (action.equals("addInstruction")) {
-            SchedulerSystem.setState(new ProcessingFloorAddInstructionState(msg));
+            context.setState(new ProcessingFloorAddInstructionState(context, msg));
         } else {
             System.out.printf("SCHEDULER ERROR: Unknown action \"%s\", moving back to idle\n", action);
-            SchedulerSystem.setState(new SchedulerIdleState());
+            context.setState(new SchedulerIdleState(context));
         }
     }
 }

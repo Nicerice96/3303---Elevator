@@ -1,7 +1,7 @@
 package g5.elevator.model.elevator.elevator_comm_state;
 
-import g5.elevator.defs.Defs;
 import g5.elevator.model.elevator.ElevatorNode;
+import g5.elevator.defs.Defs;
 import g5.elevator.model.events.Event;
 import g5.elevator.model.events.EventType;
 

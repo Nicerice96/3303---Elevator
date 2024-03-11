@@ -1,7 +1,7 @@
 package g5.elevator.model.elevator.elevator_comm_state;
 
-import g5.elevator.model.instruction.Instruction;
 import g5.elevator.model.elevator.ElevatorNode;
+import g5.elevator.model.instruction.Instruction;
 
 import java.io.IOException;
 import java.net.DatagramPacket;

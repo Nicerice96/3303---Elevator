@@ -8,8 +8,8 @@ public class SchedulerLauncher extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(SchedulerLauncher.class.getResource("scheduler-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setTitle("Scheduler System");
         stage.setScene(scene);
         stage.show();
     }

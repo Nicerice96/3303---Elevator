@@ -9,9 +9,9 @@ import g5.elevator.model.scheduler_state.SchedulerProcessingRegistrationState;
 public class SchedulerProcessingElevatorRequestState extends SchedulerState {
     protected final String msg;
     protected final int id;
-    public SchedulerProcessingElevatorRequestState(String msg) {
-        super();
-        this.id = Integer.parseInt(msg.split(",")[0].replace("g5", "").strip());
+    public SchedulerProcessingElevatorRequestState(SchedulerSystem context, String msg) {
+        super(context);
+        this.id = Integer.parseInt(msg.split(",")[0].replace("elevator", "").strip());
         this.msg = msg;
     }
     @Override
@@ -19,15 +19,15 @@ public class SchedulerProcessingElevatorRequestState extends SchedulerState {
         String action = msg.split(",")[1].strip();
 
         // mini router, find the appropriate state
-        if(action.equals("register")) {
-            SchedulerSystem.setState(new SchedulerProcessingRegistrationState(msg, id, SchedulerSystem.elevators));
-        } else if (action.equals("addInstruction")) {
-            SchedulerSystem.setState(new ProcessingFloorAddInstructionState(msg));
-        } else if (action.equals("event")) {
-            SchedulerSystem.setState(new ProcessingForwardEventState(msg));
-        } else {
-            System.out.printf("SCHEDULER ERROR: Unknown action \"%s\", moving back to idle\n", action);
-            SchedulerSystem.setState(new SchedulerIdleState());
+        switch (action) {
+            case "register" ->
+                    context.setState(new SchedulerProcessingRegistrationState(context, msg, id, context.elevators));
+            case "addInstruction" -> context.setState(new ProcessingFloorAddInstructionState(context, msg));
+            case "event" -> context.setState(new ProcessingForwardEventState(context, msg));
+            default -> {
+                System.out.printf("SCHEDULER ERROR: Unknown action \"%s\", moving back to idle\n", action);
+                context.setState(new SchedulerIdleState(context));
+            }
         }
     }
 }

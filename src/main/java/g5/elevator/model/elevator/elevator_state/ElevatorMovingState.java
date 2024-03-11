@@ -1,10 +1,10 @@
 package g5.elevator.model.elevator.elevator_state;
 
+import g5.elevator.model.elevator.ElevatorNode;
 import g5.elevator.defs.ElevatorDefs;
 import g5.elevator.model.events.Event;
 import g5.elevator.model.events.EventType;
 import g5.elevator.model.instruction.Direction;
-import g5.elevator.model.elevator.ElevatorNode;
 
 import java.time.Duration;
 import java.time.Instant;

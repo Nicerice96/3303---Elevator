@@ -3,5 +3,6 @@ module Elevator{
     requires javafx.controls;
 
 
+    exports tests;
     opens Elevator;
 }

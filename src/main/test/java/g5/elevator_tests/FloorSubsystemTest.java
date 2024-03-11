@@ -1,4 +1,4 @@
-package tests;
+package g5.elevator_tests;
 
 import org.junit.Test;
 import g5.elevator.model.floor.FloorNode;
@@ -8,7 +8,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * The FloorSubsystemTest class is responsible for conducting unit tests on the FloorSubsystem class.
+ * The g5.elevator.FloorSubsystemTest class is responsible for conducting unit tests on the FloorSubsystem class.
  *
  * @author Mahad
  * @version 1.0

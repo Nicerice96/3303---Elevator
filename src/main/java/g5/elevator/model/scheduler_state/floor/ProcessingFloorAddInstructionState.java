@@ -1,18 +1,18 @@
 package g5.elevator.model.scheduler_state.floor;
 
-import g5.elevator.defs.Defs;
+import g5.elevator.model.SchedulerSystem;
 import g5.elevator.model.events.Event;
 import g5.elevator.model.events.EventType;
-import g5.elevator.model.SchedulerSystem;
+import g5.elevator.defs.Defs;
 import g5.elevator.model.instruction.Instruction;
 
 import java.io.IOException;
 import java.net.*;
 
 public class ProcessingFloorAddInstructionState extends SchedulerProcessingFloorRequestState {
-    public ProcessingFloorAddInstructionState(String msg) {
-        super(msg);
-        SchedulerSystem.instructions.add(Instruction.parse(msg.split(",")[2]));
+    public ProcessingFloorAddInstructionState(SchedulerSystem context, String msg) {
+        super(context, msg);
+        context.instructions.add(Instruction.parse(msg.split(",")[2]));
     }
 
     @Override
@@ -23,16 +23,16 @@ public class ProcessingFloorAddInstructionState extends SchedulerProcessingFloor
         } catch (SocketException e) {
             throw new RuntimeException(e);
         }
-        for (Instruction i : SchedulerSystem.instructions) {
+        for (Instruction i : context.instructions) {
             int id = getMinPickupIndex(i, tempSocket);
             // send pickup request
             // "addPickup,[i.toString()],"
             String sString = String.format("scheduler %d,addPickup,%s", tempSocket.getLocalPort(), i);
             byte[] sBytes = sString.getBytes();
             try {
-                DatagramPacket packet = new DatagramPacket(sBytes, sBytes.length, InetAddress.getLocalHost(), SchedulerSystem.elevators.get(id));
-                SchedulerSystem.sSocket.send(packet);
-                SchedulerSystem.addEvent(new Event(EventType.SENT, sString));
+                DatagramPacket packet = new DatagramPacket(sBytes, sBytes.length, InetAddress.getLocalHost(), context.elevators.get(id));
+                context.sSocket.send(packet);
+                context.addEvent(new Event(EventType.SENT, sString));
                 byte[] rBytes = new byte[Defs.MSG_SIZE];
                 DatagramPacket rPacket = new DatagramPacket(rBytes, rBytes.length);
                 try {
@@ -41,9 +41,9 @@ public class ProcessingFloorAddInstructionState extends SchedulerProcessingFloor
                     throw new RuntimeException(e);
                 }
                 String res = Defs.getMessage(rBytes, rPacket.getLength());
-                SchedulerSystem.addEvent(new Event(EventType.RECEIVED, res));
+                context.addEvent(new Event(EventType.RECEIVED, res));
                 String[] split = res.split(",");
-                if(!split[0].equals("g5 " + id)) {
+                if(!split[0].equals("elevator " + id)) {
                     System.out.printf("ERROR: failed to get return of addPickup from elevator %d, unknown originator \"%s\"\n", id, split[0]);
                     tempSocket.close();
                     return;
@@ -70,13 +70,13 @@ public class ProcessingFloorAddInstructionState extends SchedulerProcessingFloor
         String sString = String.format("scheduler %d,getPickupIndex,%s", tempSocket.getLocalPort(), instruction.toString());
         byte[] sBytes = sString.getBytes();
         int bestId = -1;
-        for (int id : SchedulerSystem.elevators.keySet()) {
-            int port = SchedulerSystem.elevators.get(id);
+        for (int id : context.elevators.keySet()) {
+            int port = context.elevators.get(id);
             // get pick up index
             try {
                 DatagramPacket sPacket = new DatagramPacket(sBytes, sBytes.length, InetAddress.getLocalHost(), port);
-                SchedulerSystem.sSocket.send(sPacket);
-                SchedulerSystem.addEvent(new Event(EventType.SENT, sString));
+                context.sSocket.send(sPacket);
+                context.addEvent(new Event(EventType.SENT, sString));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -88,9 +88,9 @@ public class ProcessingFloorAddInstructionState extends SchedulerProcessingFloor
                 throw new RuntimeException(e);
             }
             String res = Defs.getMessage(rBytes, rPacket.getLength());
-            SchedulerSystem.addEvent(new Event(EventType.RECEIVED, res));
+            context.addEvent(new Event(EventType.RECEIVED, res));
             String[] split = res.split(",");
-            if(!split[0].equals("g5 " + id)) {
+            if(!split[0].equals("elevator " + id)) {
                 System.out.printf("ERROR: failed to get return of getPickupIndex from elevator %d, unknown originator \"%s\"\n", id, split[0]);
                 continue;
             } else if(!split[1].equals("getPickupIndex")) {

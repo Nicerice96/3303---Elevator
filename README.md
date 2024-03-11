@@ -16,7 +16,7 @@ Team:
 Files:
 ------
 - `FloorSubsystem.java`: Handles the simulation of floor-related events, including the generation of elevator requests.
-- `FloorSubsystemTest.java`: Contains unit tests for the `FloorSubsystem`, ensuring its reliability in processing and forwarding requests.
+- `g5.elevator.FloorSubsystemTest.java`: Contains unit tests for the `FloorSubsystem`, ensuring its reliability in processing and forwarding requests.
 - `ElevatorNode.java`: Represents the elevator's functionality, responding to requests and simulating elevator movements.
 - `ElevatorNodeTest.java`: Provides tests for the `ElevatorNode` to verify its operations and state transitions.
 - `SchedulerSystem.java`: Acts as the central coordinator, receiving requests from the `FloorSubsystem` and assigning them to the `ElevatorNode`.
@@ -41,14 +41,14 @@ Setup Instructions:
 Test Instructions:
 ------------------
 1. Unit tests are provided for each subsystem. They can be run to ensure each part of the system functions as expected.
-2. Compile and run the test files separately, for example: `javac FloorSubsystemTest.java && java FloorSubsystemTest`.
+2. Compile and run the test files separately, for example: `javac g5.elevator.FloorSubsystemTest.java && java g5.elevator.FloorSubsystemTest`.
 3. To test the system as a whole, modify the input data in the `FloorSubsystem` to simulate different scenarios and observe how the system handles various elevator requests.
 
 Credits:
 -------------------
 
 ### Milstone 1
-__Mahad Mohamed Yonis__: Co-author of README file. Author of all methods in FloorSubsystemTest, SchedulerSubsystemTest, ElevatorNodeTest classes. Author of methods doorOpen(), doorClose(), peopleLoad(), peopleUnload() methods in the ElevatorNode class.
+__Mahad Mohamed Yonis__: Co-author of README file. Author of all methods in g5.elevator.FloorSubsystemTest, SchedulerSubsystemTest, ElevatorNodeTest classes. Author of methods doorOpen(), doorClose(), peopleLoad(), peopleUnload() methods in the ElevatorNode class.
 
 __Nabeel Azard__: Co-author of README file. Author of UML class diagram for the program. Co-author of all methods in the FloorSubsystem, Schedulersystem classes. Co-author of traverseOneFloor(), setDirection(), traverseToElevatorCall(), differenceBetweenDestinationAndCurrentFloor(),  and run() methods in the ElevatorNode class.
 

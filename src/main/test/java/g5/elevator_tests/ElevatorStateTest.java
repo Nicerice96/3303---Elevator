@@ -1,4 +1,4 @@
-package tests;
+package g5.elevator_tests;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 import static g5.elevator.defs.Defs.TIMESTAMP_FORMATTER;
 
 /**
- * The ElevatorStateTest class is responsible for conducting unit tests on the ElevatorState class,
+ * The g5.elevator.ElevatorStateTest class is responsible for conducting unit tests on the ElevatorState class,
  * ElevatorNode class, and the different Elevator classes.
  *
  * @author Nabeel Azard

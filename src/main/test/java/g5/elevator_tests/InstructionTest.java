@@ -1,4 +1,4 @@
-package tests;
+package g5.elevator_tests;
 
 import org.junit.Test;
 import g5.elevator.model.instruction.Direction;

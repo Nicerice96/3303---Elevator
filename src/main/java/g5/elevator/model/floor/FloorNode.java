@@ -1,8 +1,8 @@
 package g5.elevator.model.floor;
 
-import g5.elevator.defs.Defs;
 import g5.elevator.model.events.Event;
 import g5.elevator.model.events.EventType;
+import g5.elevator.defs.Defs;
 import g5.elevator.model.instruction.Direction;
 import g5.elevator.model.instruction.Instruction;
 

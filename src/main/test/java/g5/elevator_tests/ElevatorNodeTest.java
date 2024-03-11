@@ -1,4 +1,4 @@
-package tests;
+package g5.elevator_tests;
 
 import org.junit.Before;
 import org.junit.Test;

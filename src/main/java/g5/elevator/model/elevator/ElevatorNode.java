@@ -1,8 +1,8 @@
 package g5.elevator.model.elevator;
 
+import g5.elevator.model.elevator.elevator_state.ElevatorIdleState;
 import g5.elevator.defs.Defs;
 import g5.elevator.model.elevator.elevator_comm_state.ElevatorCommState;
-import g5.elevator.model.elevator.elevator_state.ElevatorIdleState;
 import g5.elevator.model.elevator.elevator_state.ElevatorState;
 import g5.elevator.model.events.Event;
 import g5.elevator.model.events.EventType;
