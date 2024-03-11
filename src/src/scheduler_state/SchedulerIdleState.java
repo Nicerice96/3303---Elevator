@@ -22,6 +22,7 @@ public class SchedulerIdleState extends SchedulerState  {
             try {
                 SchedulerSystem.rSocket.receive(rcvpacket);
                 String msg = getMessage(messagercv, rcvpacket.getLength());
+                System.out.println();
                 SchedulerSystem.addEvent(new Event(EventType.RECEIVED, msg));
                 String origin = msg.split(",")[0].strip();
                 if(origin.startsWith("floor")) {

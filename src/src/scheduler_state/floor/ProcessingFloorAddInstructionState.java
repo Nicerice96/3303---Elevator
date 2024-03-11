@@ -8,15 +8,12 @@ import src.instruction.Instruction;
 
 import javax.xml.crypto.Data;
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.net.*;
 
 import static src.defs.Defs.MSG_SIZE;
 import static src.defs.Defs.getMessage;
 
 public class ProcessingFloorAddInstructionState extends SchedulerProcessingFloorRequestState {
-
     public ProcessingFloorAddInstructionState(String msg) {
         super(msg);
         SchedulerSystem.instructions.add(Instruction.parse(msg.split(",")[2]));
@@ -24,11 +21,17 @@ public class ProcessingFloorAddInstructionState extends SchedulerProcessingFloor
 
     @Override
     public void handle() {
+        DatagramSocket tempSocket;
+        try {
+            tempSocket = new DatagramSocket();
+        } catch (SocketException e) {
+            throw new RuntimeException(e);
+        }
         for (Instruction i : SchedulerSystem.instructions) {
-            int id = getMinPickupIndex(i);
+            int id = getMinPickupIndex(i, tempSocket);
             // send pickup request
-            // "addPickup,[i.toString()]
-            String sString = "addPickup," + i;
+            // "addPickup,[i.toString()],"
+            String sString = String.format("scheduler %d,addPickup,%s", tempSocket.getLocalPort(), i);
             byte[] sBytes = sString.getBytes();
             try {
                 DatagramPacket packet = new DatagramPacket(sBytes, sBytes.length, InetAddress.getLocalHost(), SchedulerSystem.elevators.get(id));
@@ -37,7 +40,7 @@ public class ProcessingFloorAddInstructionState extends SchedulerProcessingFloor
                 byte[] rBytes = new byte[MSG_SIZE];
                 DatagramPacket rPacket = new DatagramPacket(rBytes, rBytes.length);
                 try {
-                    SchedulerSystem.rSocket.receive(rPacket);
+                    tempSocket.receive(rPacket);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -46,9 +49,11 @@ public class ProcessingFloorAddInstructionState extends SchedulerProcessingFloor
                 String[] split = res.split(",");
                 if(!split[0].equals("elevator " + id)) {
                     System.out.printf("ERROR: failed to get return of addPickup from elevator %d, unknown originator \"%s\"\n", id, split[0]);
+                    tempSocket.close();
                     return;
                 } else if(!split[1].equals("addPickup")) {
                     System.out.printf("ERROR: failed to get return of addPickup from elevator %d, unknown action \"%s\"\n", id, split[1]);
+                    tempSocket.close();
                     return;
                 }
 
@@ -57,15 +62,16 @@ public class ProcessingFloorAddInstructionState extends SchedulerProcessingFloor
                 throw new RuntimeException(e);
             }
         }
+        tempSocket.close();
     }
 
     /**
      * Gets the elevator with the minimum pickup index/the highest priority
      * @return the id of the elevator with the minimum pickup index/the highest priority
      */
-    private int getMinPickupIndex(Instruction instruction) {
+    private int getMinPickupIndex(Instruction instruction, DatagramSocket tempSocket) {
         int min = Integer.MAX_VALUE;
-        String sString = "getPickupIndex," + instruction.toString();
+        String sString = String.format("scheduler %d,getPickupIndex,%s", tempSocket.getLocalPort(), instruction.toString());
         byte[] sBytes = sString.getBytes();
         int bestId = -1;
         for (int id : SchedulerSystem.elevators.keySet()) {
@@ -81,7 +87,7 @@ public class ProcessingFloorAddInstructionState extends SchedulerProcessingFloor
             byte[] rBytes = new byte[MSG_SIZE];
             DatagramPacket rPacket = new DatagramPacket(rBytes, rBytes.length);
             try {
-                SchedulerSystem.rSocket.receive(rPacket);
+                tempSocket.receive(rPacket);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
