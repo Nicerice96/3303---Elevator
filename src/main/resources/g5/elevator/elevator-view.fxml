@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="elevator" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g5.elevator.controllers.elevator.ElevatorNodeController">
+   <children>
+      <HBox>
+         <children>
+            <Label text="Elevator Node ">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="idLabel" text="idLabel">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox>
+         <children>
+            <Slider fx:id="altitudeSlider" majorTickUnit="10.0" max="10.0" minWidth="41.0" minorTickCount="5" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <VBox>
+               <children>
+                  <HBox>
+                     <children>
+                        <VBox fx:id="status" minWidth="107.0">
+                           <children>
+                              <Label text="Status">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <VBox prefWidth="257.0" spacing="5.0">
+                                 <children>
+                                    <GridPane maxWidth="1.7976931348623157E308">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <RadioButton fx:id="idleButton" disable="true" mnemonicParsing="false" text="Idle" />
+                                          <RadioButton fx:id="movingButton" disable="true" mnemonicParsing="false" text="Moving" GridPane.columnIndex="1" />
+                                          <RadioButton fx:id="doorOpeningButton" disable="true" mnemonicParsing="false" text="Door Opening" GridPane.rowIndex="1" />
+                                          <RadioButton fx:id="doorOpenButton" disable="true" mnemonicParsing="false" text="Door Open" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <RadioButton fx:id="doorClosingButton" disable="true" mnemonicParsing="false" text="Door Closing" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <VBox fx:id="commStatus" minWidth="107.0">
+                           <children>
+                              <Label text="Communication Status">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <VBox prefWidth="257.0" spacing="5.0">
+                                 <children>
+                                    <GridPane maxWidth="1.7976931348623157E308">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <RadioButton fx:id="idleCommButton" disable="true" mnemonicParsing="false" text="Idle" />
+                                          <RadioButton fx:id="processingCommButton" disable="true" mnemonicParsing="false" text="Processing" GridPane.columnIndex="1" />
+                                          <RadioButton fx:id="getPickupButton" disable="true" mnemonicParsing="false" text="P. Get Pickup" GridPane.rowIndex="1" />
+                                          <RadioButton fx:id="addPickupButton" disable="true" mnemonicParsing="false" text="P. Add Pickup" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <VBox fx:id="data" maxWidth="1.7976931348623157E308">
+                           <children>
+                              <Label text="Data">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <VBox spacing="5.0">
+                                 <children>
+                                    <GridPane>
+                                       <columnConstraints>
+                                          <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="75.0" />
+                                          <ColumnConstraints hgrow="ALWAYS" />
+                                          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="25.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label text="Altitude: " GridPane.rowIndex="1" />
+                                          <Label text="Velocity: " GridPane.rowIndex="2" />
+                                          <Label text="Destinations: " GridPane.rowIndex="3" />
+                                          <Label fx:id="altitudeLabel" text="altitudeLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Label fx:id="velocityLabel" text="velocityLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <Label fx:id="destinationsLabel" text="destinationsLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <Label text="m" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                          <Label text="m/s" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                          <Label text="Registered: " />
+                                          <Label fx:id="registeredLabel" text="registeredLabel" GridPane.columnIndex="1" />
+                                          <Label text="rSocket: " GridPane.rowIndex="4" />
+                                          <Label text="sSocket: " GridPane.rowIndex="5" />
+                                          <Label fx:id="rSocketLabel" text="rSocketLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                          <Label fx:id="sSocketLabel" text="sSocketLabel" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <VBox>
+                     <children>
+                        <Label text="Event Log">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <HBox spacing="10.0">
+                           <children>
+                              <CheckBox fx:id="infoBox" mnemonicParsing="false" selected="true" text="Info" />
+                              <CheckBox fx:id="errorBox" mnemonicParsing="false" selected="true" text="Error" />
+                              <CheckBox fx:id="warningBox" mnemonicParsing="false" selected="true" text="Warning" />
+                           </children>
+                        </HBox>
+                        <ListView fx:id="logList" prefHeight="200.0" prefWidth="200.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</VBox>

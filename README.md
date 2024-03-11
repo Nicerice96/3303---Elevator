@@ -61,11 +61,12 @@ Setup Instructions:
 Test Instructions:
 ------------------
 1. Unit tests are provided for each subsystem. They can be run to ensure each part of the system functions as expected.
-2. Compile and run the test files separately, for example: `javac FloorSubsystemTest.java && java FloorSubsystemTest`.
+2. Compile and run the test files separately, for example: `javac g5.elevator.FloorSubsystemTest.java && java g5.elevator.FloorSubsystemTest`.
 3. To test the system as a whole, modify the input data in the `FloorSubsystem` to simulate different scenarios and observe how the system handles various elevator requests.
 
 Credits:
 -------------------
+
 
 ### Ieration 1
 __Mahad Mohamed Yonis__: Co-author of README file. Author of all methods in FloorSubsystemTest, SchedulerSubsystemTest, ElevatorNodeTest classes. Author of methods doorOpen(), doorClose(), peopleLoad(), peopleUnload() methods in the ElevatorNode class.
