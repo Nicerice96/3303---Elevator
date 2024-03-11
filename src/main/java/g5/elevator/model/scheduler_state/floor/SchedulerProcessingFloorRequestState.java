@@ -14,7 +14,7 @@ public class SchedulerProcessingFloorRequestState extends SchedulerState {
         this.floor = Integer.parseInt(msg.split(",")[0].replace("floor", "").strip());
     }
     @Override
-    public void handle() {
+    public void run() {
         String action = msg.split(",")[1].strip();
 
         // mini router, find the appropriate state

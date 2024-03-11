@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.RadioButton?>
@@ -9,6 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -78,6 +80,13 @@
                                     <Font size="16.0" />
                                  </font>
                               </Label>
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <CheckBox fx:id="infoBox" mnemonicParsing="false" selected="true" text="Info" />
+                                    <CheckBox fx:id="errorBox" mnemonicParsing="false" selected="true" text="Error" />
+                                    <CheckBox fx:id="warningBox" mnemonicParsing="false" selected="true" text="Warning" />
+                                 </children>
+                              </HBox>
                               <ListView fx:id="logList" />
                            </children>
                            <padding>

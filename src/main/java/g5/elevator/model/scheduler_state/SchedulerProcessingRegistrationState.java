@@ -30,7 +30,7 @@ public class SchedulerProcessingRegistrationState extends SchedulerState {
     }
 
     @Override
-    public void handle() {
+    public void run() {
         hashMap.put(id, port);
         byte[] res = "OK".getBytes();
         try {

@@ -8,7 +8,7 @@ public class SchedulerFaultState extends SchedulerState {
     }
 
     @Override
-    public void handle() {
+    public void run() {
         // TODO: handler()
     }
 }

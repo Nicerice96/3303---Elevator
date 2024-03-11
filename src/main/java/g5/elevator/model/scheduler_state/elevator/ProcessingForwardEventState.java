@@ -3,6 +3,7 @@ package g5.elevator.model.scheduler_state.elevator;
 import g5.elevator.model.events.Event;
 import g5.elevator.model.events.EventType;
 import g5.elevator.model.SchedulerSystem;
+import g5.elevator.model.scheduler_state.SchedulerIdleState;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -14,7 +15,7 @@ public class ProcessingForwardEventState extends SchedulerProcessingElevatorRequ
     }
 
     @Override
-    public void handle() {
+    public void run() {
         String sString = "event," + msg.split(",")[2].strip();
         byte[] sBytes = sString.getBytes();
         for(int floor : context.floors.keySet()) {
@@ -26,5 +27,6 @@ public class ProcessingForwardEventState extends SchedulerProcessingElevatorRequ
             }
         }
         context.addEvent(new Event(EventType.FORWARDED, sString));
+        context.setState(new SchedulerIdleState(context));
     }
 }

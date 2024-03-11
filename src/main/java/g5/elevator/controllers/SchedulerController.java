@@ -9,6 +9,7 @@ import g5.elevator.model.scheduler_state.elevator.ProcessingForwardEventState;
 import g5.elevator.model.scheduler_state.elevator.SchedulerProcessingElevatorRequestState;
 import g5.elevator.model.scheduler_state.floor.ProcessingFloorAddInstructionState;
 import g5.elevator.model.scheduler_state.floor.SchedulerProcessingFloorRequestState;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -33,14 +34,16 @@ public class SchedulerController implements Initializable, Updatable {
 
     @Override
     public void update() {
-        logList.setItems(FXCollections.observableArrayList(schedulerSystem.getLog()));
-        idleButton.setSelected(schedulerSystem.getSchedulerState() instanceof SchedulerIdleState);
-        faultButton.setSelected(schedulerSystem.getSchedulerState() instanceof SchedulerFaultState);
-        pElevatorRequestButton.setSelected(schedulerSystem.getSchedulerState() instanceof SchedulerProcessingElevatorRequestState);
-        pFloorRequestButton.setSelected(schedulerSystem.getSchedulerState() instanceof SchedulerProcessingFloorRequestState);
-        pRegistrationRequestButton.setSelected(schedulerSystem.getSchedulerState() instanceof SchedulerProcessingRegistrationState);
-        forwardEventButton.setSelected(schedulerSystem.getSchedulerState() instanceof ProcessingForwardEventState);
-        addInstructionButton.setSelected(schedulerSystem.getSchedulerState() instanceof ProcessingFloorAddInstructionState);
+        Platform.runLater(() -> {
+            logList.setItems(FXCollections.observableArrayList(schedulerSystem.getLog().reversed()));
+            idleButton.setSelected(schedulerSystem.getSchedulerState() instanceof SchedulerIdleState);
+            faultButton.setSelected(schedulerSystem.getSchedulerState() instanceof SchedulerFaultState);
+            pElevatorRequestButton.setSelected(schedulerSystem.getSchedulerState() instanceof SchedulerProcessingElevatorRequestState);
+            pFloorRequestButton.setSelected(schedulerSystem.getSchedulerState() instanceof SchedulerProcessingFloorRequestState);
+            pRegistrationRequestButton.setSelected(schedulerSystem.getSchedulerState() instanceof SchedulerProcessingRegistrationState);
+            forwardEventButton.setSelected(schedulerSystem.getSchedulerState() instanceof ProcessingForwardEventState);
+            addInstructionButton.setSelected(schedulerSystem.getSchedulerState() instanceof ProcessingFloorAddInstructionState);
+        });
     }
 
     public void close() { schedulerSystem.close(); }

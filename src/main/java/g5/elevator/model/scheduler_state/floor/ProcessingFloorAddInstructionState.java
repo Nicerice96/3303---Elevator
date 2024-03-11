@@ -5,6 +5,7 @@ import g5.elevator.model.events.Event;
 import g5.elevator.model.events.EventType;
 import g5.elevator.defs.Defs;
 import g5.elevator.model.instruction.Instruction;
+import g5.elevator.model.scheduler_state.SchedulerIdleState;
 
 import java.io.IOException;
 import java.net.*;
@@ -16,7 +17,7 @@ public class ProcessingFloorAddInstructionState extends SchedulerProcessingFloor
     }
 
     @Override
-    public void handle() {
+    public void run() {
         DatagramSocket tempSocket;
         try {
             tempSocket = new DatagramSocket();
@@ -48,21 +49,22 @@ public class ProcessingFloorAddInstructionState extends SchedulerProcessingFloor
                 if(!split[0].equals("elevator " + id)) {
                     System.out.printf("ERROR: failed to get return of addPickup from elevator %d, unknown originator \"%s\"\n", id, split[0]);
                     tempSocket.close();
+                    context.setState(new SchedulerIdleState(context));
                     return;
                 } else if(!split[1].equals("addPickup")) {
                     System.out.printf("ERROR: failed to get return of addPickup from elevator %d, unknown action \"%s\"\n", id, split[1]);
                     tempSocket.close();
+                    context.setState(new SchedulerIdleState(context));
                     return;
                 } else if(!split[2].equals("OK")) {
                     System.out.printf("ERROR: unknown response %s\n", split[2]);
                 }
-
-
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
         tempSocket.close();
+        context.setState(new SchedulerIdleState(context));
     }
 
     /**

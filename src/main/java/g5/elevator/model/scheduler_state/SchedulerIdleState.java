@@ -18,7 +18,7 @@ public class SchedulerIdleState extends SchedulerState  {
     }
 
     @Override
-    public void handle() {
+    public void run() {
         while(context.running) {
             byte[] messagercv = new byte[Defs.MSG_SIZE];
             DatagramPacket rcvpacket = new DatagramPacket(messagercv, messagercv.length);
@@ -30,8 +30,10 @@ public class SchedulerIdleState extends SchedulerState  {
                 String origin = msg.split(",")[0].strip();
                 if(origin.startsWith("floor")) {
                     context.setState(new SchedulerProcessingFloorRequestState(context, msg));
+                    return;
                 } else if(origin.startsWith("elevator")) {
                     context.setState(new SchedulerProcessingElevatorRequestState(context, msg));
+                    return;
                 }
             } catch (SocketException e) {
                 if(e.getMessage().equals("Socket closed")) return;

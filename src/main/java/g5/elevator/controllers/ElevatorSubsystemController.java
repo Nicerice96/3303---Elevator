@@ -1,7 +1,6 @@
 package g5.elevator.controllers;
 
 import g5.elevator.SchedulerLauncher;
-import g5.elevator.model.elevator.ElevatorNode;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

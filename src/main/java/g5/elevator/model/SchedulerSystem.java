@@ -83,7 +83,7 @@ public class SchedulerSystem extends Thread {
     public void setState(SchedulerState state) {
         this.state = state;
         updateController();
-        this.state.handle();
+        this.state.start();
     }
     /**
      * Calls the update method on the controller, use with a UI

@@ -15,7 +15,7 @@ public class SchedulerProcessingElevatorRequestState extends SchedulerState {
         this.msg = msg;
     }
     @Override
-    public void handle() {
+    public void run() {
         String action = msg.split(",")[1].strip();
 
         // mini router, find the appropriate state
