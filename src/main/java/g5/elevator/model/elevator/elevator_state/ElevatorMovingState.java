@@ -62,6 +62,7 @@ public class ElevatorMovingState extends ElevatorState {
             context.updateAltitude(context.velocity * (duration / 1000.0F));
             // clamp altitude
 //            System.out.printf("lifetime: %d, velocity: %.4f, currentFloor: %d, altitude: %.4f\n", lifetime, context.velocity, context.getCurrentFloor(), context.getAltitude());
+            context.updateController();
             prevTick = tick;
             try {
                 Thread.sleep(ElevatorDefs.TICK_RATE);
@@ -72,6 +73,7 @@ public class ElevatorMovingState extends ElevatorState {
 
         context.velocity = 0.0F;
         context.updateAltitude(10.0F * context.getCurrentFloor() - context.getAltitude());
+        context.updateController();
 //        System.out.printf("velocity: %.4f, currentFloor: %d, altitude: %.4f\n",context.velocity, context.getCurrentFloor(), context.getAltitude());
         context.addEvent(new Event(EventType.ELEVATOR_ARRIVED, context.getElevatorId(), context.getCurrentFloor()));
         context.clearDestination();

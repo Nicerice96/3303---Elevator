@@ -17,7 +17,7 @@ import java.util.concurrent.BlockingQueue;
 
 public class SchedulerSystem extends Thread {
     private ArrayList<Event> log = new ArrayList<>();
-    public BlockingQueue<Instruction> instructions = new ArrayBlockingQueue<>(128);
+    private final BlockingQueue<Instruction> instructions = new ArrayBlockingQueue<>(128);
     private SchedulerState state;
     public volatile boolean running = true; // Flag to indicate if the scheduler system should keep running
     // id, port

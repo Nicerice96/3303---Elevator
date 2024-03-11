@@ -25,18 +25,19 @@ import java.util.ArrayList;
 public class ElevatorNode extends Thread {
     private static int nextId = 0;
     private final int id;
-    private int currentFloor;
-    private float altitude;
-    public float velocity; // no need for private attribute
+    private int currentFloor = 0;
+    private float altitude = 0.0f;
+    public float velocity = 0.0f; // no need for private attribute
     private ElevatorState state;
     private ElevatorCommState commState;
-    public ArrayList<Integer> destinations;
-    private ArrayList<Event> log;
-    private ArrayList<Instruction> pendingInstructions;
+    public ArrayList<Integer> destinations = new ArrayList<>();;
+    private final ArrayList<Event> log = new ArrayList<>();;
+    private final ArrayList<Instruction> pendingInstructions = new ArrayList<>();;
     public DatagramSocket sSocket;
     public DatagramSocket rSocket;
-    public boolean running;
+    public boolean running = true;
     private final Updatable controller;
+    private boolean registered = false;
 
     /**
      * Constructs an ElevatorNode object with default values.
@@ -49,13 +50,6 @@ public class ElevatorNode extends Thread {
         id = ElevatorNode.nextId++; // Why not just do: id = 0??
         // Because we need unique ids for each elevator, so we start with 0 and increment.
         // If you set it to 0, then all elevators have an id of 0, which defeats the point of an id. - Hamza
-        running = true;
-        currentFloor = 0;
-        altitude = 0.0f;
-        velocity = 0.0f;
-        destinations = new ArrayList<>();
-        log = new ArrayList<>();
-        pendingInstructions = new ArrayList<>();
         this.controller = controller;
         try {
             sSocket = new DatagramSocket();
@@ -70,6 +64,7 @@ public class ElevatorNode extends Thread {
         sSocket.close();
         running = false;
     }
+    public boolean isRegistered() { return registered; }
 
     /**
      * Registers the elevator node with the Scheduler.
@@ -124,6 +119,11 @@ public class ElevatorNode extends Thread {
     public int getElevatorId() { return this.id; }
     public int getCurrentFloor() { return currentFloor; }
     public float getAltitude() { return altitude; }
+    public float getVelocity() { return velocity; }
+    public ArrayList<Event> getLog() { return log; }
+    public ArrayList<Integer> getDestinations() { return destinations; }
+    public ElevatorState getElevatorState() { return state; }
+    public ElevatorCommState getCommState() { return commState; }
     /**
      * Determines the pickup index for the given instruction.
      * This method calculates the index at which the pickup floor should be inserted into the destinations list.
@@ -184,6 +184,7 @@ public class ElevatorNode extends Thread {
         pendingInstructions.add(instruction);
         destinations.add(getPickupIndex(instruction), instruction.getPickupFloor());
         addEvent(new Event(EventType.ELEVATOR_RECEIVED_REQUEST, id, instruction.getPickupFloor()));
+        updateController();
     }
     /**
      * Sets the state of the elevator.
@@ -208,6 +209,7 @@ public class ElevatorNode extends Thread {
      */
     public void addEvent(Event event) {
         log.add(event);
+        updateController();
         System.out.println(event);
         if(event.getEventType() == EventType.RECEIVED ||
                 event.getEventType() == EventType.SENT ||
@@ -267,7 +269,8 @@ public class ElevatorNode extends Thread {
     public void run() {
         System.out.printf("Elevator node %d Online\n", id);
         System.out.println("Registering");
-        if(!register()) {
+        registered = register();
+        if(!registered) {
             System.out.printf("Registration failed. Closing elevator node %d.\n", id);
             return;
         };

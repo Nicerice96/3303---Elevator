@@ -12,7 +12,7 @@ import java.net.*;
 public class ProcessingFloorAddInstructionState extends SchedulerProcessingFloorRequestState {
     public ProcessingFloorAddInstructionState(SchedulerSystem context, String msg) {
         super(context, msg);
-        context.instructions.add(Instruction.parse(msg.split(",")[2]));
+        context.addInstruction(Instruction.parse(msg.split(",")[2]));
     }
 
     @Override
@@ -23,7 +23,9 @@ public class ProcessingFloorAddInstructionState extends SchedulerProcessingFloor
         } catch (SocketException e) {
             throw new RuntimeException(e);
         }
-        for (Instruction i : context.instructions) {
+        while (true) {
+            Instruction i = context.getInstruction();
+            if(i == null) break;
             int id = getMinPickupIndex(i, tempSocket);
             // send pickup request
             // "addPickup,[i.toString()],"
@@ -51,6 +53,8 @@ public class ProcessingFloorAddInstructionState extends SchedulerProcessingFloor
                     System.out.printf("ERROR: failed to get return of addPickup from elevator %d, unknown action \"%s\"\n", id, split[1]);
                     tempSocket.close();
                     return;
+                } else if(!split[2].equals("OK")) {
+                    System.out.printf("ERROR: unknown response %s\n", split[2]);
                 }
 
 

@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="elevator" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="elevator" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g5.elevator.controllers.ElevatorNodeController">
    <children>
       <HBox>
          <children>
@@ -32,7 +32,7 @@
       </HBox>
       <HBox>
          <children>
-            <Slider minWidth="41.0" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
+            <Slider fx:id="altitudeSlider" majorTickUnit="10.0" max="10.0" minWidth="41.0" minorTickCount="5" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
             <Separator orientation="VERTICAL" prefHeight="200.0" />
             <VBox>
                <children>
@@ -58,11 +58,11 @@
                                           <RowConstraints minHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <RadioButton fx:id="idleButton" mnemonicParsing="false" text="Idle" />
-                                          <RadioButton fx:id="movingButton" mnemonicParsing="false" text="Moving" GridPane.columnIndex="1" />
-                                          <RadioButton fx:id="doorOpeningButton" mnemonicParsing="false" text="Door Opening" GridPane.rowIndex="1" />
-                                          <RadioButton fx:id="doorOpenButton" mnemonicParsing="false" text="Door Open" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <RadioButton fx:id="doorClosingButton" mnemonicParsing="false" text="Door Closing" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                                          <RadioButton fx:id="idleButton" disable="true" mnemonicParsing="false" text="Idle" />
+                                          <RadioButton fx:id="movingButton" disable="true" mnemonicParsing="false" text="Moving" GridPane.columnIndex="1" />
+                                          <RadioButton fx:id="doorOpeningButton" disable="true" mnemonicParsing="false" text="Door Opening" GridPane.rowIndex="1" />
+                                          <RadioButton fx:id="doorOpenButton" disable="true" mnemonicParsing="false" text="Door Open" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <RadioButton fx:id="doorClosingButton" disable="true" mnemonicParsing="false" text="Door Closing" GridPane.columnSpan="2" GridPane.rowIndex="2" />
                                        </children>
                                     </GridPane>
                                  </children>
@@ -91,10 +91,10 @@
                                           <RowConstraints minHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <RadioButton fx:id="idleCommButton" mnemonicParsing="false" text="Idle" />
-                                          <RadioButton fx:id="processingCommButton" mnemonicParsing="false" text="Processing" GridPane.columnIndex="1" />
-                                          <RadioButton fx:id="getPickupButton" mnemonicParsing="false" text="P. Get Pickup" GridPane.rowIndex="1" />
-                                          <RadioButton fx:id="addPickupButton" mnemonicParsing="false" text="P. Add Pickup" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <RadioButton fx:id="idleCommButton" disable="true" mnemonicParsing="false" text="Idle" />
+                                          <RadioButton fx:id="processingCommButton" disable="true" mnemonicParsing="false" text="Processing" GridPane.columnIndex="1" />
+                                          <RadioButton fx:id="getPickupButton" disable="true" mnemonicParsing="false" text="P. Get Pickup" GridPane.rowIndex="1" />
+                                          <RadioButton fx:id="addPickupButton" disable="true" mnemonicParsing="false" text="P. Add Pickup" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                        </children>
                                     </GridPane>
                                  </children>

@@ -10,7 +10,7 @@ public class ElevatorSubsystemLauncher extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(SchedulerLauncher.class.getResource("elevators-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
+        Scene scene = new Scene(fxmlLoader.load(), 800, 520);
         stage.setTitle("Elevator Subsystem");
         stage.setScene(scene);
         stage.show();

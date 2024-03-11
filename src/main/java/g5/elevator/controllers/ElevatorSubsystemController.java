@@ -6,11 +6,12 @@ import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
@@ -26,11 +27,13 @@ public class ElevatorSubsystemController implements Initializable, Updatable {
     Label startCountLabel;
     @FXML
     FlowPane elevators;
-    private ArrayList<ElevatorNode> elevatorNodes;
+    @FXML
+    ScrollPane root;
+    private ArrayList<FXMLLoader> elevatorPages;
     private boolean started = false;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        elevatorNodes = new ArrayList<>();
+        elevatorPages = new ArrayList<>();
         startCountLabel.textProperty().bind(Bindings.format("%.0f", startSlider.valueProperty()));
         update();
     }
@@ -45,9 +48,9 @@ public class ElevatorSubsystemController implements Initializable, Updatable {
 
     @FXML
     public void startHandler() {
+        if(startSlider.getValue() < 1) return;
         for(int i = 0; i < startSlider.getValue(); i++) {
-            ElevatorNode elevatorNode = new ElevatorNode(this);
-            elevatorNode.start();
+
             FXMLLoader fxmlLoader = new FXMLLoader(SchedulerLauncher.class.getResource("elevator-view.fxml"));
             try {
                 fxmlLoader.load();
@@ -55,15 +58,20 @@ public class ElevatorSubsystemController implements Initializable, Updatable {
                 throw new RuntimeException(e);
             }
             elevators.getChildren().add(fxmlLoader.getRoot());
-
-            elevatorNodes.add(elevatorNode);
+            elevatorPages.add(fxmlLoader);
         }
+        VBox pane = elevatorPages.get(0).getRoot();
+        root.setPrefWidth(pane.getWidth() + 10);
+        root.setPrefHeight(pane.getHeight() + 50);
         started = true;
         update();
     }
 
 
     public void close() {
-        for(ElevatorNode e : elevatorNodes) e.close();
+        for(FXMLLoader fxml : elevatorPages) {
+            ElevatorNodeController controller = fxml.getController();
+            controller.close();
+        };
     }
 }
