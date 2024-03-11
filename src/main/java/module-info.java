@@ -15,4 +15,8 @@ module g5.elevator {
     exports g5.elevator.defs;
     exports g5.elevator.model;
     exports g5.elevator.model.scheduler_state;
+    exports g5.elevator.controllers.elevator;
+    opens g5.elevator.controllers.elevator to javafx.fxml;
+    exports g5.elevator.controllers.floor;
+    opens g5.elevator.controllers.floor to javafx.fxml;
 }

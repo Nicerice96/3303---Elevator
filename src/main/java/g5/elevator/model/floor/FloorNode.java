@@ -23,15 +23,16 @@ import java.util.Scanner;
  * @version: 1.0
  */
 public class FloorNode extends Thread {
-    private DatagramSocket sSocket;
+    private final DatagramSocket sSocket;
 
-    private DatagramSocket rSocket;
+    private final DatagramSocket rSocket;
     private String filename;
     private final int floor;
-    private ArrayList<Event> log;
-    private boolean running;
+    private final ArrayList<Event> log = new ArrayList<>();
+    private boolean running = true;
+    private boolean registered = false;
 
-    private Updatable controller;
+    private final Updatable controller;
 
     /**
      * Constructs a FloorNode object with the given filename.
@@ -45,15 +46,12 @@ public class FloorNode extends Thread {
     private FloorNode(Updatable controller, int floor, String filename) {
         super();
         this.controller = controller;
-        this.log = new ArrayList<>();
         this.floor = floor;
         this.filename = filename;
-        this.running = true;
 
         try {
-            sSocket = new DatagramSocket(7000 + this.floor);
-            rSocket = new DatagramSocket(8000 + this.floor);
-
+            sSocket = new DatagramSocket();
+            rSocket = new DatagramSocket();
         } catch (SocketException e) {
             throw new RuntimeException(e);
         }
@@ -72,6 +70,12 @@ public class FloorNode extends Thread {
         sSocket.close();
         running = false;
     }
+    public int getFloor() { return floor; }
+    public boolean isRegistered() { return registered; }
+    public int getRSocketPort() { return rSocket.getLocalPort(); }
+    public int getSSocketPort() { return sSocket.getLocalPort(); }
+    public ArrayList<Event> getLog() { return log; }
+    public void setFilename(String filename) { this.filename = filename; }
 
     /**
      * Parses the floor instruction data from the file and sends instructions to the SchedulerSystem.
@@ -155,7 +159,6 @@ public class FloorNode extends Thread {
      */
     public void updateController() {
         if(controller == null) return;
-        System.out.println("calling update");
         controller.update();
     }
     private void sendInstructionPacket(Instruction instruction) {
@@ -171,6 +174,7 @@ public class FloorNode extends Thread {
     }
     public void addEvent(Event e) {
         this.log.add(e);
+        updateController();
         System.out.println(e);
     }
 
@@ -182,7 +186,12 @@ public class FloorNode extends Thread {
     public void run() {
         System.out.printf("Floor node %d Online\n", floor);
         System.out.println("Registering");
-        registerPort();
+        registered = registerPort();
+        if(!registered) {
+            System.out.printf("ERROR: registration failed. Closing floor node %d.\n", floor);
+            close();
+            return;
+        }
         System.out.println("\nParsing data:");
         parseData();
         System.out.println("\nListening");
@@ -197,7 +206,8 @@ public class FloorNode extends Thread {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            System.out.printf("floor %d,received %s \n", floor, Defs.getMessage(rBytes, packet.getLength()));
+            String msg = Defs.getMessage(rBytes, packet.getLength());
+            addEvent(new Event(EventType.RECEIVED, msg));
         }
     }
 

@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fx:id="root" fitToWidth="true" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g5.elevator.controllers.ElevatorSubsystemController">
+<ScrollPane fx:id="root" fitToWidth="true" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g5.elevator.controllers.elevator.ElevatorSubsystemController">
    <content>
       <AnchorPane>
          <children>
@@ -36,7 +36,7 @@
                      </rowConstraints>
                      <children>
                         <Label text="Elevators: " />
-                        <Slider fx:id="startSlider" blockIncrement="1.0" majorTickUnit="10.0" max="50.0" min="1.0" minorTickCount="5" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" />
+                        <Slider fx:id="startSlider" blockIncrement="1.0" majorTickUnit="10.0" max="50.0" min="1.0" minorTickCount="5" showTickLabels="true" showTickMarks="true" value="1.0" GridPane.columnIndex="1" />
                         <Button fx:id="startButton" mnemonicParsing="false" onAction="#startHandler" text="Start" GridPane.columnIndex="3" />
                         <Label fx:id="startCountLabel" text="startCountLabel" GridPane.columnIndex="2">
                            <GridPane.margin>

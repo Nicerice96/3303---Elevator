@@ -90,7 +90,6 @@ public class SchedulerSystem extends Thread {
      */
     public void updateController() {
         if(controller == null) return;
-        System.out.println("calling update");
         controller.update();
     }
     public ArrayList<Event> getLog() { return log; }

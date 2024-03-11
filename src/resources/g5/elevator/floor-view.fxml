@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="elevator" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="elevator" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g5.elevator.controllers.floor.FloorNodeController">
    <children>
       <HBox>
          <children>
@@ -50,17 +50,14 @@
                                     <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <Label text="Destinations: " GridPane.rowIndex="1" />
-                                    <Label fx:id="destinationsLabel" text="destinationsLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <Label text="Registered: " />
                                     <Label fx:id="registeredLabel" text="registeredLabel" GridPane.columnIndex="1" />
-                                    <Label text="rSocket: " GridPane.rowIndex="2" />
-                                    <Label text="sSocket: " GridPane.rowIndex="3" />
-                                    <Label fx:id="rSocketLabel" text="rSocketLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <Label fx:id="sSocketLabel" text="sSocketLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Label text="rSocket: " GridPane.rowIndex="1" />
+                                    <Label text="sSocket: " GridPane.rowIndex="2" />
+                                    <Label fx:id="rSocketLabel" text="rSocketLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Label fx:id="sSocketLabel" text="sSocketLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                  </children>
                               </GridPane>
                            </children>
@@ -86,7 +83,7 @@
                         <CheckBox fx:id="warningBox" mnemonicParsing="false" selected="true" text="Warning" />
                      </children>
                   </HBox>
-                  <ListView fx:id="logList" prefHeight="200.0" prefWidth="200.0" />
+                  <ListView fx:id="logList" prefHeight="150.0" prefWidth="431.0" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

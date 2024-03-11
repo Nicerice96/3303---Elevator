@@ -1,6 +1,6 @@
 package g5.elevator;
 
-import g5.elevator.controllers.ElevatorSubsystemController;
+import g5.elevator.controllers.elevator.ElevatorSubsystemController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

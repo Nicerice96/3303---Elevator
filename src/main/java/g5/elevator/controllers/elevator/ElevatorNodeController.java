@@ -1,5 +1,6 @@
-package g5.elevator.controllers;
+package g5.elevator.controllers.elevator;
 
+import g5.elevator.controllers.Updatable;
 import g5.elevator.model.elevator.ElevatorNode;
 import g5.elevator.model.elevator.elevator_comm_state.ElevatorIdleCommState;
 import g5.elevator.model.elevator.elevator_comm_state.ElevatorProcessingAddPickupCommState;

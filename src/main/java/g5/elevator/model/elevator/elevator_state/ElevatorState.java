@@ -6,5 +6,6 @@ public abstract class ElevatorState extends Thread {
     protected final ElevatorNode context;
     protected ElevatorState(ElevatorNode context) {
         this.context = context;
+        context.updateController();
     }
 }

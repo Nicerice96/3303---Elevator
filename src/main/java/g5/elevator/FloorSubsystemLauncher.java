@@ -1,6 +1,6 @@
 package g5.elevator;
 
-import g5.elevator.controllers.SchedulerController;
+import g5.elevator.controllers.floor.FloorSubsystemController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,13 +11,13 @@ public class FloorSubsystemLauncher extends Application {
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(SchedulerLauncher.class.getResource("floors-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Scheduler System");
+        stage.setTitle("Floor System");
         stage.setScene(scene);
         stage.show();
         stage.setOnCloseRequest(event -> onClose(fxmlLoader.getController()));
     }
 
-    private void onClose(SchedulerController controller) {
+    private void onClose(FloorSubsystemController controller) {
         controller.close();
     }
 

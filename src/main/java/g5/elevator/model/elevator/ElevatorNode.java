@@ -100,7 +100,6 @@ public class ElevatorNode extends Thread {
      */
     public void updateController() {
         if(controller == null) return;
-        System.out.println("calling update");
         controller.update();
     }
     /**
