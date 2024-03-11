@@ -6,9 +6,11 @@ import g5.elevator.model.events.EventType;
 import g5.elevator.model.elevator.ElevatorNode;
 
 public class ElevatorDoorOpenState extends ElevatorState {
-
+    protected ElevatorDoorOpenState(ElevatorNode context) {
+        super(context);
+    }
     @Override
-    public void handle(ElevatorNode context) {
+    public void run() {
         context.addEvent(new Event(EventType.ELEVATOR_DOOR_OPEN, context.getElevatorId()));
         context.unwrapPendingInstructions();
         context.addEvent(new Event(EventType.ELEVATOR_UNLOADING, context.getElevatorId()));
@@ -23,6 +25,6 @@ public class ElevatorDoorOpenState extends ElevatorState {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        context.setState(new ElevatorDoorClosingState());
+        context.setState(new ElevatorDoorClosingState(context));
     }
 }

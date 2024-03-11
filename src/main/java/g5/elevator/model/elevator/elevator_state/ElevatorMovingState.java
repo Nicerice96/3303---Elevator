@@ -12,8 +12,11 @@ import java.time.Instant;
 public class ElevatorMovingState extends ElevatorState {
     Direction direction;
 
+    protected ElevatorMovingState(ElevatorNode context) {
+        super(context);
+    }
     @Override
-    public void handle(ElevatorNode context) {
+    public void run() {
         // calculate direction
         direction = context.getNextDestination() - context.getCurrentFloor() > 0 ? Direction.UP : Direction.DOWN;
         // lil tick system here
@@ -72,7 +75,7 @@ public class ElevatorMovingState extends ElevatorState {
 //        System.out.printf("velocity: %.4f, currentFloor: %d, altitude: %.4f\n",context.velocity, context.getCurrentFloor(), context.getAltitude());
         context.addEvent(new Event(EventType.ELEVATOR_ARRIVED, context.getElevatorId(), context.getCurrentFloor()));
         context.clearDestination();
-        context.setState(new ElevatorDoorOpeningState());
+        context.setState(new ElevatorDoorOpeningState(context));
     }
 
 

@@ -1,5 +1,6 @@
 package g5.elevator.model.floor;
 
+import g5.elevator.controllers.Updatable;
 import g5.elevator.model.events.Event;
 import g5.elevator.model.events.EventType;
 import g5.elevator.defs.Defs;
@@ -22,7 +23,6 @@ import java.util.Scanner;
  * @version: 1.0
  */
 public class FloorNode extends Thread {
-
     private DatagramSocket sSocket;
 
     private DatagramSocket rSocket;
@@ -31,17 +31,24 @@ public class FloorNode extends Thread {
     private ArrayList<Event> log;
     private boolean running;
 
+    private Updatable controller;
 
     /**
-     * Constructs a FloorSubsystem object with the given filename.
-     *
-     * @param filename the name of the file containing floor instructions
+     * Constructs a FloorNode object with the given filename.
+     * @param controller a controller
+     * @param floor the floor
      */
-    public FloorNode(int floor, String filename) {
+    public FloorNode(Updatable controller, int floor) {
+        this(controller, floor, "");
+    }
+
+    private FloorNode(Updatable controller, int floor, String filename) {
         super();
+        this.controller = controller;
         this.log = new ArrayList<>();
         this.floor = floor;
         this.filename = filename;
+        this.running = true;
 
         try {
             sSocket = new DatagramSocket(7000 + this.floor);
@@ -51,6 +58,14 @@ public class FloorNode extends Thread {
             throw new RuntimeException(e);
         }
 
+    }
+    /**
+     * Constructs a FloorNode object with the given filename.
+     * @param floor the floor
+     * @param filename the name of the file containing floor instructions
+     */
+    public FloorNode(int floor, String filename) {
+        this(null, floor, filename);
     }
     public void close() {
         rSocket.close();
@@ -87,7 +102,7 @@ public class FloorNode extends Thread {
                     destinationFloor = Integer.parseInt(dataList[3]);
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
-                    System.out.println("Error parsing timestamp/pickupFloor/destinationFloor, check FloorSubsystem.parseData()!!");
+                    System.out.println("Error parsing timestamp/pickupFloor/destinationFloor, check FloorNode.parseData()!!");
                     System.exit(1);
                 }
                 // Skip instruction if the pickup floor is not the same as the floor node.
@@ -100,7 +115,7 @@ public class FloorNode extends Thread {
 
             scanner.close();
         } catch (Exception e) {
-            System.out.println("ERROR :: FloorSubsystem :: parseData() " + e);
+            System.out.println("ERROR :: FloorNode :: parseData() " + e);
         }
     }
 
@@ -135,8 +150,14 @@ public class FloorNode extends Thread {
         addEvent(new Event(EventType.RECEIVED, res));
         return res;
     }
-
-
+    /**
+     * Calls the update method on the controller, use with a UI
+     */
+    public void updateController() {
+        if(controller == null) return;
+        System.out.println("calling update");
+        controller.update();
+    }
     private void sendInstructionPacket(Instruction instruction) {
         String msg = String.format("floor %d,addInstruction,%s", floor, instruction);
         byte [] data = msg.getBytes();

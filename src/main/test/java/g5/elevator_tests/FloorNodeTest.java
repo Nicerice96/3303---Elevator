@@ -1,21 +1,21 @@
 package g5.elevator_tests;
 
-import org.junit.Test;
 import g5.elevator.model.floor.FloorNode;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * The g5.elevator.FloorSubsystemTest class is responsible for conducting unit tests on the FloorSubsystem class.
+ * The g5.elevator.FloorNodeTest class is responsible for conducting unit tests on the FloorNode class.
  *
  * @author Mahad
  * @version 1.0
  */
-public class FloorSubsystemTest {
+public class FloorNodeTest {
     private FloorNode subsystem;
-    // Defined the FloorSubsystem instance here instead - Nabeel
+    // Defined the FloorNode instance here instead - Nabeel
 
     @Test
     public void testParseDataWithScheduler() {
@@ -29,7 +29,7 @@ public class FloorSubsystemTest {
 //            assertTrue("Failed to create test file", false);
 //        }
 //
-//        subsystem = new FloorSubsystem(testFilename);
+//        subsystem = new FloorNode(testFilename);
 //        subsystem.start();
 //
 //        //wait for the thread to finish its execution.

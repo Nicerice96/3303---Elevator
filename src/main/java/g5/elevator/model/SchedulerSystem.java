@@ -27,7 +27,7 @@ public class SchedulerSystem extends Thread {
 
     public DatagramSocket sSocket;
     public DatagramSocket rSocket;
-    private Updatable controller;
+    private final Updatable controller;
 
     public SchedulerSystem() {
         this(null);
@@ -85,6 +85,9 @@ public class SchedulerSystem extends Thread {
         updateController();
         this.state.handle();
     }
+    /**
+     * Calls the update method on the controller, use with a UI
+     */
     public void updateController() {
         if(controller == null) return;
         System.out.println("calling update");
@@ -99,6 +102,7 @@ public class SchedulerSystem extends Thread {
     }
 
     public static void main(String[] args) throws InterruptedException, IOException {
-        new SchedulerSystem();
+        SchedulerSystem s = new SchedulerSystem();
+        s.start();
     }
 }

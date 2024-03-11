@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g5.elevator.controllers.ElevatorSubsystemController">
    <content>
       <AnchorPane>
          <children>
@@ -19,6 +24,26 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
+                  <GridPane fx:id="startPane">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="25.0" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="0.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label text="Elevators: " />
+                        <Slider fx:id="startSlider" blockIncrement="1.0" majorTickUnit="10.0" max="50.0" min="1.0" minorTickCount="5" showTickLabels="true" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" />
+                        <Button fx:id="startButton" mnemonicParsing="false" onAction="#startHandler" text="Start" GridPane.columnIndex="3" />
+                        <Label fx:id="startCountLabel" text="startCountLabel" GridPane.columnIndex="2">
+                           <GridPane.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </GridPane.margin></Label>
+                     </children>
+                  </GridPane>
                   <FlowPane fx:id="elevators" />
                </children>
                <padding>

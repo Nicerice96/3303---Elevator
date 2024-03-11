@@ -6,8 +6,11 @@ import g5.elevator.model.events.EventType;
 import g5.elevator.model.elevator.ElevatorNode;
 
 public class ElevatorDoorClosingState extends ElevatorState {
+    protected ElevatorDoorClosingState(ElevatorNode context) {
+        super(context);
+    }
     @Override
-    public void handle(ElevatorNode context) {
+    public void run() {
         context.addEvent(new Event(EventType.ELEVATOR_DOOR_CLOSING, context.getElevatorId()));
         try {
             Thread.sleep(ElevatorDefs.DOOR_CLOSING_TIME);
@@ -15,6 +18,6 @@ public class ElevatorDoorClosingState extends ElevatorState {
             throw new RuntimeException(e);
         }
         context.addEvent(new Event(EventType.ELEVATOR_DOOR_CLOSED, context.getElevatorId()));
-        context.setState(new ElevatorIdleState());
+        context.setState(new ElevatorIdleState(context));
     }
 }

@@ -1,5 +1,6 @@
 package g5.elevator.model.elevator;
 
+import g5.elevator.controllers.Updatable;
 import g5.elevator.model.elevator.elevator_state.ElevatorIdleState;
 import g5.elevator.defs.Defs;
 import g5.elevator.model.elevator.elevator_comm_state.ElevatorCommState;
@@ -35,12 +36,16 @@ public class ElevatorNode extends Thread {
     public DatagramSocket sSocket;
     public DatagramSocket rSocket;
     public boolean running;
+    private final Updatable controller;
 
     /**
      * Constructs an ElevatorNode object with default values.
      * Initializes elevator properties such as id, current floor, altitude, velocity, state, and data structures.
      */
     public ElevatorNode() {
+        this(null);
+    }
+    public ElevatorNode(Updatable controller) {
         id = ElevatorNode.nextId++; // Why not just do: id = 0??
         // Because we need unique ids for each elevator, so we start with 0 and increment.
         // If you set it to 0, then all elevators have an id of 0, which defeats the point of an id. - Hamza
@@ -51,17 +56,13 @@ public class ElevatorNode extends Thread {
         destinations = new ArrayList<>();
         log = new ArrayList<>();
         pendingInstructions = new ArrayList<>();
+        this.controller = controller;
         try {
             sSocket = new DatagramSocket();
             rSocket = new DatagramSocket();
         } catch (SocketException e) {
             throw new RuntimeException(e);
         }
-        System.out.printf("Elevator node %d Online\n", id);
-        System.out.println("Registering");
-        register();
-        System.out.println("\nListening");
-        setCommState(new ElevatorIdleCommState(this));
     }
 
     public void close() {
@@ -74,7 +75,7 @@ public class ElevatorNode extends Thread {
      * Registers the elevator node with the Scheduler.
      * @return true if registration was successful, otherwise false.
      */
-    private boolean register(){
+    private boolean register() {
         String msgString = String.format("elevator %d,register,%d", this.id, this.rSocket.getLocalPort());
         try {
             byte [] msg = msgString.getBytes();
@@ -89,6 +90,9 @@ public class ElevatorNode extends Thread {
                 System.out.println("Registration failed. Trying again...");
                 return false;
             }
+        } catch (SocketException e){
+            if(e.getMessage().equals("Socket closed")) return false;
+            throw new RuntimeException(e);
         } catch (UnknownHostException e){
             System.out.println(e);
         } catch (IOException e) {
@@ -96,7 +100,14 @@ public class ElevatorNode extends Thread {
         }
         return false;
     }
-
+    /**
+     * Calls the update method on the controller, use with a UI
+     */
+    public void updateController() {
+        if(controller == null) return;
+        System.out.println("calling update");
+        controller.update();
+    }
     /**
      * Awaits response by the Scheduler, blocking method.
      * @return the response
@@ -181,7 +192,7 @@ public class ElevatorNode extends Thread {
      */
     public void setState(ElevatorState state) {
         this.state = state;
-        this.state.handle(this);
+        this.state.start();
     }
     public void setCommState(ElevatorCommState state) {
         this.commState = state;
@@ -237,15 +248,6 @@ public class ElevatorNode extends Thread {
         if(destinations.isEmpty()) return;
         destinations.remove(0);
     }
-    /**
-     * Overrides the run method of Thread class.
-     * This method is the entry point for the elevator thread.
-     * It continuously receives instructions from the scheduler system and processes them.
-     */
-    @Override
-    public void run() {
-        setState(new ElevatorIdleState());
-    }
     public synchronized void unwrapPendingInstructions() {
         int i = 0;
         while(i < pendingInstructions.size()) {
@@ -261,6 +263,18 @@ public class ElevatorNode extends Thread {
             i++;
         }
     }
+    @Override
+    public void run() {
+        System.out.printf("Elevator node %d Online\n", id);
+        System.out.println("Registering");
+        if(!register()) {
+            System.out.printf("Registration failed. Closing elevator node %d.\n", id);
+            return;
+        };
+        System.out.println("\nListening");
+        setCommState(new ElevatorIdleCommState(this));
+        setState(new ElevatorIdleState(this));
+    }
 
     public static void main(String[] args) {
         final int ELEVATOR_NUM = 4;
@@ -268,7 +282,6 @@ public class ElevatorNode extends Thread {
 
         for (int i = 0; i < ELEVATOR_NUM; i++) {
             ElevatorNode e = new ElevatorNode();
-            e.setName("elevatorNode-" + i);
             e.start();
         }
     }

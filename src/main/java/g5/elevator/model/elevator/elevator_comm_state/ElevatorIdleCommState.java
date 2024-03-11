@@ -26,6 +26,7 @@ public class ElevatorIdleCommState extends ElevatorCommState {
                 System.out.println();
                 context.addEvent(new Event(EventType.RECEIVED, receivedMessage));
                 context.setCommState(new ElevatorProcessingCommState(context, receivedMessage));
+                return;
             } catch (SocketException e) {
                 if(e.getMessage().equals("Socket closed")) return;
                 throw new RuntimeException(e);
