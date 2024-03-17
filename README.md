@@ -54,8 +54,11 @@ Setup Instructions:
 1. Clone or download the project to your local machine.
 2. Open a terminal or command prompt and navigate to the project's root directory.
 3. Compile the Java files with the command: `javac *.java`.
-4. Run the Scheduler: `java SchedulerSystem`. to simulate the system:
-5. (Optional) Tun the "tests" package
+4. Run the SchedulerLauncher, ElevatorSubsystemLauncher, and FloorSubsystemLauncher in any 
+   order.
+5. Click start on the elevator window.
+6. Click start on the floor window.
+7. (Optional) Tun the "tests" package.
  
 
 Test Instructions:
