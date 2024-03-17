@@ -15,14 +15,16 @@ Team:
 
 Files:
 ------
+- ElevatorNodeController.java: Elevator Sub-system which manages an elevator's behaviour. This class recieves instructions from the Scheduler and contains methods that carry-out the given instructions.
+- ElevatorSubsystemController.java: Implements the UI for the Elevator Subsystem Window.
+- FloorNodeController.java: This class is a controller class responsible for managing the user interface (UI) components associated with a floor node.
 - 'FloorNode.java': Floor Sub-system which manages floor-related behavior. This class reads instructions from a file, parses them, and sends them to the SchedulerSystem.
 - 'ProcessingFloorAddInstructionState.java': Process the instructions sent to the floor and forwards them to the scheduler.
 - 'SchedulerProcessingFloorRequestState': Process the floor requests sent by the scheduler.
 - `ElevatorNode.java`: Represents the elevator's functionality, responding to requests and simulating elevator movements.
 - `SchedulerSystem.java`: Acts as the central coordinator, receiving requests from the `FloorSubsystem.java` and assigning them to the `ElevatorNode`.
-- `ElevatorDirection.java`: contains an enum contain possible directions for a given elevator node.
-- `Direction.java`: Describes the `UP` or `DOWN`. 
-- `Event.java`: Describes statements to be printed to the console in each State of the Project.
+- `Direction.java`: Contains an enum contain possible directions for a given elevator node. 
+- `Event.java`: Summarizes the occuring events. This would be printed in the Java UI frame.
 - `Event Type.java`: Describes an enum to house each type of event that can be encountered during the execution of the project.
 - `Event Test.java`: Adequately test's each event for correctness.
 - 'SchedulerFaultState.java': Handles errors that may occur in the program.
@@ -30,7 +32,6 @@ Files:
 - 'SchedulerProcessingRegistrationState.java': Registers an elevator.
 - 'ProcessingForwardEventState.java': Represents the even state that is to be processed.
 - 'SchedulerProcessingElevatorRequestState.java': Where the scheduler processes the requests from the floor and sends it to the elevator.
-- 'ElevatorDoorClosedState.java': Performs the action of when the elevator door is closed.
 - 'ElevatorDoorClosingState.java': Performs the action of when the elevator door is closing.
 - 'ElevatorDoorOpeningState.java': Performs the action of when the elevator door is opening.
 - 'ElevatorDoorOpenState.java': Performs the action of when the elevator door is open.
@@ -42,8 +43,6 @@ Files:
 - 'ElevatorProcessingAddPickupCommState.java': Represents the process of adding a pickup to an elevator.
 - 'ElevatorProcessingCommState.java': Represents the communication between Elevator and the Scheduler.
 - 'ElevatorProcessingGetPickupIndexCommState.java': Represents the process of getting the index of the pickup locaiton in a datagram packet.
-- `FloorSubsystem.java`: Handles the simulation of floor-related events, including the generation of elevator requests.
-- `FloorSubsystemTest.java`: Contains unit tests for the `FloorSubsystem`, ensuring its reliability in processing and forwarding requests.
 - `ElevatorNodeTest.java`: Provides tests for the `ElevatorNode` to verify its operations and state transitions.
 - `SchedulerSystemTest.java`: Tests the scheduling logic within the `SchedulerSystem` to ensure efficient and correct request handling.
 - `testCase_1.txt`: Sample input file used by `FloorSubsystem` for testing. Contains elevator request scenarios to simulate real-world elevator calls.
@@ -56,9 +55,9 @@ Setup Instructions:
 3. Compile the Java files with the command: `javac *.java`.
 4. Run the SchedulerLauncher, ElevatorSubsystemLauncher, and FloorSubsystemLauncher in any 
    order.
-5. Click start on the elevator window.
-6. Click start on the floor window.
-7. (Optional) Tun the "tests" package.
+5. Click start on the Elevator window.
+6. Click start on the Floor window.
+7. (Optional) Run the "tests" package.
  
 
 Test Instructions:
