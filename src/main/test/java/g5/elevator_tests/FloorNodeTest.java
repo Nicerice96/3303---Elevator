@@ -1,56 +1,62 @@
 package g5.elevator_tests;
 
 import g5.elevator.model.floor.FloorNode;
+
+import g5.elevator.model.events.Event;
+import g5.elevator.model.events.EventType;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 
-/**
- * The g5.elevator.FloorNodeTest class is responsible for conducting unit tests on the FloorNode class.
- *
- * @author Mahad
- * @version 1.0
- */
+import static org.junit.Assert.*;
+
 public class FloorNodeTest {
-    private FloorNode subsystem;
-    // Defined the FloorNode instance here instead - Nabeel
+    private String testFilename = "testInstructions.txt";
+    private FloorNode floorNode;
+    private File testFile;
+
+    @Before
+    public void setUp() throws Exception {
+        testFile = new File(testFilename);
+        try (PrintWriter out = new PrintWriter(testFile)) {
+            out.println("00:00:01,1,UP,2");
+        } catch (IOException e) {
+            fail("Failed to create test file");
+        }
+
+        floorNode = new FloorNode(1, testFilename);
+    }
+
+    @After
+    public void tearDown() {
+        if (testFile.exists()) {
+            testFile.delete();
+        }
+
+        floorNode.close();
+    }
 
     @Test
-    public void testParseDataWithScheduler() {
-        //test file with sample data
-//        String testFilename = "test_data.txt";
-//        try (PrintWriter out = new PrintWriter(testFilename)) {
-//            out.println("1,UP,2,3");
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            assertTrue("Failed to create test file", false);
-//        }
-//
-//        subsystem = new FloorNode(testFilename);
-//        subsystem.start();
-//
-//        //wait for the thread to finish its execution.
-//        try {
-//            subsystem.join();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//            assertTrue("Thread interrupted", false);
-//        }
-//
-//        //Tests
-//        ArrayList<Object> data = SchedulerSystem.getPayload();
-//        assertNotNull("Data should not be null", data);
-//        assertEquals("Expected 4 elements in the array list", 4, data.size());
-//        assertEquals("First element should match", "1", data.get(0));
-//        assertEquals("Second element should match", "UP", data.get(1));
-//        assertEquals("Third element should match", "2", data.get(2));
-//        assertEquals("Fourth element should match", "3", data.get(3));
+    public void testEventLogging() {
+        Event testEvent = new Event(EventType.RECEIVED, "Test event for logging");
+        floorNode.addEvent(testEvent);
+        ArrayList<Event> log = floorNode.getLog();
 
-        //remove test file
-//        new File(testFilename).delete();
+        assertFalse("Event log should not be empty", log.isEmpty());
+        assertEquals("Event log should contain the test event", testEvent, log.get(log.size() - 1));
+    }
+
+    @Test
+    public void testGetterMethods() {
+        assertNotNull("sSocket should be initialized", floorNode.getSSocketPort());
+        assertNotNull("rSocket should be initialized", floorNode.getRSocketPort());
+        assertEquals("Floor number should match the initialized value", 1, floorNode.getFloor());
+
     }
 
 }
