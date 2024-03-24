@@ -217,6 +217,20 @@ public class ElevatorNode extends Thread {
         sendEvent(event);
     }
 
+    /**
+     * Starts a stuck event
+     */
+    public void injectStuck() {
+        // TODO: elevator stuck
+    }
+
+    /**
+     * Starts a door stuck event
+     */
+    public void injectDoorStuck() {
+        // TODO: elevator door stuck
+    }
+
     public void sendEvent(Event event) {
         // TODO: send event
         // 1. wrap event in a string

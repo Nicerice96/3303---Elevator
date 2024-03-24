@@ -19,6 +19,7 @@ public class ElevatorDefs {
      * Time taken for the elevator door to close in milliseconds.
      */
     public static final long DOOR_CLOSING_TIME = 3324; // ms
+    public static final long DOOR_STUCK_TIME = 3000; // ms
 
     /**
      * Time taken for loading passengers into the elevator in milliseconds.

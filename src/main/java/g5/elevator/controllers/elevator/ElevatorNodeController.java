@@ -2,10 +2,7 @@ package g5.elevator.controllers.elevator;
 
 import g5.elevator.controllers.Updatable;
 import g5.elevator.model.elevator.ElevatorNode;
-import g5.elevator.model.elevator.elevator_comm_state.ElevatorIdleCommState;
-import g5.elevator.model.elevator.elevator_comm_state.ElevatorProcessingAddPickupCommState;
-import g5.elevator.model.elevator.elevator_comm_state.ElevatorProcessingCommState;
-import g5.elevator.model.elevator.elevator_comm_state.ElevatorProcessingGetPickupIndexCommState;
+import g5.elevator.model.elevator.elevator_comm_state.*;
 import g5.elevator.model.elevator.elevator_state.*;
 import g5.elevator.model.events.Event;
 import javafx.application.Platform;
@@ -25,10 +22,10 @@ public class ElevatorNodeController implements Initializable, Updatable {
     @FXML
     Slider altitudeSlider;
     @FXML
-    RadioButton idleButton, movingButton, doorOpeningButton, doorOpenButton, doorClosingButton,
+    RadioButton idleButton, movingButton, stuckButton, doorOpeningButton, doorOpenButton, doorClosingButton, doorStuckButton,
         idleCommButton, processingCommButton, getPickupButton, addPickupButton;
     @FXML
-    Label idLabel, registeredLabel, altitudeLabel, velocityLabel, destinationsLabel, rSocketLabel, sSocketLabel;
+    Label idLabel, registeredLabel, altitudeLabel, velocityLabel, destinationsLabel, rSocketLabel, sSocketLabel, directionLabel;
     @FXML
     ListView<Event> logList;
     private ElevatorNode elevatorNode;
@@ -68,18 +65,22 @@ public class ElevatorNodeController implements Initializable, Updatable {
     }
 
     private void updateStatus() {
-        idleButton.setSelected(elevatorNode.getElevatorState() instanceof ElevatorIdleState);
-        movingButton.setSelected(elevatorNode.getElevatorState() instanceof ElevatorMovingState);
-        doorOpeningButton.setSelected(elevatorNode.getElevatorState() instanceof ElevatorDoorOpeningState);
-        doorOpenButton.setSelected(elevatorNode.getElevatorState() instanceof ElevatorDoorOpenState);
-        doorClosingButton.setSelected(elevatorNode.getElevatorState() instanceof ElevatorDoorClosingState);
+        ElevatorState state = elevatorNode.getElevatorState();
+        idleButton.setSelected(state instanceof ElevatorIdleState);
+        movingButton.setSelected(state instanceof ElevatorMovingState);
+        stuckButton.setSelected(state instanceof ElevatorStuckState);
+        doorOpeningButton.setSelected(state instanceof ElevatorDoorOpeningState);
+        doorStuckButton.setSelected(state instanceof ElevatorDoorStuckState);
+        doorOpenButton.setSelected(state instanceof ElevatorDoorOpenState);
+        doorClosingButton.setSelected(state instanceof ElevatorDoorClosingState);
     }
 
     private void updateCommStatus() {
-        idleCommButton.setSelected(elevatorNode.getCommState() instanceof ElevatorIdleCommState);
-        processingCommButton.setSelected(elevatorNode.getCommState() instanceof ElevatorProcessingCommState);
-        getPickupButton.setSelected(elevatorNode.getCommState() instanceof ElevatorProcessingGetPickupIndexCommState);
-        addPickupButton.setSelected(elevatorNode.getCommState() instanceof ElevatorProcessingAddPickupCommState);
+        ElevatorCommState state = elevatorNode.getCommState();
+        idleCommButton.setSelected(state instanceof ElevatorIdleCommState);
+        processingCommButton.setSelected(state instanceof ElevatorProcessingCommState);
+        getPickupButton.setSelected(state instanceof ElevatorProcessingGetPickupIndexCommState);
+        addPickupButton.setSelected(state instanceof ElevatorProcessingAddPickupCommState);
     }
 
     private void updateData() {
@@ -93,6 +94,17 @@ public class ElevatorNodeController implements Initializable, Updatable {
 
     private void updateEventLog() {
         logList.setItems(FXCollections.observableArrayList(elevatorNode.getLog().reversed()));
+    }
+
+
+    @FXML
+    public void injectStuckHandler() {
+        elevatorNode.injectStuck();
+    }
+
+    @FXML
+    public void injectDoorStuckHandler() {
+        elevatorNode.injectDoorStuck();
     }
 
     public void close() { elevatorNode.close(); }
