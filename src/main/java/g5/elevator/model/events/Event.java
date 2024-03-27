@@ -62,6 +62,7 @@ public class Event {
                     : eventType == EventType.ELEVATOR_LOADING ?                     String.format("Elevator %d loading passengers.", elevatorId)
                     : eventType == EventType.ELEVATOR_UNLOADING ?                   String.format("Elevator %d unloading passengers.", elevatorId)
                     : eventType == EventType.ELEVATOR_DOOR_OPENING ?                String.format("Elevator %d opening its doors.", elevatorId)
+                    : eventType == EventType.ELEVATOR_DOOR_STUCK ?                  String.format("Elevator %d doors stuck.", elevatorId)
                     : eventType == EventType.ELEVATOR_DOOR_OPEN ?                   String.format("Elevator %d opened its doors.", elevatorId)
                     : eventType == EventType.ELEVATOR_DOOR_CLOSING ?                String.format("Elevator %d closing its doors.", elevatorId)
                     : eventType == EventType.ELEVATOR_DOOR_CLOSED ?                 String.format("Elevator %d closed its doors.", elevatorId)

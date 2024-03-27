@@ -18,6 +18,10 @@ public class ElevatorDoorOpeningState extends ElevatorState {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        context.setState(new ElevatorDoorOpenState(context));
+        if(context.isDoorStuck()) {
+            context.setState(new ElevatorDoorStuckState(context));
+        } else {
+            context.setState(new ElevatorDoorOpenState(context));
+        }
     }
 }

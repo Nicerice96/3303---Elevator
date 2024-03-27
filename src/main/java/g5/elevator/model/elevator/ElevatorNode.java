@@ -38,6 +38,8 @@ public class ElevatorNode extends Thread {
     public boolean running = true;
     private final Updatable controller;
     private boolean registered = false;
+    private boolean doorStuck = false;
+    private boolean stuck = false;
 
     /**
      * Constructs an ElevatorNode object with default values.
@@ -119,6 +121,8 @@ public class ElevatorNode extends Thread {
     public int getCurrentFloor() { return currentFloor; }
     public float getAltitude() { return altitude; }
     public float getVelocity() { return velocity; }
+    public boolean isDoorStuck() { return doorStuck; }
+    public boolean isStuck() { return stuck; }
     public ArrayList<Event> getLog() { return log; }
     public ArrayList<Integer> getDestinations() { return destinations; }
     public ElevatorState getElevatorState() { return state; }
@@ -221,15 +225,21 @@ public class ElevatorNode extends Thread {
      * Starts a stuck event
      */
     public void injectStuck() {
-        // TODO: elevator stuck
+        System.out.println("stuck injected");
+        stuck = true;
     }
 
     /**
      * Starts a door stuck event
      */
     public void injectDoorStuck() {
-        // TODO: elevator door stuck
+        System.out.println("door stuck injected");
+        doorStuck = true;
     }
+
+
+    public void resetDoorStuck() { doorStuck = false; }
+    public void resetStuck() { stuck = false; }
 
     public void sendEvent(Event event) {
         // TODO: send event

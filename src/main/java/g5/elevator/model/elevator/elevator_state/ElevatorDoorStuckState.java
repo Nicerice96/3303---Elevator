@@ -19,6 +19,7 @@ public class ElevatorDoorStuckState extends ElevatorState {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        context.resetDoorStuck();
         context.setState(new ElevatorDoorOpeningState(context));
     }
 }

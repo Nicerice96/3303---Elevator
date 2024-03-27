@@ -34,9 +34,11 @@ Files:
 - 'SchedulerProcessingElevatorRequestState.java': Where the scheduler processes the requests from the floor and sends it to the elevator.
 - 'ElevatorDoorClosingState.java': Performs the action of when the elevator door is closing.
 - 'ElevatorDoorOpeningState.java': Performs the action of when the elevator door is opening.
+- 'ElevatorDoorStuckState.java': Performs the action of when the elevator door is stuck.
 - 'ElevatorDoorOpenState.java': Performs the action of when the elevator door is open.
 - 'ElevatorIdleState.java': Represents what occurs when the elevator waits for an instruction.
 - 'ElevatorMovingState.java': Represents what occurs when the elevator executes an instruction.
+- 'ElevatorStuckState.java': Represents what occurs when the elevator is stuck.
 - 'ElevatorState.java': Represents the general elevator state.
 - 'ElevatorCommState.java': General Comm State, acts as an interface and holds the common attributes.
 - 'ElevatorIdleCommState.java': Waits until datagram packet is received and processes the packet once it is recieved.

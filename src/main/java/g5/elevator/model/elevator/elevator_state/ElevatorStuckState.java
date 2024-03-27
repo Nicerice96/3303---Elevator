@@ -11,7 +11,9 @@ public class ElevatorStuckState extends ElevatorState {
     public void run() {
         context.addEvent(new Event(EventType.ELEVATOR_STUCK, context.getElevatorId()));
         context.velocity = 0;
+        context.updateController();
         context.close();
         context.addEvent(new Event(EventType.ELEVATOR_SHUTDOWN, context.getElevatorId()));
+        context.updateController();
     }
 }

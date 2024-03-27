@@ -26,7 +26,9 @@ public class ElevatorMovingState extends ElevatorState {
         Instant floorTick = prevTick;
         Instant approachTick = null;
         context.addEvent(new Event(EventType.ELEVATOR_DEPARTED, context.getElevatorId(), context.getNextDestination()));
-        while(context.getCurrentFloor() != context.getNextDestination()) {
+        boolean stopFlag = false;
+        float prevVelocity = context.velocity;
+        while(context.getCurrentFloor() != context.getNextDestination() && !stopFlag) {
             Instant tick = Instant.now();
             long duration = Duration.between(prevTick, tick).toMillis();
             long lifetime = Duration.between(firstTick, tick).toMillis();
@@ -45,14 +47,18 @@ public class ElevatorMovingState extends ElevatorState {
                     context.addEvent(new Event(EventType.ELEVATOR_TRAVERSED_FLOOR, context.getElevatorId(), context.getCurrentFloor()));
                     if (context.getCurrentFloor() == context.getNextDestination()) break;
                     floorTick = tick;
-                } else if(floorDuration > ElevatorDefs.ADJACENT_FLOOR_TIME - ElevatorDefs.ACCELERATION_TIME &&
-                        context.getCurrentFloor() + direction.ordinal()*2-1 == context.getNextDestination()) {
-                    // approaching destination floor, slow down
+                } else if((floorDuration > ElevatorDefs.ADJACENT_FLOOR_TIME - ElevatorDefs.ACCELERATION_TIME &&
+                        context.getCurrentFloor() + direction.ordinal()*2-1 == context.getNextDestination()) ||
+                        context.isStuck()) {
+                    // approaching destination floor or elevator stuck, slow down
                     if(approachTick == null) {
                         approachTick = tick;
                     } else {
                         long slowdownDuration = Duration.between(approachTick, tick).toMillis();
                         context.velocity = ElevatorDefs.MAX_SPEED - ElevatorDefs.MAX_SPEED * ((float) slowdownDuration /ElevatorDefs.ACCELERATION_TIME);
+                        if(context.isStuck() && (context.velocity - prevVelocity) < context.velocity) {
+                            stopFlag = true;
+                        }
                     }
                 }
 
@@ -61,9 +67,10 @@ public class ElevatorMovingState extends ElevatorState {
             context.velocity *= direction.ordinal()*2-1;
             context.updateAltitude(context.velocity * (duration / 1000.0F));
             // clamp altitude
-//            System.out.printf("lifetime: %d, velocity: %.4f, currentFloor: %d, altitude: %.4f\n", lifetime, context.velocity, context.getCurrentFloor(), context.getAltitude());
+            System.out.printf("lifetime: %d, prevVelocity: %.4f, velocity: %.4f, currentFloor: %d, altitude: %.4f\n", lifetime, prevVelocity, context.velocity, context.getCurrentFloor(), context.getAltitude());
             context.updateController();
             prevTick = tick;
+            prevVelocity = context.velocity;
             try {
                 Thread.sleep(ElevatorDefs.TICK_RATE);
             } catch (InterruptedException e) {
@@ -72,12 +79,16 @@ public class ElevatorMovingState extends ElevatorState {
         }
 
         context.velocity = 0.0F;
-        context.updateAltitude(10.0F * context.getCurrentFloor() - context.getAltitude());
         context.updateController();
-//        System.out.printf("velocity: %.4f, currentFloor: %d, altitude: %.4f\n",context.velocity, context.getCurrentFloor(), context.getAltitude());
-        context.addEvent(new Event(EventType.ELEVATOR_ARRIVED, context.getElevatorId(), context.getCurrentFloor()));
-        context.clearDestination();
-        context.setState(new ElevatorDoorOpeningState(context));
+        System.out.printf("velocity: %.4f, currentFloor: %d, altitude: %.4f\n",context.velocity, context.getCurrentFloor(), context.getAltitude());
+        if(context.isStuck()) {
+            context.setState(new ElevatorStuckState(context));
+        } else {
+            context.updateAltitude(10.0F * context.getCurrentFloor() - context.getAltitude());
+            context.addEvent(new Event(EventType.ELEVATOR_ARRIVED, context.getElevatorId(), context.getCurrentFloor()));
+            context.clearDestination();
+            context.setState(new ElevatorDoorOpeningState(context));
+        }
     }
 
 
