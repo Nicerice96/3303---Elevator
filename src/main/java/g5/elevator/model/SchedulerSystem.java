@@ -10,6 +10,7 @@ import g5.elevator.model.instruction.Instruction;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.SocketException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -17,7 +18,9 @@ import java.util.concurrent.BlockingQueue;
 
 public class SchedulerSystem extends Thread {
     private ArrayList<Event> log = new ArrayList<>();
-    private final BlockingQueue<Instruction> instructions = new ArrayBlockingQueue<>(128);
+    // instructions to be sent off to an elevator
+    private final BlockingQueue<Instruction> pendingInstructions = new ArrayBlockingQueue<>(128);
+    private final ArrayList<Instruction> allInstructions = new ArrayList<>();
     private SchedulerState state;
     public volatile boolean running = true; // Flag to indicate if the scheduler system should keep running
     // id, port
@@ -28,6 +31,7 @@ public class SchedulerSystem extends Thread {
     public DatagramSocket sSocket;
     public DatagramSocket rSocket;
     private final Updatable controller;
+
 
     public SchedulerSystem() {
         this(null);
@@ -51,25 +55,22 @@ public class SchedulerSystem extends Thread {
 
     public void addInstruction(Instruction instruction) {
         try {
-            instructions.put(instruction);
+            allInstructions.add(instruction);
+            pendingInstructions.put(instruction);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
 
     public Instruction getInstruction() {
-        if (instructions.isEmpty()) return null;
+        if (pendingInstructions.isEmpty()) return null;
         try {
-            return instructions.take();
+            return pendingInstructions.take();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
-
-    public void clearInstructions() {
-        instructions.clear();
-    }
-
+    public synchronized ArrayList<Instruction> getAllInstructions() { return allInstructions; }
     public void addEvent(Event event) {
         log.add(event);
         updateController();
@@ -84,6 +85,18 @@ public class SchedulerSystem extends Thread {
         this.state = state;
         updateController();
         this.state.start();
+    }
+
+    /**
+     * Gets the instruction with the provided timestamp
+     * @param time the timestamp
+     * @return the instruction
+     */
+    public Instruction getInstructionFromTimestamp(LocalTime time) {
+        for(Instruction i : allInstructions) {
+            if(i.getTimestamp().equals(time)) return i;
+        }
+        return null;
     }
     /**
      * Calls the update method on the controller, use with a UI

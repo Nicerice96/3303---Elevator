@@ -14,6 +14,7 @@ import g5.elevator.model.elevator.elevator_comm_state.ElevatorIdleCommState;
 import java.io.IOException;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Elevator Sub-system which manages elevator-related behavior.
@@ -40,6 +41,7 @@ public class ElevatorNode extends Thread {
     private boolean registered = false;
     private boolean doorStuck = false;
     private boolean stuck = false;
+    private ArrayList<Instruction> pickedupInstructions = new ArrayList<>();
 
     /**
      * Constructs an ElevatorNode object with default values.
@@ -172,6 +174,14 @@ public class ElevatorNode extends Thread {
     }
 
     /**
+     * Calculates the current capacity
+     * @return true
+     */
+    public int getCapacity() {
+        return pickedupInstructions.size();
+    }
+
+    /**
      * Checks if there are no destinations
      * @return true if there are no destinations, otherwise false
      */
@@ -273,11 +283,29 @@ public class ElevatorNode extends Thread {
         if(destinations.isEmpty()) return;
         destinations.remove(0);
     }
-    public synchronized void unwrapPendingInstructions() {
+
+    /**
+     * Unloads passengers by removing the number that wanted to go to the current floor
+     */
+    public synchronized void unloadPassengers() {
+        int i = 0;
+        while(i < pickedupInstructions.size()) {
+            Instruction instruction = pickedupInstructions.get(i);
+            if(instruction.getDestinationFloor() == currentFloor) {
+                addEvent(new Event(EventType.ELEVATOR_UNLOADING, id, instruction.toString()));
+                pickedupInstructions.remove(i);
+                continue;
+            }
+            i++;
+        }
+    }
+    public synchronized void loadPassengers() {
         int i = 0;
         while(i < pendingInstructions.size()) {
             Instruction instruction = pendingInstructions.get(i);
             if (instruction.getPickupFloor() == currentFloor) {
+                pickedupInstructions.add(instruction);
+                addEvent(new Event(EventType.ELEVATOR_LOADING, id, instruction.toString()));
                 if(!destinations.contains(instruction.getDestinationFloor())) {
                     Instruction temp = new Instruction(instruction.getTimestamp(), getDirection(), instruction.getDestinationFloor(), Integer.MAX_VALUE);
                     destinations.add(getPickupIndex(temp), instruction.getDestinationFloor());

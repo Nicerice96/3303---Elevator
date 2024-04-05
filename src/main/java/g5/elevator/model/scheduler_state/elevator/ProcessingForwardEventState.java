@@ -3,6 +3,7 @@ package g5.elevator.model.scheduler_state.elevator;
 import g5.elevator.model.events.Event;
 import g5.elevator.model.events.EventType;
 import g5.elevator.model.SchedulerSystem;
+import g5.elevator.model.instruction.Instruction;
 import g5.elevator.model.scheduler_state.SchedulerIdleState;
 
 import java.io.IOException;
@@ -27,6 +28,19 @@ public class ProcessingForwardEventState extends SchedulerProcessingElevatorRequ
             }
         }
         context.addEvent(new Event(EventType.FORWARDED, sString));
+        // check if it's an event that needs timing
+        if (sString.contains("passenger (")) {
+            String clean = sString.split("\\(")[1].replace(").", "");
+            System.out.println(clean);
+            Instruction temp = Instruction.parse(clean);
+            assert temp != null;
+            Instruction instruction = context.getInstructionFromTimestamp(temp.getTimestamp());
+            if(sString.contains("unloading")) {
+                instruction.setDropoffTick();
+            } else if(sString.contains("loading")) {
+                instruction.setPickupTick();
+            }
+        }
         context.setState(new SchedulerIdleState(context));
     }
 }

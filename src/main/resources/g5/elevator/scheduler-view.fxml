@@ -80,14 +80,154 @@
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <HBox spacing="10.0">
+                              <HBox spacing="10.0" visible="false">
                                  <children>
                                     <CheckBox fx:id="infoBox" mnemonicParsing="false" selected="true" text="Info" />
                                     <CheckBox fx:id="errorBox" mnemonicParsing="false" selected="true" text="Error" />
                                     <CheckBox fx:id="warningBox" mnemonicParsing="false" selected="true" text="Warning" />
                                  </children>
                               </HBox>
-                              <ListView fx:id="logList" />
+                              <ListView fx:id="logList" prefHeight="214.0" prefWidth="565.0" />
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                        <Separator prefWidth="200.0" />
+                        <VBox>
+                           <children>
+                              <Label text="Instructions">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <VBox spacing="10.0">
+                                 <children>
+                                    <VBox>
+                                       <children>
+                                          <GridPane>
+                                            <columnConstraints>
+                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" style="-fx-border-color: black;" text="Timestamp" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" />
+                                                <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-border-color: black;" text="Dropoff Time" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+                                                <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-border-color: black;" text="Pickup Time" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                                                <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-border-color: black;" text="Total Time" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+                                             </children>
+                                          </GridPane>
+                                          <VBox fx:id="instructionsPane" />
+                                       </children>
+                                    </VBox>
+                                    <Separator prefWidth="200.0" />
+                                    <GridPane>
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" prefWidth="75.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" prefWidth="75.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" prefWidth="75.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-border-color: black;" text="Mean Pickup Time" />
+                                          <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-border-color: black;" text="Mean Dropoff Time" GridPane.columnIndex="1" />
+                                          <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-border-color: black;" text="Mean Total Time" GridPane.columnIndex="2" />
+                                          <HBox alignment="CENTER_RIGHT" style="-fx-border-color: black;" GridPane.rowIndex="1">
+                                             <children>
+                                                <Label fx:id="meanPickupTimeLabel" alignment="CENTER_RIGHT" textAlignment="RIGHT" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_RIGHT" style="-fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                             <children>
+                                                <Label fx:id="meanDropoffTimeLabel" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_RIGHT" style="-fx-border-color: black;" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                             <children>
+                                                <Label fx:id="meanTotalTimeLabel" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </GridPane>
+                                    <Separator prefWidth="200.0" />
+                                    <GridPane>
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="50.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" prefWidth="75.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" prefWidth="75.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" prefWidth="75.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" style="-fx-border-color: black;" text="Confidence" />
+                                          <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-border-color: black;" text="Time to Pick up" GridPane.columnIndex="1" />
+                                          <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-border-color: black;" text="Time to Drop off" GridPane.columnIndex="2" />
+                                          <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-border-color: black;" text="Total Time" GridPane.columnIndex="3" />
+                                          <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" style="-fx-border-color: black;" text="90%" GridPane.rowIndex="1" />
+                                          <HBox alignment="CENTER_RIGHT" style="-fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                             <children>
+                                                <Label fx:id="pickupConfidence90Label" alignment="CENTER_RIGHT" textAlignment="RIGHT" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_RIGHT" style="-fx-border-color: black;" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                             <children>
+                                                <Label fx:id="dropoffConfidence90Label" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_RIGHT" style="-fx-border-color: black;" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                             <children>
+                                                <Label fx:id="totalConfidence90Label" />
+                                             </children>
+                                          </HBox>
+                                          <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" style="-fx-border-color: black;" text="95%" GridPane.rowIndex="2" />
+                                          <HBox alignment="CENTER_RIGHT" style="-fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                             <children>
+                                                <Label fx:id="pickupConfidence95Label" alignment="CENTER_RIGHT" textAlignment="RIGHT" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_RIGHT" style="-fx-border-color: black;" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                             <children>
+                                                <Label fx:id="dropoffConfidence95Label" alignment="CENTER_RIGHT" textAlignment="RIGHT" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_RIGHT" style="-fx-border-color: black;" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                             <children>
+                                                <Label fx:id="totalConfidence95Label" alignment="CENTER_RIGHT" textAlignment="RIGHT" />
+                                             </children>
+                                          </HBox>
+                                          <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" style="-fx-border-color: black;" text="99%" GridPane.rowIndex="3" />
+                                          <HBox alignment="CENTER_RIGHT" style="-fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                             <children>
+                                                <Label fx:id="pickupConfidence99Label" alignment="CENTER_RIGHT" textAlignment="RIGHT" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_RIGHT" style="-fx-border-color: black;" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                             <children>
+                                                <Label fx:id="dropoffConfidence99Label" alignment="CENTER_RIGHT" textAlignment="RIGHT" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_RIGHT" style="-fx-border-color: black;" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                                             <children>
+                                                <Label fx:id="totalConfidence99Label" alignment="CENTER_RIGHT" textAlignment="RIGHT" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </VBox>
                            </children>
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

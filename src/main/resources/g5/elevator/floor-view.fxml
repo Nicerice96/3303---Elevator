@@ -76,7 +76,7 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <HBox spacing="10.0">
+                  <HBox spacing="10.0" visible="false">
                      <children>
                         <CheckBox fx:id="infoBox" mnemonicParsing="false" selected="true" text="Info" />
                         <CheckBox fx:id="errorBox" mnemonicParsing="false" selected="true" text="Error" />

@@ -44,8 +44,6 @@ public class ElevatorSubsystemController implements Initializable, Updatable {
         startPane.setMaxHeight(started ? 0 : startPane.getMaxHeight());
     }
 
-
-
     @FXML
     public void startHandler() {
         if(startSlider.getValue() < 1) return;

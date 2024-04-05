@@ -63,7 +63,7 @@ public class ElevatorNodeTest {
     @Test
     public void testUnwrapPendingInstructions() {
         elevator.addPickup(new Instruction(LocalTime.parse("00:00:01.000", TIMESTAMP_FORMATTER), Direction.UP, elevator.getCurrentFloor(), 5));
-        elevator.unwrapPendingInstructions();
+        elevator.loadPassengers();
         assertTrue("Destination for current floor should be added", elevator.destinations.contains(5));
     }
 

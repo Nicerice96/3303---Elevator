@@ -25,7 +25,7 @@ public class ElevatorNodeController implements Initializable, Updatable {
     RadioButton idleButton, movingButton, stuckButton, doorOpeningButton, doorOpenButton, doorClosingButton, doorStuckButton,
         idleCommButton, processingCommButton, getPickupButton, addPickupButton;
     @FXML
-    Label idLabel, registeredLabel, altitudeLabel, velocityLabel, destinationsLabel, rSocketLabel, sSocketLabel, directionLabel;
+    Label idLabel, registeredLabel, altitudeLabel, velocityLabel, destinationsLabel, rSocketLabel, sSocketLabel, capacityLabel;
     @FXML
     ListView<Event> logList;
     private ElevatorNode elevatorNode;
@@ -90,6 +90,7 @@ public class ElevatorNodeController implements Initializable, Updatable {
         destinationsLabel.setText(String.valueOf(elevatorNode.getDestinations()));
         rSocketLabel.setText(String.valueOf(elevatorNode.rSocket.getLocalPort()));
         sSocketLabel.setText(String.valueOf(elevatorNode.sSocket.getLocalPort()));
+        capacityLabel.setText(String.valueOf(elevatorNode.getCapacity()));
     }
 
     private void updateEventLog() {

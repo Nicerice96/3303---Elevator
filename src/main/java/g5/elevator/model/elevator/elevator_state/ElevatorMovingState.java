@@ -21,7 +21,7 @@ public class ElevatorMovingState extends ElevatorState {
         direction = context.getNextDestination() - context.getCurrentFloor() > 0 ? Direction.UP : Direction.DOWN;
         // lil tick system here
 
-        Instant prevTick = Instant.now(); //What do these do?
+        Instant prevTick = Instant.now(); // What do these do? It's a tick-based system that makes the elevator simulate real movement by moving little by little very fast.
         Instant firstTick = prevTick;
         Instant floorTick = prevTick;
         Instant approachTick = null;

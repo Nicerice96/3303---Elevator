@@ -36,7 +36,7 @@ public class Event {
         this.message = null;
     }
     /**
-     * Creates an general communication event instance with some supplementary information
+     * Creates a general communication event instance with some supplementary information
      * @param eventType the elevator event type
      * @param message the message
      */
@@ -44,6 +44,18 @@ public class Event {
         this.eventType = eventType;
         this.message = message;
         this.elevatorId = Integer.MAX_VALUE;
+        this.secondary = Integer.MAX_VALUE;
+    }
+    /**
+     * Creates an elevator communication event instance with some supplementary information
+     * @param eventType the elevator event type
+     * @param elevatorId elevator id
+     * @param message the message
+     */
+    public Event(EventType eventType, int elevatorId, String message) {
+        this.eventType = eventType;
+        this.message = message;
+        this.elevatorId = elevatorId;
         this.secondary = Integer.MAX_VALUE;
     }
 
@@ -59,8 +71,8 @@ public class Event {
                     : eventType == EventType.ELEVATOR_TRAVERSED_FLOOR ?             String.format("Elevator %d traversed 1 floor.", elevatorId)
                     : eventType == EventType.ELEVATOR_IDLE_TOO_LONG ?               String.format("Elevator %d has been idle for too long and is now turning off...", elevatorId)
                     : eventType == EventType.ELEVATOR_DEPARTED ?                    String.format("Elevator %d departed for floor %d.", elevatorId, secondary)
-                    : eventType == EventType.ELEVATOR_LOADING ?                     String.format("Elevator %d loading passengers.", elevatorId)
-                    : eventType == EventType.ELEVATOR_UNLOADING ?                   String.format("Elevator %d unloading passengers.", elevatorId)
+                    : eventType == EventType.ELEVATOR_LOADING ?                     String.format("Elevator %d loading passenger (%s).", elevatorId, message)
+                    : eventType == EventType.ELEVATOR_UNLOADING ?                   String.format("Elevator %d unloading passenger (%s).", elevatorId, message)
                     : eventType == EventType.ELEVATOR_DOOR_OPENING ?                String.format("Elevator %d opening its doors.", elevatorId)
                     : eventType == EventType.ELEVATOR_DOOR_STUCK ?                  String.format("Elevator %d doors stuck.", elevatorId)
                     : eventType == EventType.ELEVATOR_DOOR_OPEN ?                   String.format("Elevator %d opened its doors.", elevatorId)

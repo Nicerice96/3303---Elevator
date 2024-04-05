@@ -157,12 +157,12 @@
                                           <Label text="m/s" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                                           <Label text="Registered: " />
                                           <Label fx:id="registeredLabel" text="registeredLabel" GridPane.columnIndex="1" />
-                                          <Label text="rSocket: " GridPane.rowIndex="4" />
-                                          <Label text="sSocket: " GridPane.rowIndex="5" />
-                                          <Label fx:id="rSocketLabel" text="rSocketLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                          <Label fx:id="sSocketLabel" text="sSocketLabel" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                          <Label text="Direction: " GridPane.rowIndex="6" />
-                                          <Label fx:id="directionLabel" text="directionLabel" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                          <Label text="rSocket: " GridPane.rowIndex="5" />
+                                          <Label text="sSocket: " GridPane.rowIndex="6" />
+                                          <Label fx:id="rSocketLabel" text="rSocketLabel" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                          <Label fx:id="sSocketLabel" text="sSocketLabel" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                          <Label text="Capacity: " GridPane.rowIndex="4" />
+                                          <Label fx:id="capacityLabel" text="capacityLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                        </children>
                                     </GridPane>
                                  </children>
@@ -181,7 +181,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <HBox spacing="10.0">
+                        <HBox spacing="10.0" visible="false">
                            <children>
                               <CheckBox fx:id="infoBox" mnemonicParsing="false" selected="true" text="Info" />
                               <CheckBox fx:id="errorBox" mnemonicParsing="false" selected="true" text="Error" />

@@ -19,4 +19,6 @@ module g5.elevator {
     opens g5.elevator.controllers.elevator to javafx.fxml;
     exports g5.elevator.controllers.floor;
     opens g5.elevator.controllers.floor to javafx.fxml;
+    exports g5.elevator.controllers.instruction;
+    opens g5.elevator.controllers.instruction to javafx.fxml;
 }

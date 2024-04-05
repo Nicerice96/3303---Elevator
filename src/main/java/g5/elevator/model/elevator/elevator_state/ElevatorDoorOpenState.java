@@ -12,14 +12,13 @@ public class ElevatorDoorOpenState extends ElevatorState {
     @Override
     public void run() {
         context.addEvent(new Event(EventType.ELEVATOR_DOOR_OPEN, context.getElevatorId()));
-        context.unwrapPendingInstructions();
-        context.addEvent(new Event(EventType.ELEVATOR_UNLOADING, context.getElevatorId()));
+        context.unloadPassengers();
         try {
             Thread.sleep(ElevatorDefs.UNLOADING_TIME);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        context.addEvent(new Event(EventType.ELEVATOR_LOADING, context.getElevatorId()));
+        context.loadPassengers();
         try {
             Thread.sleep(ElevatorDefs.LOADING_TIME);
         } catch (InterruptedException e) {

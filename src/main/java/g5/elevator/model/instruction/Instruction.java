@@ -2,6 +2,8 @@ package g5.elevator.model.instruction;
 
 import g5.elevator.defs.Defs;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalTime;
 
 /**
@@ -13,6 +15,9 @@ public class Instruction {
     private final Direction buttonDirection;
     private final int pickupFloor;
     private final int destinationFloor;
+    private final Instant scheduleTick = Instant.now();
+    private Instant pickupTick;
+    private Instant dropoffTick;
 
     /**
      * Constructs an Instruction.
@@ -54,6 +59,21 @@ public class Instruction {
     public Direction getButtonDirection() { return buttonDirection; }
     public int getPickupFloor() { return pickupFloor; }
     public int getDestinationFloor() { return destinationFloor; }
+    public void setPickupTick() { pickupTick = Instant.now(); }
+    public void setDropoffTick() { dropoffTick = Instant.now(); }
+
+    public long getTotalTime() {
+        if(dropoffTick == null) return 0;
+        return Duration.between(scheduleTick, dropoffTick).toMillis();
+    }
+    public long getPickupTime() {
+        if(pickupTick == null) return 0;
+        return Duration.between(scheduleTick, pickupTick).toMillis();
+    }
+    public long getDropoffTime() {
+        if(dropoffTick == null) return 0;
+        return Duration.between(pickupTick, dropoffTick).toMillis();
+    }
 
     @Override
     public String toString() {

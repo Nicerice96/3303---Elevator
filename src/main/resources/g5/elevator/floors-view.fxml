@@ -46,30 +46,6 @@
                         </Label>
                      </children>
                   </GridPane>
-                  <VBox>
-                     <children>
-                        <Label text="File (WIP)">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <GridPane>
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
-                              <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
-                              <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <children>
-                              <Label text="Current File: " GridPane.halignment="RIGHT" />
-                              <Label fx:id="currentFileLabel" style="-fx-background-color: black; -fx-text-fill: lime;" text="currentFileLabel" GridPane.columnIndex="1" />
-                              <Button fx:id="openFileButton" mnemonicParsing="false" text="Open File" GridPane.columnIndex="2" />
-                           </children>
-                        </GridPane>
-                     </children>
-                  </VBox>
                   <Separator prefWidth="200.0" />
                   <FlowPane fx:id="floors" />
                </children>
