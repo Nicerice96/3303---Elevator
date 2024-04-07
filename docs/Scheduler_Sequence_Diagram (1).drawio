@@ -1,0 +1,285 @@
+<mxfile host="app.diagrams.net" modified="2024-04-07T19:56:54.438Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" etag="KHbRQVSPACNrlkZvVAC-" version="24.1.0" type="device">
+  <diagram name="Page-1" id="d7q8PZMgeNmFz-OeDs46">
+    <mxGraphModel dx="1395" dy="643" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-313" value="Scheduler" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="20" y="320" width="150" height="2858" as="geometry" />
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-314" value="ElevatorNode" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="398" y="320" width="150" height="2858" as="geometry" />
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-315" value="elevator [id],register,[rSocket.getLocalPort()]" style="verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-313" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="294" y="427" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-316" value="register()" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="479" />
+              <mxPoint x="523" y="509" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-317" value="registerFloorPacket" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="561" />
+              <mxPoint x="523" y="591" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-318" value="sSocket.send(registerFloorPacket)" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="643" />
+              <mxPoint x="523" y="673" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-319" value="res" style="curved=1;dashed=1;dashPattern=2 3;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="725" />
+              <mxPoint x="523" y="755" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-320" value="addEvent(EventType.SENT, msgString)" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="807" />
+              <mxPoint x="523" y="837" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-321" value="Registration complete!" style="curved=1;dashed=1;dashPattern=2 3;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="889" />
+              <mxPoint x="523" y="919" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-322" value="&quot;OK&quot;" style="verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-313" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="294" y="971" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-323" value="addEvent(EventType.RECEIVED, res)" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="1023" />
+              <mxPoint x="523" y="1053" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-324" value="instruction" style="verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-313" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="294" y="1105" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-325" value="addPickup(instruction)" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="1157" />
+              <mxPoint x="523" y="1187" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-326" value="pendingInstructions.add(instruction)" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="1239" />
+              <mxPoint x="523" y="1269" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-327" value="destinations.add(getPickupIndex(instruction), instruction.getPickupFloor())" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="1321" />
+              <mxPoint x="523" y="1351" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-328" value="addEvent(EventType.ELEVATOR_RECEIVED_REQUEST, id, instruction.getPickupFloor())" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="1403" />
+              <mxPoint x="523" y="1433" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-329" value="updateController()" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="1485" />
+              <mxPoint x="523" y="1515" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-330" value="setState(ElevatorState)" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="1567" />
+              <mxPoint x="523" y="1597" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-331" value="state.start()" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="1649" />
+              <mxPoint x="523" y="1679" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-332" value="setCommState(ElevatorCommState)" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="1731" />
+              <mxPoint x="523" y="1761" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-333" value="commState.start()" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="1813" />
+              <mxPoint x="523" y="1843" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-334" value="addEvent(Event)" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="1895" />
+              <mxPoint x="523" y="1925" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-335" value="updateController()" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="1977" />
+              <mxPoint x="523" y="2007" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-336" value="sendEvent(Event)" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="2059" />
+              <mxPoint x="523" y="2089" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-337" value="traverse(Direction)" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="2141" />
+              <mxPoint x="523" y="2171" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-338" value="currentFloor += direction.ordinal()*2-1" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="2223" />
+              <mxPoint x="523" y="2253" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-339" value="clearDestination()" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="2305" />
+              <mxPoint x="523" y="2335" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-340" value="destinations.remove(0)" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="2387" />
+              <mxPoint x="523" y="2417" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-341" value="unloadPassengers()" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="2469" />
+              <mxPoint x="523" y="2499" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-342" value="addEvent(EventType.ELEVATOR_UNLOADING, id, instruction.toString())" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="2551" />
+              <mxPoint x="523" y="2581" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-343" value="pickedupInstructions.remove(i)" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="2633" />
+              <mxPoint x="523" y="2663" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-344" value="loadPassengers()" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="2715" />
+              <mxPoint x="523" y="2745" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-345" value="pickedupInstructions.add(instruction)" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="2797" />
+              <mxPoint x="523" y="2827" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-346" value="addEvent(EventType.ELEVATOR_LOADING, id, instruction.toString())" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="2879" />
+              <mxPoint x="523" y="2909" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-347" value="destinations.add(getPickupIndex(temp), instruction.getDestinationFloor())" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="2961" />
+              <mxPoint x="523" y="2991" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-348" value="pendingInstructions.remove(i)" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-314" target="xGdSi-OeFkMIGdHeow2S-314">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="523" y="3043" />
+              <mxPoint x="523" y="3073" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

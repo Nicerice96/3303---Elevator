@@ -1,0 +1,117 @@
+<mxfile host="app.diagrams.net" modified="2024-04-07T19:53:02.457Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" etag="FNuighaqndAa8bzP9vA7" version="24.1.0" type="device">
+  <diagram name="Page-1" id="d7q8PZMgeNmFz-OeDs46">
+    <mxGraphModel dx="1395" dy="643" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-295" value="SchedulerSystem" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="20" y="370" width="150" height="934" as="geometry" />
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-296" value="Instruction" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="277" y="370" width="150" height="934" as="geometry" />
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-297" value="SchedulerState" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="477" y="370" width="150" height="934" as="geometry" />
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-298" value="Updatable" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="677" y="370" width="150" height="934" as="geometry" />
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-299" value="Event" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="877" y="370" width="150" height="934" as="geometry" />
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-300" value="DatagramSocket" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="1077" y="370" width="150" height="934" as="geometry" />
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-301" value="SchedulerSystem()" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-295" target="xGdSi-OeFkMIGdHeow2S-295">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="145" y="477" />
+              <mxPoint x="145" y="507" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-302" value="setState(new SchedulerIdleState())" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-295" target="xGdSi-OeFkMIGdHeow2S-295">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="145" y="559" />
+              <mxPoint x="145" y="589" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-303" value="start()" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-295" target="xGdSi-OeFkMIGdHeow2S-295">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="145" y="641" />
+              <mxPoint x="145" y="671" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-304" value="run()" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-295" target="xGdSi-OeFkMIGdHeow2S-295">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="145" y="723" />
+              <mxPoint x="145" y="753" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-305" value="addInstruction(instruction)" style="verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-295" target="xGdSi-OeFkMIGdHeow2S-296">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="234" y="805" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-306" value="getInstruction()" style="verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-295" target="xGdSi-OeFkMIGdHeow2S-296">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="234" y="857" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-307" value="setState(state)" style="verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-295" target="xGdSi-OeFkMIGdHeow2S-297">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="334" y="909" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-308" value="getSchedulerState()" style="verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-295" target="xGdSi-OeFkMIGdHeow2S-297">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="334" y="961" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-309" value="getInstructionFromTimestamp(time)" style="curved=1;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-295" target="xGdSi-OeFkMIGdHeow2S-295">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="145" y="1013" />
+              <mxPoint x="145" y="1043" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-310" value="updateController()" style="verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-295" target="xGdSi-OeFkMIGdHeow2S-298">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="434" y="1095" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-311" value="addEvent(event)" style="verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-295" target="xGdSi-OeFkMIGdHeow2S-299">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="534" y="1147" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xGdSi-OeFkMIGdHeow2S-312" value="close()" style="verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;" edge="1" parent="1" source="xGdSi-OeFkMIGdHeow2S-295" target="xGdSi-OeFkMIGdHeow2S-300">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="634" y="1199" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
