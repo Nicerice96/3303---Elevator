@@ -220,4 +220,8 @@ public class FloorNode extends Thread {
             floorNode.start();
         }
     }
+
+    public String getFilename() {
+        return filename;
+    }
 }

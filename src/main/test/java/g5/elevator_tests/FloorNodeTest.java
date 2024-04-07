@@ -1,9 +1,8 @@
 package g5.elevator_tests;
 
-import g5.elevator.model.floor.FloorNode;
-
 import g5.elevator.model.events.Event;
 import g5.elevator.model.events.EventType;
+import g5.elevator.model.floor.FloorNode;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,11 +33,13 @@ public class FloorNodeTest {
 
     @After
     public void tearDown() {
+        if (floorNode != null) {
+            floorNode.close();
+        }
+
         if (testFile.exists()) {
             testFile.delete();
         }
-
-        floorNode.close();
     }
 
     @Test
@@ -56,7 +57,28 @@ public class FloorNodeTest {
         assertNotNull("sSocket should be initialized", floorNode.getSSocketPort());
         assertNotNull("rSocket should be initialized", floorNode.getRSocketPort());
         assertEquals("Floor number should match the initialized value", 1, floorNode.getFloor());
-
     }
 
+    @Test
+    public void testSetFilename() {
+        FloorNode floorNode = new FloorNode(null, 10);
+        floorNode.setFilename("testInstructions.txt");
+
+        String newFilename = "newInstructions.txt";
+        floorNode.setFilename(newFilename);
+
+        assertEquals("Filename should be set correctly", newFilename, floorNode.getFilename());
+    }
+
+    @Test
+    public void testEventLoggingWithNoEvents() {
+        FloorNode floorNode = new FloorNode(null, 10);
+
+        assertTrue("Event log should be empty initially", floorNode.getLog().isEmpty());
+    }
+
+    @Test
+    public void testIsRegisteredAfterConstruction() {
+        assertFalse("Floor node should not be registered initially", floorNode.isRegistered());
+    }
 }
