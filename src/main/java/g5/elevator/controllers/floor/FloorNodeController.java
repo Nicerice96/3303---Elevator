@@ -27,7 +27,7 @@ public class FloorNodeController implements Initializable, Updatable {
     public void init(int floor) {
         floorNode = new FloorNode(this, floor);
         // TODO: remove this and implement proper file loading
-        floorNode.setFilename("testCase_1.txt");
+        floorNode.setFilename("testCase_2.txt");
         floorNode.start();
         floorLabel.setText(String.valueOf(floorNode.getFloor()));
         update();
