@@ -168,4 +168,27 @@ public class SchedulerController implements Initializable, Updatable {
     }
 
     public void close() { schedulerSystem.close(); }
+
+    public double getPickupMean(long pickupSum, int pickupSampleSize) {
+        if (pickupSampleSize == 0) {
+            return 0;
+        }
+        return (double) pickupSum / pickupSampleSize;
+    }
+
+    public double getDropoffMean(long dropoffSum, int dropoffSampleSize) {
+        if (dropoffSampleSize == 0) {
+            return 0;
+        }
+        return (double) dropoffSum / dropoffSampleSize;
+    }
+
+
+    public double getTotalMean(long totalSum, int sampleSize) {
+        if (sampleSize == 0) {
+            return 0;
+        }
+        return (double) totalSum / sampleSize;
+    }
+
 }

@@ -52,6 +52,25 @@ public class ElevatorNodeTest {
     }
 
     @Test
+    public void testTraverseToTopFloor() {
+        int initialFloor = elevator.getCurrentFloor();
+        for (int i = initialFloor; i < 5; i++) {
+            elevator.traverse(Direction.UP);
+        }
+        assertEquals("Should be at the top floor", 5, elevator.getCurrentFloor());
+    }
+
+    @Test
+    public void testTraverseToBottomFloor() {
+        int initialFloor = elevator.getCurrentFloor();
+        for (int i = initialFloor; i > 0; i--) {
+            elevator.traverse(Direction.DOWN);
+        }
+        assertEquals("Should be at the bottom floor", 0, elevator.getCurrentFloor());
+    }
+
+
+    @Test
     public void testClearDestination() {
         Instruction instruction = new Instruction(LocalTime.parse("00:00:01.000", TIMESTAMP_FORMATTER), Direction.UP, 2, 5);
         elevator.addPickup(instruction);
