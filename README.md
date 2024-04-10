@@ -120,23 +120,19 @@ Documentation: Floor Sequence Diagram
 
 ### Iteration 4
 __Hamza Alsarakbi__: 
-Finalized: System Design Planning, Completed UI elements of the project, finalized ElevatorNode
-Documentation: Final Project Report document
+Finalized: System Design Planning, Completed UI elements of the project, finalized ElevatorNode, Final Project Report documentation, Project Class Diagram
 
 __Mahad Mohamed Yonis__: 
 Documentation: Final Project Report document
 
 __Arun Karki__: 
-Finalized: FloorNode, ElevatorNode, README file
-Documentation: ElevatorSubsystem Sequence Diagram. SchedulerSubsystem Sequence Diagram, FloorSubsystem Sequence Diagram, Project Class Diagram
+Finalized: FloorNode, ElevatorNode, README file, ElevatorSubsystem Sequence Diagram. SchedulerSubsystem Sequence Diagram, FloorSubsystem Sequence Diagram, Project Class Diagram
 
 __Nabeel Azard__: 
-Finalized: ElevatorNode, SchedulerSystem, README file
-Documentation: Final Project Report document
+Finalized: ElevatorNode, SchedulerSystem, README file, Final Project Report Documentation, System Design Planning
 
 __Zarif Khan__: 
-Finalized: FloorNode, ElevatorNode, README file
-Documentation: ElevatorSubsystem Sequence Diagram. SchedulerSubsystem Sequence Diagram, FloorSubsystem Sequence Diagram, Project Class Diagram
+Finalized: FloorNode, ElevatorNode, README file, ElevatorSubsystem Sequence Diagram. SchedulerSubsystem Sequence Diagram, FloorSubsystem Sequence Diagram, Project Class Diagram
 
 MIT License:
 -----------------
