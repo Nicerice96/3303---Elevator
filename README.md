@@ -123,7 +123,7 @@ __Hamza Alsarakbi__:
 Finalized: System Design Planning, Completed UI elements of the project, finalized ElevatorNode, Final Project Report documentation, Project Class Diagram
 
 __Mahad Mohamed Yonis__: 
-Documentation: Final Project Report document
+Finalized: FloorNodeTest, ElevatorNode Test, SchedulerControllerTest, InstructionTest, StateTests refinements
 
 __Arun Karki__: 
 Finalized: FloorNode, ElevatorNode, README file, ElevatorSubsystem Sequence Diagram. SchedulerSubsystem Sequence Diagram, FloorSubsystem Sequence Diagram, Project Class Diagram
