@@ -118,6 +118,38 @@ __Zarif Khan__:
 Implemented FloorNode communication: Initialize sockets on unspecified ports, Floor Registration, Floor Pickup Request, Elevator Events.
 Documentation: Floor Sequence Diagram
 
+### Iteration 4
+__Hamza Alsarakbi__: 
+test
+
+__Mahad Mohamed Yonis__: 
+test
+
+__Nabeel Azard__: 
+test
+
+__Arun Karki__: 
+test
+
+__Zarif Khan__: 
+test
+
+### Iteration 5
+__Hamza Alsarakbi__: 
+test
+
+__Mahad Mohamed Yonis__: 
+test
+
+__Nabeel Azard__: 
+test
+
+__Arun Karki__: 
+test
+
+__Zarif Khan__: 
+test
+
 MIT License:
 -----------------
 Copyright (c) 2023 [Nabeel Azard, Mahad Mohamed Yonis, Hamza Alsarakbi, Zarif Khan, Arun Karki]
